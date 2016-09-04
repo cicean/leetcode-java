@@ -23,11 +23,12 @@
  Have you met this question in a real interview?
  */
 
+import datastructure.NestedInteger;
+
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Stack;
-
-import datastructure.NestedInteger;
 
 /**
  * // This is the interface that allows for creating nested lists. // You should
@@ -81,57 +82,61 @@ class NestedIterator implements Iterator<Integer> {
 	}
 }
 
-public class NestedIterator implements Iterator<Integer> {
+class solution{
+	public class NestedIterator implements Iterator<Integer> {
 
-	private ListIterator<NestedInteger> iter;
-	private NestedIterator nestedIter;
+		private ListIterator<NestedInteger> iter;
+		private NestedIterator nestedIter;
 
-	public NestedIterator(List<NestedInteger> nestedList) {
-		iter = nestedList.listIterator();
-		nestedIter = null;
-	}
-
-	@Override
-	public Integer next() {
-
-		if (nestedIter == null) {
-			// No nested iterator, and still hasNext,
-			// so we're guarenteed to have a next element in the list.
-			NestedInteger n = iter.next();
-			if (n.isInteger())
-				return n.getInteger();
-			else
-				nestedIter = new NestedIterator(n.getList());
-		}
-		// If we have nested iterator, use it's next().
-		if (nestedIter.hasNext())
-			return nestedIter.next();
-		else {
+		public NestedIterator(List<NestedInteger> nestedList) {
+			iter = nestedList.listIterator();
 			nestedIter = null;
-			return next();
+		}
+
+		@Override
+		public Integer next() {
+
+			if (nestedIter == null) {
+				// No nested iterator, and still hasNext,
+				// so we're guarenteed to have a next element in the list.
+				NestedInteger n = iter.next();
+				if (n.isInteger())
+					return n.getInteger();
+				else
+					nestedIter = new NestedIterator(n.getList());
+			}
+			// If we have nested iterator, use it's next().
+			if (nestedIter.hasNext())
+				return nestedIter.next();
+			else {
+				nestedIter = null;
+				return next();
+			}
+		}
+
+		@Override
+		public boolean hasNext() {
+			// If we have nested iterator, use it's hasNext().
+			if ((nestedIter != null) && nestedIter.hasNext())
+				return true;
+			// No nested iterator, traverse using listIterator until we have an
+			// element that "hasNext",
+			// then return to a previous list element for a valid next() call.
+			while (iter.hasNext()) {
+				NestedInteger tmp = iter.next();
+				if (!tmp.isInteger()
+						&& (tmp.getList().size() == 0 || !(new NestedIterator(
+						tmp.getList()).hasNext())))
+					continue;
+				iter.previous();
+				return true;
+			}
+			return false;
 		}
 	}
 
-	@Override
-	public boolean hasNext() {
-		// If we have nested iterator, use it's hasNext().
-		if ((nestedIter != null) && nestedIter.hasNext())
-			return true;
-		// No nested iterator, traverse using listIterator until we have an
-		// element that "hasNext",
-		// then return to a previous list element for a valid next() call.
-		while (iter.hasNext()) {
-			NestedInteger tmp = iter.next();
-			if (!tmp.isInteger()
-					&& (tmp.getList().size() == 0 || !(new NestedIterator(
-							tmp.getList()).hasNext())))
-				continue;
-			iter.previous();
-			return true;
-		}
-		return false;
-	}
 }
+
 
 /**
  * Your NestedIterator object will be instantiated and called as such:

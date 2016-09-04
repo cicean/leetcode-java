@@ -25,6 +25,37 @@ All root-to-leaf paths are: ["1->2->5", "1->3"]
 
  */
 public class BinaryTreePaths {
+
+	//
+
+	public class Solution {
+		public List<String> binaryTreePaths(TreeNode root) {
+
+			List<String> res = new ArrayList<>();
+
+			if (root == null) return res;
+
+			dfs(root, res, "");
+
+			return res;
+
+		}
+
+		private void dfs(TreeNode root, List<String> res, String path) {
+
+			if (root.left == null && root.right == null) {
+				res.add(path + root.val);
+				return;
+			}
+
+			path = path + root.val + "->";
+
+			if (root.left != null) dfs(root.left, res, path);
+
+			if (root.right != null) dfs(root.right, res, path);
+
+		}
+	}
 	
 	public List<String> binaryTreePaths(TreeNode root) {
 		List<String> ret =  new ArrayList<String>();
