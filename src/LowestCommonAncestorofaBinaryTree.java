@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /*
  * 236	Lowest Common Ancestor of a Binary Tree	26.6%	Medium
@@ -92,6 +91,36 @@ public class LowestCommonAncestorofaBinaryTree {
 			if(left!=null&&right!=null) return root;
 			//如果发现了目标节点，则继续向上标记为该目标节点
 			return left == null ? right : left;
+		}
+	}
+
+	//iteratival
+	public class Solution2 {
+		public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+			Map<TreeNode, TreeNode> parent = new HashMap<>();
+			Deque<TreeNode> stack = new ArrayDeque<>();
+			parent.put(root, null);
+			stack.push(root);
+
+			while (!parent.containsKey(p) || !parent.containsKey(q)) {
+				TreeNode node = stack.pop();
+				if (node.left != null) {
+					parent.put(node.left, node);
+					stack.push(node.left);
+				}
+				if (node.right != null) {
+					parent.put(node.right, node);
+					stack.push(node.right);
+				}
+			}
+			Set<TreeNode> ancestors = new HashSet<>();
+			while (p != null) {
+				ancestors.add(p);
+				p = parent.get(p);
+			}
+			while (!ancestors.contains(q))
+				q = parent.get(q);
+			return q;
 		}
 	}
 

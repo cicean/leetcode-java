@@ -1,10 +1,5 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry; 
+import java.util.*;
+import java.util.Map.Entry;
 
 /*
  49	Anagrams	24.4%	Medium
@@ -61,6 +56,7 @@ public class GroupAnagrams {
 	 public List<List<String>> groupAnagrams(String[] strs) {
 	        if (strs == null || strs.length == 0) return new ArrayList<List<String>>();
 	        Map<String, List<String>> map = new HashMap<String, List<String>>();
+		 	//out put with order
 	        Arrays.sort(strs);
 	        for (String s : strs) {
 	            char[] ca = s.toCharArray();
@@ -71,6 +67,43 @@ public class GroupAnagrams {
 	        }
 	        return new ArrayList<List<String>>(map.values());
 	    }
+
+	/**
+	 * ask the interview whether need the order of the group by al increasing
+	 * 时间 O(NKlogK) 空间 O(N)
+	 * k = word length
+	 * 判断两个词是否是变形词，最简单的方法是将两个词按字母排序，看结果是否相同。
+	 * 这题中我们要将所有同为一个变形词词根的词归到一起，最快的方法则是用哈希表。
+	 * 所以这题就是结合哈希表和排序。我们将每个词排序后，根据这个键值，
+	 * 找到哈希表中相应的列表，并添加进去。为了满足题目字母顺序的要求，
+	 * 我们输出之前还要将每个列表按照内部的词排序一下。
+	 * 可以直接用Java的Collections.sort()这个API。
+	 */
+	public class Solution {
+		public List<List<String>> groupAnagrams(String[] strs) {
+			Map<String, List<String>> map = new HashMap<String, List<String>>();
+			for(String str : strs){
+				// 将单词按字母排序
+				char[] carr = str.toCharArray();
+				Arrays.sort(carr);
+				String key = new String(carr);
+				List<String> list = map.get(key);
+				if(list == null){
+					list = new ArrayList<String>();
+				}
+				list.add(str);
+				map.put(key, list);
+			}
+			List<List<String>> res = new ArrayList<List<String>>();
+			// 将列表按单词排序
+			for(String key : map.keySet()){
+				List<String> curr = map.get(key);
+				Collections.sort(curr);
+				res.add(curr);
+			}
+			return res;
+		}
+	}
 	 
 	 
 	 
