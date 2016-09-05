@@ -1,8 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * 314. Binary Tree Vertical Order Traversal  QuestionEditorial Solution  My Submissions
@@ -74,65 +70,40 @@ import java.util.Queue;
 // use linkedlist queque to traversal tree 
 
 public class BinaryTreeVerticalOrderTraversal {
-	
-	private class TreeIndexNode {
-		public TreeNode reNode;
-		int delta;
-		
-		public TreeIndexNode(TreeNode node, int col) {
-			this.reNode = node;
-			this.delta = col;
+
+	public int index = 0;
+	public TreeMap<Integer, List<Integer>> tm;
+
+	public class Pair {
+		TreeNode node;
+		int index;
+		public Pair(TreeNode n, int i) {
+			node = n;
+			index = i;
 		}
-		
 	}
-	
+
 	public List<List<Integer>> verticalOrder(TreeNode root) {
 		List<List<Integer>> res = new ArrayList<List<Integer>>();
+		tm = new TreeMap<Integer, List<Integer>>();
 		if (root == null) return res;
-		Queue<TreeIndexNode> queue = new LinkedList<>();
-		HashMap<Integer, List<Integer>> map= new HashMap<>();
-		queue.offer(new TreeIndexNode(root, 0));
-		int curLevel = 1;
-		int nextLeve = 0;
-		int min = 0;
-		int max = 0;
-		
-		while(!queue.isEmpty()) {
-			TreeIndexNode node = queue.poll();
-			if (map.containsKey(node.delta)) {
-				map.get(node.delta).add(node.reNode.val);
-			} else {
-				map.put(node.delta, new ArrayList<>(node.reNode.val));
-			}
-			curLevel --;
-			
-			if (node.reNode.left != null) {
-				queue.offer(new TreeIndexNode(node.reNode.left, node.delta - 1));
-				nextLeve++;
-				min = Math.min(node.delta - 1, min);
-			}
-			
-			if (node.reNode.right != null) {
-				queue.offer(new TreeIndexNode(node.reNode.right, node.delta + 1));
-				nextLeve++;
-				max = Math.max(node.delta, max);
-			}
-			
-			if (curLevel == 0) {
-				curLevel = nextLeve;
-				nextLeve = 0;
-			}
-			
-			
+
+		Queue<Pair> q = new LinkedList<Pair>();
+		q.offer(new Pair(root, 0));
+
+		while (!q.isEmpty()) {
+			Pair cur = q.poll();
+			if (!tm.containsKey(cur.index)) tm.put(cur.index, new ArrayList<Integer>());
+			tm.get(cur.index).add(cur.node.val);
+
+			if (cur.node.left != null) q.offer(new Pair(cur.node.left, cur.index-1));
+			if (cur.node.right != null) q.offer(new Pair(cur.node.right, cur.index+1));
 		}
-		
-		for (int i = min; i <= max; i++) {
-			res.add(map.get(i));
-		}
-		
+
+		for (int key : tm.keySet()) res.add(tm.get(key));
 		return res;
-		
 	}
+
 	
 	// no hashmap use two queque
 	private int min = 0, max = 0;

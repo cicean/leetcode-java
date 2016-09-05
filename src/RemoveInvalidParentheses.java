@@ -55,4 +55,53 @@ public class RemoveInvalidParentheses {
         return result;
     }
 
+    //BFS
+    public List<String> removeInvalidParentheses1(String s) {
+        Queue<String> queue = new LinkedList<>();
+        Queue<Integer> ends = new LinkedList<>(); //here consider ends is index of last removed element!
+
+        List<String> res = new ArrayList<>();
+        int size = 1;
+        queue.offer(s);
+        ends.add(s.length());
+
+        while (!queue.isEmpty()) {
+            String str = queue.poll();
+            int end = ends.poll();
+
+            if (isValid(str)) res.add(str);
+
+            //only when not found, we need to consider next level
+            if (res.size() > 0) continue;
+            for (int i = end - 1; i >= 0; i--) {
+                if (str.charAt(i) != '(' && str.charAt(i) != ')') continue;
+                String next = (new StringBuilder()).append(str.substring(0, i)).append(str.substring(i + 1)).toString();
+                queue.offer(next);
+                ends.add(i);
+
+                //skip continuous ')' and '('
+                while (i > 0 && str.charAt(i) == str.charAt(i - 1)) i--;
+            }
+
+            //check level finish, if not found, go on to next level
+            if (--size == 0) {
+                if (res.size() > 0) break;
+                size = queue.size();
+            }
+        }
+
+        return res;
+    }
+
+
+    private boolean isValid(String s) {
+        int open = 0;
+        for (char c : s.toCharArray()) {
+            if (c == '(') open++;
+            else if (c == ')') open--;
+            if (open < 0) return false;
+        }
+        return open == 0;
+    }
+
 }
