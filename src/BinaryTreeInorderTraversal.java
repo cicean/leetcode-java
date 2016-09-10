@@ -44,6 +44,21 @@ public class BinaryTreeInorderTraversal {
         res.add(root.val);
         inorder(root.right, res);
     }
+
+    public class Solution {
+        public List<Integer> inorderTraversal(TreeNode root) {
+            List<Integer> res = new ArrayList<>();
+            if (root == null) return res;
+            List<Integer> left = inorderTraversal(root.left);
+            List<Integer> right = inorderTraversal(root.right);
+            res.addAll(left);
+            res.add(root.val);
+            res.addAll(right);
+
+            return res;
+        }
+    }
+
     public List<Integer> inorderTraversal_2(TreeNode root) {
         List<Integer> res = new ArrayList<Integer>();
         Stack<TreeNode> stk = new Stack<TreeNode>();
@@ -60,6 +75,8 @@ public class BinaryTreeInorderTraversal {
         }
         return res;
     }
+
+
     
     //mirror traversal
     public List<Integer> inorderTraversal(TreeNode root) {
@@ -85,6 +102,16 @@ public class BinaryTreeInorderTraversal {
         }
         return res;
     }
+
+    //facebook if is BST the inoder should be the increasing array;
+    public int[] inorderBST(TreeNode root) {
+        List<Integer> res = new ArrayList<Integer>();
+        if (root == null) return new int[0];
+        inorder(root, res);
+        int[] arr = res.stream().mapToInt(Integer::intValue).toArray();
+        return arr;
+    }
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		TreeNode t1 = new TreeNode(1);

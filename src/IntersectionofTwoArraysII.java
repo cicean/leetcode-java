@@ -43,7 +43,7 @@ public class IntersectionofTwoArraysII {
             Arrays.sort(nums2);
             int i = 0, j = 0;
             while (i < l1 && j < l2)
-                if (nums1[i] < nums2[j]) i++;
+                bif (nums1[i] < nums2[j]) i++;
                 else if (nums1[i] == nums2[j++]) result[k++] = nums1[i++];
             return Arrays.copyOf(result, k);
         }

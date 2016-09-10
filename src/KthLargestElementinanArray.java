@@ -1,14 +1,27 @@
 import java.util.Arrays;
 import java.util.PriorityQueue;
 
-/*
- * Find the kth largest element in an unsorted array. Note that it is the kth largest element in the sorted order, not the kth distinct element.
+/**
 
-For example,
-Given [3,2,1,5,6,4] and k = 2, return 5.
+ 215. Kth Largest Element in an Array  QuestionEditorial Solution  My Submissions
+ Total Accepted: 74878
+ Total Submissions: 210780
+ Difficulty: Medium
+ Find the kth largest element in an unsorted array. Note that it is the kth largest element in the sorted order, not the kth distinct element.
 
-Note: 
-You may assume k is always valid, 1 ¡Ü k ¡Ü array's length.
+ For example,
+ Given [3,2,1,5,6,4] and k = 2, return 5.
+
+ Note:
+ You may assume k is always valid, 1 ¡Ü k ¡Ü array's length.
+
+ Credits:
+ Special thanks to @mithmatt for adding this problem and creating all test cases.
+
+ Hide Company Tags Facebook Amazon Microsoft Apple Bloomberg Pocket Gems
+ Hide Tags Heap Divide and Conquer
+ Hide Similar Problems (M) Wiggle Sort II (M) Top K Frequent Elements
+
 
 Credits:
 Special thanks to @mithmatt for adding this problem and creating all test cases.
@@ -52,15 +65,16 @@ public class KthLargestElementinanArray {
 	    }
 	    return pq.peek();
 	}
-	
+
+	//QuickSelect Java solution avg. O(n) time O(1)
 	public int findKthLargest_2(int[] nums, int k) {  
         return findK(nums, nums.length-k, 0, nums.length-1);  
     }  
       
     private int findK(int[] nums, int k, int i, int j) {  
-        if(i>=j) return nums[i];  
+        if(i >= j) return nums[i];
         int m = partition(nums, i, j);  
-        if(m==k) return nums[m];  
+        if(m == k) return nums[m];
         else if(m<k) {  
             return findK(nums, k, m+1, j);  
         } else {  
@@ -74,7 +88,7 @@ public class KthLargestElementinanArray {
         int n = i+1;  
           
         while(n<=j){  
-            if(nums[n]<x) {  
+            if(nums[n] < x) {
                 swap(nums, ++m, n);  
             }  
             ++n;  

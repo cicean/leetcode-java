@@ -21,7 +21,6 @@ Hide Similar Problems (M) Reverse Linked List II (M) Binary Tree Upside Down (E)
 public class ReverseLinkedList {
 
 	// iterative solution
-
 	public ListNode reverseList_1(ListNode head) {
 	    ListNode newHead = null;
 	    while(head != null){

@@ -28,6 +28,10 @@ import java.util.*;
  */
 
 public class BinarySearchTreeIterator {
+
+    private Stack<TreeNode> stk;
+    private TreeNode node;
+
 	public void BSTIterator(TreeNode root) {
         stk = new Stack<TreeNode>();
         node = root;
@@ -52,8 +56,7 @@ public class BinarySearchTreeIterator {
         node = node.right;
         return res;  
     }
-    private Stack<TreeNode> stk;
-    private TreeNode node;
+
 }
 
 
@@ -94,5 +97,51 @@ public class BinarySearchTreeIterator {
         return res;
     }
     private TreeNode node;
+
+}
+
+// facebook followup
+class TwoBinarySearchTreeIterator {
+
+    private Stack<TreeNode> stk1;
+    private TreeNode node1;
+    private TreeNode node2;
+    int a = Integer.MAX_VALUE;
+    int b = Integer.MAX_VALUE;
+
+    public TwoBinarySearchTreeIterator(TreeNode root1, TreeNode root2) {
+        stk1 = new Stack<TreeNode>();
+        this.node1 = root1;
+        this.node2 = root2;
+    }
+
+    /** @return whether we have a next smallest number */
+    public boolean hasNext() {
+        return (node1 != null || node2 != null || !stk1.isEmpty());
+    }
+
+    /** @return the next smallest number */
+    public int next() {
+        if (hasNext()) {
+            a = nextroot1(node1);
+            b = nextroot1(node2);
+        }
+
+        return Math.min(a,b);
+    }
+
+    private int nextroot1(TreeNode root) {
+        while(root != null) {
+            stk1.push(root);
+            root = root.left;
+        }
+
+        root = stk1.pop();
+        TreeNode node = root;
+        root = root.right;
+
+        return node.val;
+    }
+
 
 }

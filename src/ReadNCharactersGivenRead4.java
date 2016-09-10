@@ -106,8 +106,46 @@ public class ReadNCharactersGivenRead4 extends Reader4 {
 
 }
 
+// facebook
+class ReadNCharactersGivenRead4K extends Reader4k {
+
+	public int read(char[] buf, int n) {
+		char buffer[4096];
+		int count = 0;
+		int remain = n;
+		int tmp = 4096;
+
+		while(remain > 0 && tmp == 4096) {
+			tmp = Read4k(buffer);
+			if(tmp < remain) {
+				memcpy(buf+count, buffer, tmp);
+				count += tmp;
+				remain -= tmp;
+			}else {
+				memcpy(buf+count, buffer, remain);
+				return n;
+			}
+		}
+		return count;
+	}
+
+
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
+
 class Reader4{
 	int read4(char[] buf) {
 		return 4;
+	}
+}
+
+class Reader4k{
+	int read4k(char[] buf) {
+		return 4096;
 	}
 }
