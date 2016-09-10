@@ -1,5 +1,7 @@
 package facebook;
 
+import java.util.HashSet;
+
 /**
  * Created by cicean on 9/4/2016.
  * 出两个给出两个string, leetcode, codyabc和一个数字k = 3,
@@ -8,7 +10,9 @@ package facebook;
  */
 public class commonsubstring {
 
+        //O(m*n)
         public boolean commonSub(String s1,String s2,int k){
+            if (s1 == null || s2 == null || s1.length() < k || s2.length() < k || k == 0) return false;
             int len = s1.length();
             int wid  =s2.length();
 
@@ -31,6 +35,39 @@ public class commonsubstring {
             }
             return false;
         }
+
+    //O(m + n)
+    public boolean commonSubHelp(String s1,String s2,int k){
+        
+        HashSet<String> hs = new HashSet<>();
+        for (int i = 0; i <= s1.length() - k; i++) {
+            if (!hs.contains(s1.substring(i, i + k))) hs.add(s1.substring(i, i + k));
+            System.out.println(s1.substring(i, i + k));
+        }
+
+        for (int i = 0; i <= s2.length() - k; i++) {
+            if (hs.contains(s2.substring(i, i + k))) return true;
+        }
+
+        return false;
+    }
+    
+    public boolean commonSub2(String s1,String s2,int k) {
+    	if (s1 == null || s2 == null || k == 0) return false;
+    	if (s1.length() >= s2.length()) return commonSubHelp(s2, s1, k);
+    	if (s1.length() < s2.length()) return commonSubHelp(s1, s2, k);
+    	return false;
+    }
+    
+    public static void main(String[] args) {
+    	String s1 = "leetcode";
+    	String s2 = "code";
+    	int k = 3;
+    	commonsubstring slt = new commonsubstring();
+    	System.out.println(slt.commonSub2(s1, s2, k));
+    	System.out.println(slt.commonSub(s1, s2, k));
+		
+	}
 
 
 

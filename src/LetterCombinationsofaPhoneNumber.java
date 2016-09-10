@@ -1,4 +1,5 @@
-  import java.util.ArrayList;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -17,6 +18,7 @@ import java.util.Scanner;
  Solution: ...
  */
 
+  //假设有k个digit 每个digit可以代表m个字符, 时间O(m^k) 空间O(m^k)
 public class LetterCombinationsofaPhoneNumber {
 	public List<String> letterCombinations(String digits) {
         ArrayList<String> res = new ArrayList<String>();
@@ -34,6 +36,22 @@ public class LetterCombinationsofaPhoneNumber {
             letterCombinationsRe(keyboard, res, digits, s+letters.charAt(i));
         }
     }
+
+      //FIFO queue
+      public List<String> letterCombinations2(String digits) {
+          LinkedList<String> ans = new LinkedList<String>();
+          String[] mapping = new String[] {"0", "1", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+          ans.add("");
+          for(int i =0; i<digits.length();i++){
+              int x = Character.getNumericValue(digits.charAt(i));
+              while(ans.peek().length()==i){
+                  String t = ans.remove();
+                  for(char s : mapping[x].toCharArray())
+                      ans.add(t+s);
+              }
+          }
+          return ans;
+      }
     
     public static void main(String[] args) {
 		// TODO Auto-generated method stub

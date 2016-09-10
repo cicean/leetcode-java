@@ -42,6 +42,22 @@ dp[i] = dp[j] && dict.contains(s.substring(j, i)) (j = 0, 1, ..., i-1, Ö»ÒªÈÎÒâÒ
         }
         return dp[0];
     }
+
+	//BFS
+	private Set<Integer> set = new HashSet<Integer>();
+	public boolean wordBreak2(String s, Set<String> wordDict) {
+		if(s.length() == 0) return true;
+		if(wordDict.contains(s)) return true;
+		for(int i = 1; i < s.length(); i++){
+			if(wordDict.contains(s.substring(0,i)) && !set.contains(i)){
+				if(wordBreak(s.substring(i,s.length()),wordDict))
+					return true;
+				else set.add(i);
+			}
+		}
+		return false;
+	}
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		WordBreak slt = new WordBreak();

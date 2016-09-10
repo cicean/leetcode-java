@@ -22,6 +22,22 @@
  */
 public class FirstBadVersion {
 
+	public class Solution extends VersionControl {
+		public int firstBadVersion(int n) {
+			int min = 1, max = n, mid = 0;
+			while(min <= max){
+				mid = min + (max - min) / 2;
+				if(isBadVersion(mid)){
+					max = mid - 1;
+				} else {
+					min = mid + 1;
+				}
+			}
+			return min;
+		}
+	}
+
+	//时间 O(logN) 空间 O(1)
 	public int firstBadVersion(int n) {
 		
 		if (n == 1) {
@@ -47,6 +63,16 @@ public class FirstBadVersion {
 		return right;
 		
 	}
+
+	/**
+	 * facebook follow up
+	 * 1. 找2^n直到越界，然后在 [2^(n-1), 2^n] 范围内二分来找边界。
+	 2. 返回正常二分。
+	 一共就是 3*logn
+	 * @param args
+     */
+
+
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

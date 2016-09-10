@@ -80,6 +80,44 @@ public class TaskSchedule {
         return time;
     }
 
+    public class Solution {
+        public List<Integer> Printer(String[] tasks, int cooldown) {
+            List<Integer> ret = new  LinkedList<Integer>();
+            if (tasks == null || tasks.length == 0) {
+                return ret;
+            }
+
+            HashMap<String, Integer> map = new HashMap<String, Integer>();
+            int j = 0;
+            for(int i = 0; i < tasks.length; i++) {
+                while (map.containsKey(tasks[i]) && map.get(tasks[i]) + cooldown >= j) {
+                    ret.add("_");
+                    j++;
+                }
+                ret.add(tasks[i]);
+                map.put(tasks[i], j);
+                j++;
+            }
+            return ret;
+        }
+    }
+
+    static class CoolDown{
+        static String getStr(String s, int k) {
+            Map<Character, Integer> map = new HashMap<Character, Integer>();
+            StringBuilder sb = new StringBuilder();
+            for (char c : s.toCharArray()) {
+                int idx = map.getOrDefault(c, -k);
+                while(sb.length() - k < idx) {
+                    sb.append("_");
+                }
+                sb.append(c);
+                map.put(c,sb.length());
+            }
+            return sb.toString();
+        }
+    }
+
     /**
      * @param args
      */
