@@ -17,6 +17,17 @@ import java.util.Set;
 */
 
 public class WordBreak {
+	
+	/**
+	 * 典型的DP题，dp[i]表示前i个字符是否可分解成单词，那么
+
+dp[i] = dp[j] && dict.contains(s.substring(j, i)) (j = 0, 1, ..., i-1, 只要任意一个满足即可);
+这道题不推荐用DFS，时间复杂度会很高，worst case达到O(2^n)。
+	 * @param s
+	 * @param dict
+	 * @return
+	 */
+	//O(n^2), space: O(n)
 	public boolean wordBreak(String s, Set<String> dict) {
         int n = s.length();
         boolean[] dp = new boolean[n+1];

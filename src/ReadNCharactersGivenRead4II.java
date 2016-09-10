@@ -1,60 +1,159 @@
-import java.util.LinkedList;
+import java.util.*;
 
 /**
- * The API: int read4(char *buf) reads 4 characters at a time from a file.
-The return value is the actual number of characters read. For example, it returns 3 if there is only 3 characters left in the file.
-By using the read4 API, implement the function int read(char *buf, int n) that reads n characters from the file.
+ * 158. Read N Characters Given Read4 II - Call multiple times  QuestionEditorial Solution  My Submissions
+ Total Accepted: 12785
+ Total Submissions: 53156
+ Difficulty: Hard
+ The API: int read4(char *buf) reads 4 characters at a time from a file.
 
-ï¿½ï¿½ï¿½readï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü±ï¿½ï¿½ï¿½Îµï¿½ï¿½ï¿½
+ The return value is the actual number of characters read. For example, it returns 3 if there is only 3 characters left in the file.
 
-[ï¿½ï¿½ï¿½ï¿½]
-ï¿½ï¿½Ö®Ç°ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½È£ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Òªï¿½ï¿½ï¿½Ó²ï¿½ï¿½Ù¡ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½Îªreadï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ôµï¿½ï¿½Ã¶ï¿½ï¿½ï¿½Ôºï¿½ï¿½Ğ¿ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ĞµÄ²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±Ã»ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½Ä¿Õ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
+ By using the read4 API, implement the function int read(char *buf, int n) that reads n characters from the file.
 
-[×¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½]
-1ï¿½ï¿½ï¿½ï¿½ï¿½Ú¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä½ï¿½ï¿½ï¿½ï¿½
-ï¿½ï¿½ buffer ï¿½æ´¢ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Ğ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½
-ï¿½ï¿½ offset ï¿½ï¿½Ò»ï¿½Î¶ï¿½È¡Ö®ï¿½ï¿½bufferï¿½ï¿½Ê£ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½Æ«ï¿½ï¿½ï¿½ï¿½
-ï¿½ï¿½ bufsize bufferï¿½ï¿½Ê£ï¿½ï¿½ï¿½Ö·ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½
+ Note:
+ The read function may be called multiple times.
+
+ Hide Company Tags Bloomberg Google Facebook
+ Hide Tags String
+ Hide Similar Problems (E) Read N Characters Given Read4
+
+
  */
 
-  /**
-	  * @param buf Destination buffer
-	  * @param n   Maximum number of characters to read
-	  * @return    The number of characters read
-	  */
+/**
+ * @param buf Destination buffer
+ * @param n   Maximum number of characters to read
+ * @return    The number of characters read
+ */
+
+/**
+ * ¶ÓÁĞ·¨ ¸´ÔÓ¶È Ê±¼ä O(N) ¿Õ¼ä O(1)
+ * 
+ * Ë¼Â· ÒòÎªÒªµ÷ÓÃ¶à´Î£¬ÕâÀïÓÖ¶àÁËÒ»Ğ©corner case£º
+ * 
+ * µÚÒ»´Îµ÷ÓÃÊ±£¬Èç¹ûread4¶Á³öµÄ¶àÓà×Ö·ûÎÒÃÇÒªÏÈ½«ÆäÔİ´æÆğÀ´£¬ÕâÑùµÚ¶ş´Îµ÷ÓÃÊ±ÏÈ¶ÁÈ¡ÕâĞ©Ôİ´æµÄ×Ö·û
+ * µÚ¶ş´Îµ÷ÓÃÊ±£¬Èç¹ûÁ¬Ôİ´æ×Ö·û¶¼Ã»¶ÁÍê£¬ÄÇÃ´ÕâĞ©Ôİ´æ×Ö·û»¹µÃÁô¸øµÚÈı´Îµ÷ÓÃÊ±Ê¹ÓÃ
+ * ËùÒÔ£¬ÄÑµã¾ÍÔÚÓÚÔõÃ´´¦ÀíÕâ¸öÔİ´æ×Ö·û¡£ÒòÎªÓÃÊı×éºÍÖ¸Õë¿ØÖÆ¶ÔµÚ¶şÖÖÇé¿ö±È½ÏÂé·³£¬
+ * ÇÒÕâĞ©×Ö·ûÂú×ãÏÈ½øÏÈ³ö£¬ËùÒÔÎÒÃÇ¿ÉÒÔÓÃÒ»¸ö¶ÓÁĞÔİ´æÕâĞ©×Ö·û¡£ÕâÑù£¬Ö»Òª¶ÓÁĞ²»Îª¿Õ£¬¾ÍÏÈ¶ÁÈ¡¶ÓÁĞ¡£
+ * 
+ * @author cicean
+ *
+ */
+
+class Solution extends Reader4 {
+	Queue<Character> remain = new LinkedList<Character>();
+
+	public int read(char[] buf, int n) {
+		int i = 0;
+		// ¶ÓÁĞ²»Îª¿ÕÊ±£¬ÏÈ¶ÁÈ¡¶ÓÁĞÖĞµÄÔİ´æ×Ö·û
+		while (i < n && !remain.isEmpty()) {
+			buf[i] = remain.poll();
+			i++;
+		}
+		for (; i < n; i += 4) {
+			char[] tmp = new char[4];
+			int len = read4(tmp);
+			// Èç¹û¶Áµ½×Ö·û¶àÓÚÎÒÃÇĞèÒªµÄ×Ö·û£¬ĞèÒªÔİ´æÕâĞ©¶àÓà×Ö·û
+			if (len > n - i) {
+				System.arraycopy(tmp, 0, buf, i, n - i);
+				// °Ñ¶àÓàµÄ×Ö·û´æÈë¶ÓÁĞÖĞ
+				for (int j = n - i; j < len; j++) {
+					remain.offer(tmp[j]);
+				}
+				// Èç¹û¶Áµ½µÄ×Ö·ûÉÙÓÚÎÒÃÇĞèÒªµÄ×Ö·û£¬Ö±½Ó¿½±´
+			} else {
+				System.arraycopy(tmp, 0, buf, i, len);
+			}
+			// Í¬ÑùµÄ£¬Èç¹û¶Á²»Âú4¸ö£¬ËµÃ÷Êı¾İÒÑ¾­¶ÁÍê£¬·µ»Ø×ÜËùĞè³¤¶ÈºÍÄ¿Ç°ÒÑ¾­¶Áµ½µÄ³¤¶ÈµÄ½ÏĞ¡µÄ
+			if (len < 4)
+				return Math.min(i + len, n);
+		}
+		// Èç¹ûµ½ÕâÀï£¬ËµÃ÷¶¼ÊÇÍêÃÀ¶ÁÈ¡£¬Ö±½Ó·µ»Øn
+		return n;
+	}
+}
+
+/**
+ * ·ÖÎö ¶à´Î¶ÁÓëÒ»´Î¶ÁµÄÖ÷Òª²»Í¬ÔÚÓÚread4()º¯ÊıÖĞµÄbufferÏàµ±ÓÚglobalµÄ£¬Ã¿´Îread()µÄÊ±ºòÇ°Ãæread4()
+ * Àï¶Á½øbufferµÄÊ£ÏÂÀ´×Ö·ûµÄ»¹Òª¼ÌĞøÓÃ£¬²»¹»²ÅÓÖµ÷ÓÃread4()ÍùbufferÀïĞÂÔö¼ÓÄÚÈİ¹©read¶ÁÈ¡¡£
+ * 
+ * ËùÒÔÎÒÃÇÖ»Òª´æÒ»¸öglobalµÄÕë¶Ôread4()µÄbufferµÄÆğÊ¼Î»ÖÃºÍÖÕÖ¹Î»ÖÃ¼´¿É¡£Ã¿´Îread()ÏÈ¶ÁÉÏ´ÎbufferÀïÃ»¶ÁÍêµÄ×Ö·û£¬
+ * ²»¹»²ÅÓÖµ÷ÓÃread4(). µ±È»£¬Ô½½çÎÊÌâ»¹ÊÇµÃ×¢Òâ£¬¸úÉÏÒ»µÀÌâÒ»Ñù¡£
+ * 
+ * ¸´ÔÓ¶È time: O(n), space: O(1)
+ * 
+ * @author cicean
+ *
+ */
+
+/*
+ * The read4 API is defined in the parent class Reader4. int read4(char[] buf);
+ */
+
+class Solution2 extends Reader4 {
+	char[] buffer = new char[4];
+	int start = 0; // inclusive
+	int end = 0; // exclusive
+
+	/**
+	 * @param buf
+	 *            Destination buffer
+	 * @param n
+	 *            Maximum number of characters to read
+	 * @return The number of characters read
+	 */
+	public int read(char[] buf, int n) {
+		int i = 0;
+		while (i < n) {
+
+			// Ö®Ç°read4()¶Á½øbufferÀïµÄ×Ö·ûÒÑÈ«²¿¶ÁÍê
+			if (start == end) {
+				end = read4(buffer);
+				start = 0;
+			}
+
+			// ÒÀ´Î°ÑbufferÀïµÄ×Ö·û¶Á½øbufÀï
+			while (i < n && start < end) {
+				buf[i++] = buffer[start++];
+			}
+
+			// ÅĞ¶ÏÊÇ·ñµ½´ïÎÄ¼şÄ©Î²£¬ÊÇµÄ»°Ìø³öÑ­»·
+			if (end != 4)
+				break;
+		}
+		return i;
+	}
+}
 
 public class ReadNCharactersGivenRead4II extends Reader4 {
 
 	LinkedList<Character> queue = new LinkedList<Character>();
 
-	
-	  public int read(char[] buf, int n) {
+	public int read(char[] buf, int n) {
 
-	    char[] _buf = new char[4];
+		char[] _buf = new char[4];
 
-	    int total = 0;
+		int total = 0;
 
-	    while(true){
-	      int l = read4(_buf);
+		while (true) {
+			int l = read4(_buf);
 
-	      for(int i = 0; i < l; i++){
-	        queue.add(_buf[i]);
-	      }
+			for (int i = 0; i < l; i++) {
+				queue.add(_buf[i]);
+			}
 
-	      l = Math.min(n - total, queue.size());
+			l = Math.min(n - total, queue.size());
 
-	      for(int i = 0; i < l; i++){
-	        buf[total++] = queue.poll();
-	      }
+			for (int i = 0; i < l; i++) {
+				buf[total++] = queue.poll();
+			}
 
-	      if(l == 0) break;
-	    }
+			if (l == 0)
+				break;
+		}
 
-	    return total;
-	  }
-	
-	
+		return total;
+	}
+
 }
- 
- 
-

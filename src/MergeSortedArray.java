@@ -12,7 +12,8 @@
  */
 
 public class MergeSortedArray {
-	
+
+	//O(M+N) Ê±¼ä O(1) ¿Õ¼ä
 	public void merge(int A[], int m, int B[], int n) {
         int i = m - 1;
         int j = n - 1;

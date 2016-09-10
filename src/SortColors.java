@@ -20,6 +20,11 @@
               ->        ->     <-  
  */
 
+/**
+ * Face Book phone interview
+ * 给三个funtions: is_low(), is_mid(), is_high(). 让给一个数组排序, low的放在最前面, mid的放在中间, high的放在最后面
+ */
+
 public class SortColors {
 	public void sortColors(int[] A) {
         int n = A.length;
