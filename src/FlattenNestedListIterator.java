@@ -71,7 +71,7 @@ class NestedIterator implements Iterator<Integer> {
 	public boolean hasNext() {
 		while (!stack.empty()) {
 			NestedInteger tInteger = stack.peek();
-			if (tInteger.getInteger())
+			if (tInteger.isInteger())
 				return true;
 			stack.pop();
 			for (int i = tInteger.getList().size() - 1; i >= 0; i--) {

@@ -19,6 +19,10 @@
            2. Use array as hashtable.
  */
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
 public class MinimumWindowSubstring {
 	
 	public String minWindow(String S, String T) {
@@ -50,6 +54,31 @@ public class MinimumWindowSubstring {
             }
         }
         return (resStart == -1) ? new String("") : S.substring(resStart, resEnd + 1); 
+    }
+
+    public String minWindowSubstring(String str, Set<Character> chars) {
+        Map<Character, Integer> charToCount = new HashMap<>();
+        int windowSize = str.length() + 1, minStart = 0;
+        int count = 0;
+        for(int start = 0, end = 0; end < str.length(); ++end) {
+            char ch = str.charAt(end);
+            if(chars.contains(ch)) continue;
+            if(charToCount.get(ch) == 0) {count++; charToCount.replace(ch, 1);}
+            else charToCount.replace(ch, charToCount.get(ch) + 1);
+            if(count == chars.size()) {
+                while(chars.contains(str.charAt(start)) || (charToCount.get(str.charAt(start)) > 1)) {
+                    if(charToCount.get(str.charAt(start)) > 1) charToCount.replace(ch, charToCount.get(ch) - 1);
+                    start++;
+                }
+               System.out.print("2: count size : " + count + " 2 : charToCount.size() : " + charToCount.size());
+                int size = end - start + 1;
+                if(windowSize > size) {
+                    windowSize = size;
+                    minStart = start;
+                }
+            }
+        }
+        return windowSize > str.length() ? "" : str.substring(minStart, windowSize);
     }
 	
 	public static void main(String[] args) {

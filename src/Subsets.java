@@ -29,9 +29,7 @@ import java.util.List;
  */
 
 public class Subsets {
-	public List<List<Integer>> subsets(int[] S) {
-        return subsets_2(S);
-    }
+
     public List<List<Integer>> subsets_1(int[] S) {
         Arrays.sort(S);
         List<List<Integer>> res = new ArrayList<List<Integer>>();
@@ -57,6 +55,11 @@ public class Subsets {
 因为长度为n的数组的子集个数为2^n
 时间O(2^n) 空间O(2^n)
      */
+    
+	public List<List<Integer>> subsets(int[] S) {
+        return subsets_2(S);
+    } 
+	
     public List<List<Integer>> subsets_2(int[] S) {
         Arrays.sort(S);
         List<List<Integer>> res = new ArrayList<List<Integer>>();

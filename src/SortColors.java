@@ -39,6 +39,22 @@ public class SortColors {
             } else i++;
         }
     }
+
+    //api is_low(), is_mid(), is_high().
+    public void sortArray(int[] nums) {
+        int left = 0, right = nums.length - 1;
+        if (right <= 1) return;
+        for (int i = 0; i <= right;) {
+            if (is_low(nums[i])) {
+                nums[i++] = nums[left];
+                nums[left++] = nums[i];
+            } else if (is_high(nums[i])) {
+                int tmp = nums[i];
+                nums[i] = nums[right];
+                nums[right--] = nums[i];
+            } else i++;
+        }
+    }
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

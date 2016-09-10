@@ -1,5 +1,5 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+
 
 /**
  * Created by cicean on 8/29/2016.
@@ -103,5 +103,46 @@ public class RemoveInvalidParentheses {
         }
         return open == 0;
     }
+
+    //Facebook give only one solution
+    //balance parentheses in a string
+    //use remove
+    public String balanceParentheses(String s) {
+        if (s == null || s.length() == 0) return null;
+
+        int balance = 0;
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == '(') {
+                balance++;
+                sb.append(s.charAt(i));
+            } else if (s.charAt(i) == ')') {
+                balance--;
+                if (balance >= 0) {
+                    sb.append(s.charAt(i));
+                } else {
+                	balance++;
+                }
+            } else {
+            	sb.append(s.charAt(i));
+            }
+            
+        }
+        
+        if (balance > 0) {
+        	for (int i = 1; i <= balance; i++) {
+        		sb.append(new Character(')'));
+        	}
+        } 
+        System.out.println(balance);
+        return sb.toString();
+    }
+    
+    public static void main(String[] args) {
+    	RemoveInvalidParentheses slt = new RemoveInvalidParentheses();
+    	String s = "))a)(";
+    	slt.balanceParentheses(s);
+    	System.out.print(slt.balanceParentheses(s));
+	}
 
 }
