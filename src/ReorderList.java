@@ -15,18 +15,21 @@
 
 /**
  * Definition for singly-linked list.
- * struct ListNode {
+ * struct datastructure.ListNode {
  *     int val;
- *     ListNode *next;
- *     ListNode(int x) : val(x), next(NULL) {}
+ *     datastructure.ListNode *next;
+ *     datastructure.ListNode(int x) : val(x), next(NULL) {}
  * };
  */
+
+import datastructure.ListNode;
+
 /**
  * Definition for singly-linked list.
- * public class ListNode {
+ * public class datastructure.ListNode {
  *     int val;
- *     ListNode next;
- *     ListNode(int x) {
+ *     datastructure.ListNode next;
+ *     datastructure.ListNode(int x) {
  *         val = x;
  *         next = null;
  *     }

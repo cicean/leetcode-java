@@ -1,3 +1,5 @@
+import datastructure.ListNode;
+
 /**
  * 	83	Remove Duplicates from Sorted List	34.7%	Easy
  * @author cicean

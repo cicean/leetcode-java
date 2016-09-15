@@ -1,3 +1,5 @@
+import datastructure.ListNode;
+
 /**
  * 206	Reverse Linked List	31.5%	Easy
  * 

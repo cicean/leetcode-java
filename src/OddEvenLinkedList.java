@@ -1,3 +1,5 @@
+import datastructure.ListNode;
+
 /**
  * Created by cicean on 8/30/2016.
  * 328. Odd Even Linked List  QuestionEditorial Solution  My Submissions

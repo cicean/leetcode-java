@@ -12,11 +12,8 @@ public class PrintList<T> {
             
         System.out.print(" [");
         for (T l : result) {
-            if (result.lastIndexOf(l) == result.size() - 1) {
-                System.out.println(l + "]");
-            } else {
-                System.out.print(l + ",");
-            }
+            if (result.lastIndexOf(l) == result.size() - 1) System.out.println(l + "]");
+            else System.out.print(l + ",");
         }
     }
 
@@ -30,13 +27,12 @@ public class PrintList<T> {
         for (List<T> r : result) {
             System.out.print("[");
             for (T t : r) {
-                if (result.lastIndexOf(t) == result.size() - 1) {
-                    System.out.println(t + "]");
-                } else {
-                    System.out.print(t + ", ");
-                }
+                if (r.lastIndexOf(t) == r.size() - 1)  System.out.print(t + "]");
+                else System.out.print(t + ", ");
             }
-            System.out.print("]");
+            if (result.lastIndexOf(r) == result.size() - 1) System.out.println("]");
+            else System.out.print(", ");
+            
         }
     }
 

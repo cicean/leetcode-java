@@ -1,3 +1,5 @@
+import datastructure.PrintList;
+
 import java.util.*;
 
 /**
@@ -32,7 +34,7 @@ import java.util.*;
  Credits:
  Special thanks to @elmirap for adding this problem and creating all test cases.
 
- Hide Company Tags LinkedIn
+ Hide Company Tags LinkedIn Pocket Gems
  Hide Tags Tree Depth-first Search
 
  */
@@ -57,7 +59,7 @@ public class FindLeavesofBinaryTree {
      DFS
      */
 
-    public class Solution {
+
         public List<List<Integer>> findLeaves(TreeNode root) {
             List<List<Integer>> list = new ArrayList<>();
             helper(list, root);
@@ -68,13 +70,33 @@ public class FindLeavesofBinaryTree {
         private int helper(List<List<Integer>> list, TreeNode root) {
             if (root == null)
                 return -1;
+
             int left = helper(list, root.left);
             int right = helper(list, root.right);
             int cur = Math.max(left, right) + 1;
             if (list.size() == cur)
                 list.add(new ArrayList<Integer>());
             list.get(cur).add(root.val);
+            System.out.println("node.val = " + root.val + ", cur index = " + cur);
             return cur;
         }
-    }
+
+    
+    public static void main(String[] args) {
+		TreeNode root = new TreeNode(1);
+        TreeNode leave1 = new TreeNode(2);
+        TreeNode leave2 = new TreeNode(3);
+        TreeNode leave3 = new TreeNode(4);
+        TreeNode leave4 = new TreeNode(5);
+
+        root.left = leave1;
+        root.right = leave2;
+        leave1.left = leave3;
+        leave1.right =leave4;
+
+        FindLeavesofBinaryTree slt = new FindLeavesofBinaryTree();
+        PrintList<Integer> res = new PrintList<>();
+        res.printListandList(slt.findLeaves(root));
+
+	}
 }

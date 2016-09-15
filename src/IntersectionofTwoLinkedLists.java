@@ -12,12 +12,15 @@
     Your code should preferably run in O(n) time and use only O(1) memory.
  Solution: Two iteration.
 */
+
+import datastructure.ListNode;
+
 /**
  * Definition for singly-linked list.
- * public class ListNode {
+ * public class datastructure.ListNode {
  *     int val;
- *     ListNode next;
- *     ListNode(int x) {
+ *     datastructure.ListNode next;
+ *     datastructure.ListNode(int x) {
  *         val = x;
  *         next = null;
  *     }
@@ -25,6 +28,43 @@
  */
 
 public class IntersectionofTwoLinkedLists {
+
+    /**
+     * I found most solutions here preprocess linkedlists to get the difference in len.
+     Actually we don't care about the "value" of difference,
+     we just want to make sure two pointers reach the intersection node at the same time.
+
+     We can use two iterations to do that.
+     In the first iteration, we will reset the pointer of one linkedlist to the head of another linkedlist after it reaches the tail node.
+     In the second iteration, we will move two pointers until they points to the same node.
+     Our operations in first iteration will help us counteract the difference.
+     So if two linkedlist intersects,
+     the meeting point in second iteration must be the intersection point.
+     If the two linked lists have no intersection at all,
+     then the meeting pointer in second iteration must be the tail node of both lists,
+     which is null
+     * @param headA
+     * @param headB
+     * @return
+     */
+    //Bloomberg 店面
+    //leetcode, linked list intersection. 一个fast一个slow指针秒,  follow up是如果两个list都可能有环, 该怎么做? 傻了几分钟, 回答hashset,
+    public ListNode getIntersectionNode1(ListNode headA, ListNode headB) {
+        //boundary check
+        if(headA == null || headB == null) return null;
+
+        ListNode a = headA;
+        ListNode b = headB;
+
+        //if a & b have different len, then we will stop the loop after second iteration
+        while( a != b){
+            //for the end of first iteration, we just reset the pointer to the head of another linkedlist
+            a = a == null? headB : a.next;
+            b = b == null? headA : b.next;
+        }
+
+        return a;
+    }
 	
 	public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
         ListNode cur = headA;

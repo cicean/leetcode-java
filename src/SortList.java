@@ -7,12 +7,15 @@
  Sort a linked list in O(nlogn) time using constant space complexity.
  Solution: merge sort.
  */
+
+import datastructure.ListNode;
+
 /**
  * Definition for singly-linked list.
- * class ListNode {
+ * class datastructure.ListNode {
  *     int val;
- *     ListNode next;
- *     ListNode(int x) {
+ *     datastructure.ListNode next;
+ *     datastructure.ListNode(int x) {
  *         val = x;
  *         next = null;
  *     }

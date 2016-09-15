@@ -11,12 +11,15 @@
  */
 /**
  * Definition for singly-linked list.
- * public class ListNode {
+ * public class datastructure.ListNode {
  *     int val;
- *     ListNode next;
- *     ListNode(int x) { val = x; next = null; }
+ *     datastructure.ListNode next;
+ *     datastructure.ListNode(int x) { val = x; next = null; }
  * }
  */
+
+import datastructure.ListNode;
+
 /**
  * Definition for binary tree public class TreeNode { int val; TreeNode left;
  * TreeNode right; TreeNode(int x) { val = x; } }

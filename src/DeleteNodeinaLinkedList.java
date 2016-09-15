@@ -13,6 +13,8 @@
 	¡Ónode.val = node.next.val£¨node.next = node.next.nextº¥ø…
  */
 
+import datastructure.ListNode;
+
 public class DeleteNodeinaLinkedList {
 
 	

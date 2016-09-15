@@ -1,3 +1,6 @@
+import datastructure.ListNode;
+import datastructure.PrintListNode;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,10 +48,10 @@ public class RemoveLinkedListElements {
 	    return helper.next;
 	}
 	
-	public ListNode removeElements_3(ListNode head, int val) {  
-        ListNode dummy = new ListNode(Integer.MAX_VALUE);  
+	public ListNode removeElements_3(ListNode head, int val) {
+        ListNode dummy = new ListNode(Integer.MAX_VALUE);
         dummy.next = head;  
-        ListNode cur = dummy;  
+        ListNode cur = dummy;
         while(cur.next != null) {  
             if(cur.next.val == val)  
                 cur.next = cur.next.next;  
@@ -58,7 +61,7 @@ public class RemoveLinkedListElements {
         return dummy.next;  
     }  
 	
-	public  ListNode removeElements_4(ListNode head, int val) {
+	public ListNode removeElements_4(ListNode head, int val) {
     	List<Integer> list = new ArrayList<Integer>();
     	while(head!=null){
     		if(head.val!=val)
@@ -76,37 +79,30 @@ public class RemoveLinkedListElements {
     	return result;
     }
 	
-	
-	public  void print(ListNode node){
-		 while (node != null)
-		 {
-			 if(node.next != null)
-			 {
-				 System.out.print(node.val + "->");
-				 node = node.next; 
-			 }
-			 else if(node.next == null)
-			 {
-				 System.out.println(node.val);
-				 node = node.next; 
-			 }
-		 }
-		 
-	 }
+	//Bloomberg电面
+	//删除链表中大于等于某个值的节点
+	public ListNode removeElements_bb(ListNode head, int val) {
+		if (head == null) return null;
+		head.next = removeElements_bb(head.next, val);
+		return head.val >= val ? head.next : head;
+	}
+
+
+
 	
 	
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		ListNode l1 = new ListNode(1);
-		 ListNode n2 = new ListNode(2);
-		 ListNode n3 = new ListNode(3);
-		 ListNode n4 = new ListNode(4);
+		ListNode head = new ListNode(1);
+		 ListNode n2 = new ListNode(3);
+		 ListNode n3 = new ListNode(4);
+		 ListNode n4 = new ListNode(2);
 		 ListNode n5 = new ListNode(5);
 		 ListNode n6 = new ListNode(6);
 		 ListNode n7 = new ListNode(6);
 		 
-		 l1.next = n2;
+		 head.next = n2;
 		 n2.next = n6;
 		 n6.next = n3;
 		 n3.next = n4;
@@ -114,10 +110,11 @@ public class RemoveLinkedListElements {
 		 n5.next = n7;
 		 
 		 RemoveLinkedListElements slt = new RemoveLinkedListElements();
+		 PrintListNode res = new PrintListNode();
 		 int val = n6.val;
-		 slt.print(l1);
-		 slt.removeElements_1(l1, val);
-		 slt.print(l1);
+		 res.print(slt.removeElements_1(head, 4));
+		 res.print(slt.removeElements_bb(head, 4));
+		 
 	}
 
 }

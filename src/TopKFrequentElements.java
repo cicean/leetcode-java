@@ -130,12 +130,59 @@ public class TopKFrequentElements {
 		return res;
 	}
 
+	/**
+	 * Find top K frequency words in words list
+	 * Bloomberg
+	 * @param args
+     */
+	public List<String> topKFrequent(String[] wordsList, int k) {
+		List<String> res = new ArrayList<>();
+
+		if (wordsList == null || wordsList.length == 0) return res;
+		
+		if (wordsList.length == 1) res.add(wordsList[0]);
+
+		int n = wordsList.length;
+		int tmp = 1;
+		Arrays.sort(wordsList);
+		List<String>[] freq = new ArrayList[n + 1];
+		for (int i = 1; i < wordsList.length; i++) {
+			if (wordsList[i - 1] == wordsList[i]) {
+				tmp++;
+			} else {
+				if (freq[tmp] == null)
+					freq[tmp] = new ArrayList<>();
+				freq[tmp].add(wordsList[i - 1]);
+				tmp = 1;
+			}
+			
+			if (i == wordsList.length - 1) {
+				if (freq[tmp] == null)
+					freq[tmp] = new ArrayList<>();
+				freq[tmp].add(wordsList[i]);
+			}
+		}
+
+		for (int index = freq.length - 1; index >= 0 && res.size() < k; index--) {
+			if (freq[index] != null && !freq[index].isEmpty()) {
+				res.addAll(freq[index]);
+			}
+		}
+		return res;
+	}
+
+
 	public static void main(String[] args) {
-		int[] nums = { 1, 1, 1, 2, 2, 3 };
+		int[] nums = { 1, 1, 1, 2, 2, 3 , 3};
 		int k = 2;
 		PrintList<Integer> res = new PrintList<>();
 		TopKFrequentElements slTopKFrequentElements = new TopKFrequentElements();
 		res.printList(slTopKFrequentElements.topKFrequent2(nums, k));
+
+		String[] wordsList = {"ab","bc","ab","abc","abc","ab"};
+
+		PrintList<String> print = new PrintList<>();
+		print.printList(slTopKFrequentElements.topKFrequent(wordsList, k));
 
 	}
 
