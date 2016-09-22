@@ -12,7 +12,7 @@ import java.util.Arrays;
  */
 public class CountDuplicate {
 
-    //O(logn + n)
+    //O(nlogn + n)
     public int countDuplicate(int[] nums) {
         if (nums == null || nums.length == 0) return 0;
 

@@ -1,6 +1,6 @@
 /**
  * Created by cicean on 8/29/2016.
- * 308. Range Sum Query 2D - Mutable  QuestionEditorial Solution  My Submissions
+ *  308. Range Sum Query 2D - Mutable  QuestionEditorial Solution  My Submissions
  Total Accepted: 5384 Total Submissions: 25797 Difficulty: Hard
  Given a 2D matrix matrix, find the sum of the elements inside the rectangle defined by its upper left corner (row1, col1) and lower right corner (row2, col2).
 
@@ -97,5 +97,42 @@ public class RangeSumQuery2DMutable {
 // numMatrix.sumRegion(0, 1, 2, 3);
 // numMatrix.update(1, 1, 10);
 // numMatrix.sumRegion(1, 2, 3, 4);
+
+    public class NumMatrix {
+
+        private int[][] rowsum;
+
+        public NumMatrix(int[][] matrix) {
+            if (matrix == null || matrix.length == 0) return;
+
+            rowsum = new int[matrix.length][matrix[0].length];
+            for (int i = 0; i < matrix.length; i++) {
+                for (int j = 0; j < matrix[i].length; j++) {
+                    rowsum[i][j] = matrix[i][j] + ((j == 0) ? 0 : matrix[i][j - 1]);
+                }
+            }
+        }
+
+        public void update(int row, int col, int val) {
+            if (row < 0 || col < 0 || row > rowsum.length - 1 || col > rowsum[0].length - 1) return;
+
+            int diff = val - (rowsum[row][col] - (col == 0 ? 0 : rowsum[row][col - 1]));
+            for (int j = col; j < rowsum[0].length; j++) {
+                rowsum[row][j] += diff;
+            }
+
+        }
+
+        public int sumRegion(int row1, int col1, int row2, int col2) {
+            if (col1 < 0 || col1 > rowsum[0].length - 1 || col1 < 0 || col2 > rowsum[0].length - 1 || col1 > col2) return 0;
+
+            int res = 0;
+            for (int i = row1; i <= row2; i++) { // you can add the difine row1 < row2
+                res += rowsum[i][col2] - (col1 == 0 ? 0 : rowsum[i][col1 - 1]);
+            }
+
+            return res;
+        }
+    }
 
 }

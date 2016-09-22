@@ -1,4 +1,4 @@
-/*
+/**
  28	Implement strStr()	22.2%	Easy
  Problem:    Implement strStr()
  Difficulty: Easy

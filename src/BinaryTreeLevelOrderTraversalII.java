@@ -63,9 +63,10 @@ public class BinaryTreeLevelOrderTraversalII {
     }
 
     //DFS
-    public List<List<Integer>> levelOrder(TreeNode root) {
+    public List<List<Integer>> levelOrderBottom_2(TreeNode root) {
         List<List<Integer>> res = new ArrayList<List<Integer>>();
         levelHelper(res, root, 0);
+        Collections.reverse(res);
         return res;
     }
 
@@ -88,6 +89,8 @@ public class BinaryTreeLevelOrderTraversalII {
     		System.out.println("]");
     	}
     }
+
+    TreeMap<>
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

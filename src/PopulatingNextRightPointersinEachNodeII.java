@@ -26,6 +26,9 @@
            3. recursive solution.
  */
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Definition for binary tree with next pointer.
  * public class TreeLinkNode {
@@ -55,6 +58,24 @@ public class PopulatingNextRightPointersinEachNodeII {
         }
         connect(dummy.next);
     }
+
+	public void connect_1(TreeLinkNode root) {
+		Map<Integer, TreeLinkNode> res = new HashMap<>();
+		connectRe(root, 0, res);
+		return;
+	}
+
+	private void connectRe(TreeLinkNode node, int level, Map<Integer, TreeLinkNode> res) {
+		if (node == null) return;
+
+		if (res.containsKey(level)) {
+			res.get(level).next = node;
+		}
+		res.put(level, node);
+		level++;
+		connectRe(node.left, level, res);
+		connectRe(node.right, level, res);
+	}
 	
 	public static  void print(TreeLinkNode node) {
     	if (null != node) {

@@ -1,4 +1,4 @@
-/*
+/**
  63	Unique Paths II	28.0%	Medium
  Problem:    Unique Paths II
  Difficulty: Easy
@@ -53,6 +53,29 @@ public class UniquePathsII {
         }
         return dp[n-1];
     }
+
+    private int res = 0;
+    
+    public int uniquePathsWithObstacles_3(int[][] obstacleGrid) {
+        if (obstacleGrid == null) return 0;
+        bfs(obstacleGrid, 0, 0, obstacleGrid.length, obstacleGrid[0].length);
+        return res;
+    }
+
+    public void bfs(int[][] obstacleGrid, int x, int y, int m, int n) {
+    	if (x >= m || y >= n) return;
+
+        if (obstacleGrid[x][y] == 1) return;
+        System.out.println("x = " + x + ", y = " + y);
+        if (x == m - 1 && y == n - 1)  {
+            res++;
+            System.out.println(res);
+            return;
+        }
+        
+        bfs(obstacleGrid, x + 1 , y, obstacleGrid.length, obstacleGrid[0].length);
+        bfs(obstacleGrid, x, y + 1, obstacleGrid.length, obstacleGrid[0].length); 
+    }
     
     public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -63,6 +86,7 @@ public class UniquePathsII {
 				  {0,0,0}
 		};
 		System.out.println(slt.uniquePathsWithObstacles_2(obstacleGrid));
+        System.out.println(slt.uniquePathsWithObstacles_3(obstacleGrid));
 	}
 
 }

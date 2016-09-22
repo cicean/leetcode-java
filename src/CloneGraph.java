@@ -1,12 +1,10 @@
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
-
 import datastructure.PrintGraph;
 import datastructure.UndirectedGraphNode;
+
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /*
  133	Clone Graph	24.0%	Medium
@@ -111,6 +109,30 @@ public class CloneGraph {
 			return clone;
 		}
 	}
+	
+	private HashMap<UndirectedGraphNode, UndirectedGraphNode> map = new HashMap<>();
+	
+	public UndirectedGraphNode deepCloneGraph(UndirectedGraphNode node) {
+        return deepClone(node);
+    }
+
+    private UndirectedGraphNode deepClone(UndirectedGraphNode node) {
+        if (node == null) return null;
+
+        if (map.containsKey(node)) {
+            return map.get(node);
+        }
+
+        UndirectedGraphNode clone = new UndirectedGraphNode(node.label);
+        map.put(node, clone);
+        for (UndirectedGraphNode neighbor: node.neighbors) {
+            if (node.label < neighbor.label) {
+                clone.neighbors.add(deepClone(neighbor));
+            }
+        }
+
+        return clone;
+    }
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -134,9 +156,10 @@ public class CloneGraph {
 
 		CloneGraph slt = new CloneGraph();
 		// print(a);
-		UndirectedGraphNode res = slt.cloneGraph(a);
+		//UndirectedGraphNode res = slt.cloneGraph(a);
 		PrintGraph print = new PrintGraph();
 		print.printGraph(slt.cloneGraph(a));;
+		print.printGraph(slt.deepCloneGraph(a));;
 
 	}
 

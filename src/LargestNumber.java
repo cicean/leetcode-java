@@ -1,6 +1,6 @@
 import java.util.*;
 
-/*
+/**
  179	Largest Number	15.7%	Medium
  Problem:    ZigZag Conversion
  Difficulty: Medium
@@ -21,6 +21,7 @@ public class LargestNumber {
         Comparator<Integer> comp =  new Comparator<Integer>(){  
             public int compare(Integer a,  Integer b) { 
                     String aa = ""+a+b;
+
                     String bb = ""+b+a;
                     return bb.compareTo(aa);
             }  
@@ -60,8 +61,10 @@ public class LargestNumber {
         while (i < in.length) res.append(in[i++]);
         return res.toString();
     }
-	
-	public static void main(String[] args) {
+
+
+
+    public static void main(String[] args) {
 		// TODO Auto-generated method stub
       int[] num = {3, 30, 34, 5, 9};
       LargestNumber slt = new LargestNumber();

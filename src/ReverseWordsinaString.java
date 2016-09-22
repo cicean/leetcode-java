@@ -1,7 +1,5 @@
 import java.util.HashMap;
 
-import com.sun.swing.internal.plaf.metal.resources.metal_pt_BR;
-
 /*
  151	Reverse Words in a String	15.1%	Medium
  Problem:    Reverse Words in a String 
@@ -106,7 +104,23 @@ public class ReverseWordsinaString {
 	    	   
 	       return res = sb.toString();
 	       
-	    } 
+	    }
+
+	public String reverseWords_mw(String s) {
+		if (s == null || s.length() == 0) return "";
+
+		String res = "";
+		String[] split = s.trim().split(" +");
+		for (int i = split.length - 1; i >=0; i--) {
+			if ( i == 0) {
+				res += split[i];
+			} else {
+				res += split[i] + " ";
+			}
+		}
+
+		return res;
+	}
 	 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

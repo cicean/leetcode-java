@@ -3,7 +3,10 @@ import datastructure.PrintList;
 import java.util.*;
 
 /**
- * Created by cicean on 8/30/2016. 347. Top K Frequent Elements
+ * Created by cicean on 8/30/2016.
+ *
+ * 347. Top K Frequent Elements
+ *
  * QuestionEditorial Solution My Submissions Total Accepted: 27943 Total
  * Submissions: 63529 Difficulty: Medium Given a non-empty array of integers,
  * return the k most frequent elements.
@@ -63,7 +66,7 @@ public class TopKFrequentElements {
 		// if the the number have same Frequenrt what order will such add if
 		// 1,1,2,2,3,3 k= 2 is out put 1, 2, 3?
 		// remove hashmap
-		// O(logn + n + k)
+		// O(nlogn + n + k)
 		List<Integer> res = new ArrayList<>();
 
 		if (nums == null || nums.length == 0)

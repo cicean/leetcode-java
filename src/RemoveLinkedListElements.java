@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ *
  * 	203	Remove Linked List Elements	25.8%	Easy
  *
  * 0.Problem:
@@ -87,9 +88,6 @@ public class RemoveLinkedListElements {
 		return head.val >= val ? head.next : head;
 	}
 
-
-
-	
 	
 
 	public static void main(String[] args) {

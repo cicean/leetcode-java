@@ -52,6 +52,9 @@ public class ReverseInteger {
 	public int reverse_2(int x) {
 		// Note: The Solution object is instantiated only once and is reused by
 		// each test case.
+
+		if (x > Integer.MAX_VALUE || x < Integer.MIN_VALUE) return 0;
+
 		int result = 0;
 
 		int flag = 0;

@@ -1,5 +1,8 @@
 package Google;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import Bloomberg.MaximumSumPathinTwoArrays;
 
 /**
@@ -20,7 +23,9 @@ public class LongestSubstringinSplitString {
 		char res = '0';
 		if (s == null) return res;
 		int shortest = Integer.MAX_VALUE;
+		Set<Character> set = new HashSet<>();
 		for (int i = 0; i < s.length(); i++) {
+			if (set.contains(s.charAt(i))) continue;
 			String[] split = s.split(String.valueOf(s.charAt(i)));
 			int longestsubstring = 0;
 			for (String sub : split) {
@@ -30,6 +35,7 @@ public class LongestSubstringinSplitString {
 				shortest = longestsubstring;
 				res = s.charAt(i);
 			}
+			set.add(s.charAt(i));
 		}
 		return res;
 	}

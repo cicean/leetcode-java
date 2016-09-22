@@ -47,6 +47,17 @@ public class PalindromeNumber {
 	        }
 	        return res;
 	    }
+
+	public boolean isPalindrome_3(int x) {
+		int p = x;
+		int q = 0;
+		while (x > 0) {
+			q = q * 10 + x % 10;
+			x = x / 10;
+		}
+
+		return p == q ? true : false;
+	}
 	    
 	    public static void main(String[] args)
 		{
