@@ -1,5 +1,6 @@
 /**
- * Created by cicean on 8/29/2016. 312. Burst Balloons QuestionEditorial
+ * Created by cicean on 8/29/2016.
+ * 312. Burst Balloons QuestionEditorial
  * Solution My Submissions Total Accepted: 14014 Total Submissions: 35115
  * Difficulty: Hard Given n balloons, indexed from 0 to n-1. Each balloon is
  * painted with a number on it represented by array nums. You are asked to burst

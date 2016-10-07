@@ -14,10 +14,22 @@ Well, this problem can be solved easily using recursion: just find the closest v
 The code is as follows.
  */
 public class ClosestBinarySearchTreeValue {
+
+	public int closestValue(TreeNode root, double target) {
+		if(root == null) { return target > 0 ? Integer.MIN_VALUE : Integer.MAX_VALUE; }
+		if(target < root.val) {
+			int l = closestValue(root.left, target);
+			return Math.abs(root.val - target) < Math.abs(l - target) ? root.val : l;
+		} else {
+			int r = closestValue(root.right, target);
+			return Math.abs(root.val - target) < Math.abs(r - target) ? root.val : r;
+		}
+	}
+
 	private double min = Double.MAX_VALUE;
 	private int result = 0;
 	
-	public int closestValue(TreeNode root, double target) {
+	public int closestValue_1(TreeNode root, double target) {
 		if (root == null) {
 			return Integer.MAX_VALUE;
 		}

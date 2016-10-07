@@ -1,6 +1,7 @@
 package Bloomberg;
 
 import java.util.Arrays;
+import java.util.BitSet;
 
 /**
  * Created by cicean on 9/12/2016.
@@ -29,6 +30,15 @@ public class CountDuplicate {
         }
         return  count;
     }
+
+    public int countDuplicate_bitset(int[] nums) {
+        BitSet bs = new BitSet();
+        int num = 0;
+        bs.set(num);
+        bs.
+    }
+
+
     
     public static void main(String[] args) {
 		CountDuplicate slt = new CountDuplicate();

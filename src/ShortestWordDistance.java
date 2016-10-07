@@ -48,6 +48,26 @@ public class ShortestWordDistance {
 			
 			return min;
 	}
+
+	public int shortestDistance_1(String[] words, String word1, String word2) {
+		int index1 = Integer.MAX_VALUE;
+		int index2 = Integer.MAX_VALUE;
+		int res = Integer.MAX_VALUE;
+		if (words == null || word1 == null || word2 == null) return 0;
+
+		for (int i =0; i < words.length; i++) {
+			if (word1.equals(words[i])) index1 = i;
+			if (word2.equals(words[i])) index2 = i;
+			if (Math.abs(index1 - index2) > 0) {
+				res = Math.min(res, Math.abs(index2 - index1));
+			}
+			System.out.println("index1 = " + index1 +", index2 = " + index2);
+		}
+
+
+
+		return res == Integer.MAX_VALUE ? 0 : res;
+	}
 	
 	
 	public static void main(String[] args) {
@@ -57,7 +77,7 @@ public class ShortestWordDistance {
 		String word1 = "coding";
 		String word2 = "practice";
 		
-		System.out.println(slt.shortestDistance(words, word1, word2));
+		System.out.println(slt.shortestDistance_1(words, word1, word2));
 		
 	}
 

@@ -17,6 +17,39 @@ import java.util.*;
 */
 
 public class WordBreakII {
+
+	/**
+	 *  JAVA solution based on memorized DFS
+	 *
+	 * @param s
+	 * @param wordDict
+     * @return
+     */
+	public List<String> wordBreak_(String s, Set<String> wordDict) {
+		return DFS(s, wordDict, new HashMap<String, LinkedList<String>>());
+	}
+
+	// DFS function returns an array including all substrings derived from s.
+	List<String> DFS(String s, Set<String> wordDict, HashMap<String, LinkedList<String>>map) {
+		if (map.containsKey(s))
+			return map.get(s);
+
+		LinkedList<String>res = new LinkedList<String>();
+		if (s.length() == 0) {
+			res.add("");
+			return res;
+		}
+		for (String word : wordDict) {
+			if (s.startsWith(word)) {
+				List<String>sublist = DFS(s.substring(word.length()), wordDict, map);
+				for (String sub : sublist)
+					res.add(word + (sub.isEmpty() ? "" : " ") + sub);
+			}
+		}
+		map.put(s, res);
+		return res;
+	}
+
 	
 	/**
 	 * 如果要返回所有组合的话，我们可以考虑两种方法，一种是DP，时间复杂度较低，但是比较耗内存，意味着对于每个Index, 我们可能都要存其对应所有解。另一种是DFS，空间复杂度较低，但是时间时间复杂度较高，我们可以采用memorization优化时间复杂度。
@@ -87,7 +120,7 @@ public class WordBreakII {
                 }
             }
         }
-        if (canBreak[0] == false) return res;
+        if (!canBreak[0]) return res;
         wordBreakRe(s, dict, "", 0, res);
         return res;
     }
@@ -99,7 +132,7 @@ public class WordBreakII {
         if (path.length() != 0) path = path + " ";
         for (int i = start; i < s.length(); ++i) {
             String word = s.substring(start, i + 1);
-            if (dict.contains(word) == false) continue;
+            if (!dict.contains(word)) continue;
             wordBreakRe(s, dict, path + word, i + 1, res);
         }
     }

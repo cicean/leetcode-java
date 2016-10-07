@@ -1,6 +1,7 @@
 /**
- * Created by cicean on 9/8/2016. 395. Longest Substring with At Least K
- * Repeating Characters QuestionEditorial Solution My Submissions Total
+ * Created by cicean on 9/8/2016.
+ * 395. Longest Substring with At Least K Repeating Characters
+ * QuestionEditorial Solution My Submissions Total
  * Accepted: 1622 Total Submissions: 5214 Difficulty: Medium Find the length of
  * the longest substring T of a given string (consists of lowercase letters
  * only) such that every character in T appears no less than k times.

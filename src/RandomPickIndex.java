@@ -30,6 +30,7 @@ public class RandomPickIndex {
 
     //out of memory limited
      Map<Integer, List<Integer>> map = new HashMap<>();
+
     public RandomPickIndex(int[] nums) {
         if (nums == null || nums.length == 0) return;
         for (int i = 0; i < nums.length; i++) {

@@ -36,5 +36,7 @@ public class FirstUniqueCharacterinaString {
             }
             return -1;
         }
+
+
     }
 }

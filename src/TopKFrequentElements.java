@@ -27,7 +27,7 @@ public class TopKFrequentElements {
 	 * 接着用一个长度为k 堆，存储出现次数最多的元素（堆顶的元素最小，每次和堆顶的元素比较即可）
 	 */
 
-	// Bucket Sort
+	// Bucket Sort with HashMap no sort;
 	public class Solution {
 		public List<Integer> topKFrequent(int[] nums, int k) {
 			int n = nums.length;
@@ -60,8 +60,8 @@ public class TopKFrequentElements {
 
 	}
 
-	// remove hashset combine with bucket select
-	public List<Integer> topKFrequent2(int[] nums, int k) {
+	// bucket select remove hashset use O(nlgn) instant O(n) space (1) instead O(n) 
+	public List<Integer> topKFrequent_2(int[] nums, int k) {
 		// is sort array or not ?
 		// if the the number have same Frequenrt what order will such add if
 		// 1,1,2,2,3,3 k= 2 is out put 1, 2, 3?
@@ -97,6 +97,48 @@ public class TopKFrequentElements {
 		for (int index = freq.length - 1; index >= 0 && res.size() < k; index--) {
 			if (freq[index] != null && !freq[index].isEmpty()) {
 				res.addAll(freq[index]);
+			}
+		}
+		return res;
+	}
+
+	// out put with the same frequent
+	public List<List<Integer>> topKFrequent_d_2(int[] nums, int k) {
+		// is sort array or not ?
+		// if the the number have same Frequenrt what order will such add if
+		// 1,1,2,2,3,3 k= 2 is out put 1, 2, 3?
+		// remove hashmap
+		// O(nlogn + n + k)
+		List<List<Integer>> res = new ArrayList<>();
+
+		if (nums == null || nums.length == 0)
+			return res;
+		if (nums.length == 1)
+			res.add(new ArrayList<>(nums[0]));
+
+		int n = nums.length;
+		int tmp = 1;
+		Arrays.sort(nums);
+		List<Integer>[] freq = new ArrayList[n + 1];
+		for (int i = 1; i < nums.length; i++) {
+			if (nums[i - 1] == nums[i]) {
+				tmp++;
+			} else {
+				if (freq[tmp] == null)
+					freq[tmp] = new ArrayList<>();
+				freq[tmp].add(nums[i - 1]);
+				tmp = 1;
+			}
+			if (i == nums.length - 1) {
+				if (freq[tmp] == null)
+					freq[tmp] = new ArrayList<>();
+				freq[tmp].add(nums[i]);
+			}
+		}
+
+		for (int index = freq.length - 1; index >= 0 && res.size() < k; index--) {
+			if (freq[index] != null && !freq[index].isEmpty()) {
+				res.add(freq[index]);
 			}
 		}
 		return res;
@@ -175,17 +217,83 @@ public class TopKFrequentElements {
 	}
 
 
+
+
+
+
+	//FOLLOW UP: Top k frequent elements in a stream use Max heap-Priority queue in JAVA
+	private Map<Integer, Integer> map;
+
+	public TopKFrequentElements() {
+		map = new HashMap<Integer, Integer>();
+	}
+
+	public void addNum(int num) {
+		System.out.println("input = " + num);
+		if (map.containsKey(num)) map.put(num, map.get(num) + 1);
+		else map.put(num, 1);
+	}
+
+
+	//FOLLOW UP: Top k frequent elements in a stream use Max heap-Priority queue in JAVA
+	public List<Integer> topKFrequent(int k) {
+
+		PriorityQueue<Map.Entry<Integer, Integer>> pq = new PriorityQueue<>((a, b) -> b.getValue() - a.getValue());
+		for (Map.Entry<Integer, Integer> entry : this.map.entrySet()) {
+			pq.offer(entry);
+		}
+
+		int count = 0;
+		Map.Entry<Integer, Integer> tmp = null;
+
+		List<Integer> res = new LinkedList<>();
+		while(count <= k && !pq.isEmpty()) {
+			Map.Entry<Integer, Integer> pop = pq.poll();
+			System.out.println("pop value = " + pop.getValue());
+			if (tmp != null && pop.getValue() == tmp.getValue()){
+				res.add(pop.getKey());
+			} else {
+				if (count < k) {
+					res.add(pop.getKey());
+					tmp = pop;
+				}
+				count++;
+			}
+			System.out.println("count = " + count);
+		}
+
+
+		return res;
+
+	}
+
+
+
+
+
+
 	public static void main(String[] args) {
 		int[] nums = { 1, 1, 1, 2, 2, 3 , 3};
 		int k = 2;
 		PrintList<Integer> res = new PrintList<>();
-		TopKFrequentElements slTopKFrequentElements = new TopKFrequentElements();
-		res.printList(slTopKFrequentElements.topKFrequent2(nums, k));
+		TopKFrequentElements slt = new TopKFrequentElements();
+		//res.printList(slTopKFrequentElements.topKFrequent2(nums, k));
 
 		String[] wordsList = {"ab","bc","ab","abc","abc","ab"};
 
 		PrintList<String> print = new PrintList<>();
-		print.printList(slTopKFrequentElements.topKFrequent(wordsList, k));
+		print.printList(slt.topKFrequent(wordsList, k));
+
+		res.printListandList(slt.topKFrequent_d_2(nums, 2));
+
+		slt.addNum(1);
+		slt.addNum(2);
+		slt.addNum(2);
+		slt.addNum(1);
+		slt.addNum(3);
+		slt.addNum(3);
+		slt.addNum(3);
+
 
 	}
 

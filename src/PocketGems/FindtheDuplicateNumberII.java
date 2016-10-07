@@ -12,23 +12,6 @@ import java.util.List;
 public class FindtheDuplicateNumberII {
 
 	public List<Integer> findDuplicate(int[] nums) {
-		 int fast, slow;
 
-		    fast = slow = nums[0];
-		    
-		    while ()
-
-		    do {
-		        fast = nums[nums[fast]];
-		        slow = nums[slow];
-		    } while (fast != slow);
-
-		    slow = nums[0];
-		    while (fast != slow) {
-		        fast = nums[fast];
-		        slow = nums[slow];
-		    }
-
-		    return fast;
 	}
 }

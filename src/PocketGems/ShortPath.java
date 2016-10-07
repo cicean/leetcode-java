@@ -38,35 +38,41 @@ public class ShortPath {
         }
     }
 
-    int res = Integer.MAX_VALUE;
+    int minPathlen = Integer.MAX_VALUE;
+    List<Position> res = new ArrayList<>();
     Set<Character> keys = new HashSet<>();
 
-    public int shortpath(String[] map) {
-
-        if (map == null) return 0;
+    public List<Position> shortpath(String[] map) {
         int lenth = 0;
         List<List<Position>> res = new ArrayList<>();
         List<Position> path = new ArrayList<>();
         boolean[][] visited = new boolean[map.length][map[0].length()];
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length(); j++) {
-                if (map[i].charAt(j) == '2' && findpath(i , j , visited, map, lenth)) {
+                if (map[i].charAt(j) == '2' && findpath(i , j , visited, map, lenth, path)) {
                         return this.res;
                 }
             }
 
         }
-        return 0;
+        
+        System.out.println("minlen = " + minPathlen);
+        
+        return this.res;
     }
 
-    private boolean findpath(int i, int j, boolean[][] visited, String[] map, int lenth) {
-                int m = map.length;
+    private boolean findpath(int i, int j, boolean[][] visited, String[] map, int lenth, List<Position> path) {
+        int m = map.length;
         int n = map[0].length();
         
         if (i < 0 || i >= m || j < 0 || j >= n) return false;
         System.out.println("i = " + i + ", j = " + j + ", char = " + String.valueOf(map[i].charAt(j)));
         if (map[i].charAt(j) == '3') {
-            res = Math.min(res, lenth);
+            if (lenth < minPathlen) {
+                minPathlen = lenth;
+                path.add(new Position(i, j));
+                res = path;
+            }
             return true;
         } 
         if (visited[i][j] || map[i].charAt(j) == '0') return false;
@@ -87,14 +93,16 @@ public class ShortPath {
         }
         
         visited[i][j] = true;
+        path.add(new Position(i, j));
         lenth++;
         System.out.println(", count = " + lenth);
-        if (findpath(i + 1, j, visited, map, lenth)) return true;
-        if (findpath(i - 1, j, visited, map, lenth)) return true;
-        if (findpath(i, j + 1, visited, map, lenth)) return true;
-        if (findpath(i, j - 1, visited, map, lenth)) return true;
+        if (findpath(i + 1, j, visited, map, lenth, path)) return true;
+        if (findpath(i - 1, j, visited, map, lenth, path)) return true;
+        if (findpath(i, j + 1, visited, map, lenth, path)) return true;
+        if (findpath(i, j - 1, visited, map, lenth, path)) return true;
         visited[i][j] = false;
         lenth--;
+        path.remove(path.size() - 1);
         return false;
     }
 
@@ -116,6 +124,15 @@ public class ShortPath {
         ShortPath slt = new ShortPath();
         System.out.println(slt.shortpath(map2));
         System.out.println(slt.keys.contains('b'));
+
+        List<Position> test = slt.shortpath(map);
+
+        for (Position p : test) {
+
+            System.out.println("i = " + p.x + "j = " + p.y);
+        }
+        
+        System.out.println();
     }
 
 

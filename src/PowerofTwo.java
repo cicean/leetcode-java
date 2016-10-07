@@ -19,23 +19,20 @@ public class PowerofTwo {
 	}
 
 	public boolean isPowerOfTwo(int n) {
+
 		if(n<=0){
 			return false;
 		}
 		int i = 0;
-		int countBit = 0;
-		while(i<32){
-			if( (n&(1<<i)) !=0){
-				countBit++;
-				i++;
+		int countbit = 0;
+		while(i < 32) {
+			if ((n & (1 << i)) != 0) {
+				countbit++;
 			}
+			i++;
 		}
 
-		if(countBit != 1){
-			return false;
-		}
-
-		return true;
+		return countbit != 1 ? false : true;
 	}
 
 	//2. Iteration -- 2 ms beats 21.88%

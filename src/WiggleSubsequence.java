@@ -55,7 +55,7 @@ public class WiggleSubsequence {
         public int wiggleMaxLength(int[] nums) {
             if (nums.length <= 1) return nums.length;
             int pre_sign = 0;
-            int signLen = 0;
+            int signLen = 0;¡¡
             for (int i = 1; i < nums.length; i++) {
                 int sign = nums[i] - nums[i-1];
                 if (sign == 0 || sign * pre_sign > 0) continue;

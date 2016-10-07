@@ -1,4 +1,7 @@
 package facebook;
+
+import datastructure.Interval;
+
 /**
  * Created by cicean on 8/29/2016.
  * FaceBook

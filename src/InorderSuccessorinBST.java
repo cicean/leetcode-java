@@ -145,8 +145,6 @@ public class InorderSuccessorinBST {
 
     // pocket gems Ãæ¾­
 
-   
-
     public CustomTreeNode findNext(CustomTreeNode node) {
         if (node == null) return node;
       
@@ -174,6 +172,35 @@ public class InorderSuccessorinBST {
 
 
     }
+
+    public CustomTreeNode findNext2(CustomTreeNode node) {
+        if (node == null) return null;
+
+        if (node.right != null) {
+            return minValue(node.right);
+        }
+
+        CustomTreeNode parent = node.parent;
+        while (parent != null && node.val > parent.val) {
+            parent = parent.parent;
+        }
+
+        return parent;
+
+    }
+
+    private CustomTreeNode minValue(CustomTreeNode node) {
+        CustomTreeNode cur = node;
+        while (cur.left != null) {
+            cur = cur.left;
+        }
+
+        return cur;
+    }
+
+
+
+
 
     public static void main(String[] args) {
         // TODO Auto-generated method stub
@@ -208,8 +235,8 @@ public class InorderSuccessorinBST {
 		 
 		 InorderSuccessorinBST slt = new InorderSuccessorinBST();
 		
-		 CustomTreeNode test = slt.findNext(r3);
-		System.out.print("input Node val = " + l1.val + "findNext Node val = " + (test == null ? "null" : test.val));
+		 CustomTreeNode test = slt.findNext2(root);
+		System.out.print("input Node val = " + root.val + "findNext Node val = " + (test == null ? "null" : test.val));
     }
 
 }

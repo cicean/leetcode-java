@@ -1,4 +1,7 @@
+import java.math.BigDecimal;
 import java.util.Stack;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by cicean on 9/8/2016.
@@ -90,5 +93,18 @@ public class DecodeString {
             }
             return res;
         }
+    }
+
+    BigDecimal
+
+    public String decodeString(String s) { // shorter but less optimized REGEX
+        Matcher matcher = Pattern.compile("(\\d*)\\[([a-z]*)\\]").matcher(s);
+        while (matcher.find()) {
+            StringBuffer sb = new StringBuffer();
+            String part = new String(new char[Integer.parseInt(matcher.group(1))]).replace("\0", matcher.group(2));
+            matcher.appendReplacement(sb, part).appendTail(sb);
+            matcher.reset(s = sb.toString());
+        }
+        return s;
     }
 }

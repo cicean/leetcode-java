@@ -21,41 +21,43 @@
 /**
  * Definition for binary tree
  * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode(int x) { val = x; }
+ * int val;
+ * TreeNode left;
+ * TreeNode right;
+ * TreeNode(int x) { val = x; }
  * }
  */
 
 public class SumRoottoLeafNumbers {
-	
-	 public int sumNumbers(TreeNode root) {
-	        if (root == null) return 0;
-	        return sumNumbersRe(root,0);
-	    }
-	    public int sumNumbersRe(TreeNode root, int last) {
-	        if (root == null) return 0;
-	        int res = last * 10 + root.val;
-	        if (root.left == null && root.right == null) return res;
-	        if (root.left == null) return sumNumbersRe(root.right, res);
-	        if (root.right == null) return sumNumbersRe(root.left, res);
-	        return sumNumbersRe(root.left, res) + sumNumbersRe(root.right, res);
-	    }
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		
-		TreeNode t1 = new TreeNode(1);
-		TreeNode t2 = new TreeNode(2);
-		TreeNode t3 = new TreeNode(3);
-		
-		t1.left = t2;
-		t1.right =t3;
-		
-		SumRoottoLeafNumbers slt  = new SumRoottoLeafNumbers();
-		int res  = slt.sumNumbers(t1);
-		System.out.print(res);
-		
-	}
+
+    public int sumNumbers(TreeNode root) {
+        if (root == null) return 0;
+        return sumNumbersRe(root, 0);
+    }
+
+    public int sumNumbersRe(TreeNode root, int last) {
+        if (root == null) return 0;
+        int res = last * 10 + root.val;
+        if (root.left == null && root.right == null) return res;
+        if (root.left == null) return sumNumbersRe(root.right, res);
+        if (root.right == null) return sumNumbersRe(root.left, res);
+        return sumNumbersRe(root.left, res) + sumNumbersRe(root.right, res);
+    }
+
+    public static void main(String[] args) {
+        // TODO Auto-generated method stub
+
+        TreeNode t1 = new TreeNode(1);
+        TreeNode t2 = new TreeNode(2);
+        TreeNode t3 = new TreeNode(3);
+
+        t1.left = t2;
+        t1.right = t3;
+
+        SumRoottoLeafNumbers slt = new SumRoottoLeafNumbers();
+        int res = slt.sumNumbers(t1);
+        System.out.print(res);
+
+    }
 
 }

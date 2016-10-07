@@ -32,10 +32,10 @@ public class CopyListwithRandomPointer {
         RandomListNode dummy = new RandomListNode(-1);
         RandomListNode curNew = dummy, cur = head;
         while (cur != null) {
-            if (map.containsKey(cur) == false) {
+            if (!map.containsKey(cur)) {
                 map.put(cur, new RandomListNode(cur.label));
             }
-            if (cur.random != null && map.containsKey(cur.random) == false) {
+            if (cur.random != null && !map.containsKey(cur.random)) {
                 map.put(cur.random, new RandomListNode(cur.random.label));
             }
             curNew.next = map.get(cur);
@@ -79,7 +79,7 @@ public class CopyListwithRandomPointer {
     }
     public RandomListNode copy(RandomListNode root, HashMap<RandomListNode, RandomListNode> map) {
         if (root == null) return null;
-        if (map.containsKey(root) == true) {
+        if (map.containsKey(root)) {
             return map.get(root);
         }
         RandomListNode newnode = new RandomListNode(root.label);
@@ -94,15 +94,15 @@ public class CopyListwithRandomPointer {
         Queue<RandomListNode> queue = new LinkedList<RandomListNode>();
         queue.offer(head);
         map.put(head, new RandomListNode(head.label));
-        while (queue.isEmpty() == false) {
+        while (!queue.isEmpty()) {
             RandomListNode cur = queue.poll();
-            if (cur.next != null && map.containsKey(cur.next) == false) {
+            if (cur.next != null && !map.containsKey(cur.next)) {
                 RandomListNode newnode = new RandomListNode(cur.next.label);
                 map.put(cur.next, newnode);
                 queue.offer(cur.next);
             }
             map.get(cur).next = map.get(cur.next);
-            if (cur.random != null && map.containsKey(cur.random) == false) {
+            if (cur.random != null && !map.containsKey(cur.random)) {
                 RandomListNode newnode = new RandomListNode(cur.random.label);
                 map.put(cur.random, newnode);
                 queue.offer(cur.random);

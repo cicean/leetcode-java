@@ -1,4 +1,4 @@
-/**
+package Lintcode; /**
  * Convert binary search tree to doubly linked list with in-order traversal.
 
 Have you met this question in a real interview? Yes
