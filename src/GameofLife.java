@@ -49,7 +49,7 @@ public class GameofLife {
 	 完成一遍扫描后再对数据扫描一遍，对2取余变成我们想要的结果。参见代码如下：
 	 */
 
-	int[][] dir ={{1,-1},{1,0},{1,1},{0,-1},{0,1},{-1,-1},{-1,0},{-1,1}};
+	int[][] dir = {{1,-1},{1,0},{1,1},{0,-1},{0,1},{-1,-1},{-1,0},{-1,1}};
 	public void gameOfLife(int[][] board) {
 	    for(int i=0;i<board.length;i++){
 	        for(int j=0;j<board[0].length;j++){

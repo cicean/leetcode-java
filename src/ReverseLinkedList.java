@@ -15,7 +15,8 @@ Hide Similar Problems (M) Reverse Linked List II (M) Binary Tree Upside Down (E)
 
  * 
  * 1.Refer.:
- * 1.1 同ReverseNodesInkGroup，区别在于先找到区间，然后仅需要reverse一次，
+ * 1.1 同ReverseNodesInkGroup，区别在于先找到
+ * 区间，然后仅需要reverse一次，
  * 1.2 Iterative
  * 1.3 Recursive
  */

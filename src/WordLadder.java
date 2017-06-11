@@ -76,6 +76,9 @@ public class WordLadder {
 	 */
 	
 	public class Solution {
+
+
+        //Java Solution using Dijkstra's algorithm
 	    public int ladderLength_1(String beginWord, String endWord, Set<String> wordList) {
 	        //BFS to solve the problem
 	        int count = 1;

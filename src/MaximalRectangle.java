@@ -1,5 +1,8 @@
+import GeekforGeeks.Largestrectangleunderhistogram;
+
 import java.util.Arrays;
 import java.util.Stack;
+
 
 /*
  85	Maximal Rectangle	22.0%	Hard
@@ -15,7 +18,30 @@ import java.util.Stack;
            3. Time : O(n ^ 2), Space : O(n).
  */
 
+
 public class MaximalRectangle {
+
+    public int maximum(int input[][]){
+        int temp[] = new int[input[0].length];
+        Largestrectangleunderhistogram mh = new Largestrectangleunderhistogram();
+        int maxArea = 0;
+        int area = 0;
+        for(int i=0; i < input.length; i++){
+            for(int j=0; j < temp.length; j++){
+                if(input[i][j] == 0){
+                    temp[j] = 0;
+                }else{
+                    temp[j] += input[i][j];
+                }
+            }
+            area = mh.maxHistogram(temp);
+            if(area > maxArea){
+                maxArea = area;
+            }
+        }
+        return maxArea;
+    }
+
 	public int maximalRectangle_1(char[][] matrix) {
         if (matrix.length == 0 || matrix[0].length == 0) return 0;
         int M = matrix.length, N = matrix[0].length;

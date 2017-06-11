@@ -1,19 +1,20 @@
 /*
- 104	Maximum Depth of Binary Tree	45.1%	Easy
- Problem:    Binary Tree Maximum Path Sum
- Difficulty: Easy
- Source:     https://oj.leetcode.com/problems/binary-tree-maximum-path-sum/
- Notes:
- Given a binary tree, find the maximum path sum.
- The path may start and end at any node in the tree.
- For example:
- Given the below binary tree,
-   1
-  / \
- 2   3
- Return 6.
- Solution: Recursion...
+ 104. Maximum Depth of Binary Tree   QuestionEditorial Solution  My Submissions
+Total Accepted: 185221
+Total Submissions: 370620
+Difficulty: Easy
+Contributors: Admin
+Given a binary tree, find its maximum depth.
+
+The maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node.
+
+Hide Company Tags LinkedIn Uber Apple Yahoo
+Hide Tags Tree Depth-first Search
+Hide Similar Problems (E) Balanced Binary Tree (E) Minimum Depth of Binary Tree
+
  */
+
+import java.util.*;
 
 /**
  * Definition for binary tree
@@ -26,20 +27,38 @@
  */
 
 public class MaximumDepthofBinaryTree {
-	
-	public int maxPathSum(TreeNode root) {
-        int[] res = new int[1];
-        res[0] = Integer.MIN_VALUE;
-        maxPathSumRe(root, res);
-        return res[0];
-    }
-    int maxPathSumRe(TreeNode root, int[] res) {
-        if (root == null) return 0;
-        int left = maxPathSumRe(root.left, res);
-        int right = maxPathSumRe(root.right, res);
-        res[0] = Math.max(res[0], root.val + Math.max(left, 0) + Math.max(right, 0));
-        return Math.max(root.val, root.val + Math.max(left, right));
-    }
+
+	public int maxDepth(TreeNode root) {
+		if(root==null){
+			return 0;
+		}
+		return 1+Math.max(maxDepth(root.left),maxDepth(root.right));
+	}
+
+	public int maxDepth_I(TreeNode root) {
+		if (root == null)
+			return 0;
+
+		Deque<TreeNode> stack = new LinkedList<TreeNode>();
+
+		stack.push(root);
+		int count = 0;
+
+		while (!stack.isEmpty()) {
+			int size = stack.size();
+			while (size-- > 0) {
+				TreeNode cur = stack.pop();
+				if (cur.left != null)
+					stack.addLast(cur.left);
+				if (cur.right != null)
+					stack.addLast(cur.right);
+			}
+			count++;
+
+		}
+		return count;
+
+	}
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -53,7 +72,7 @@ public class MaximumDepthofBinaryTree {
 		t3.left = t4;
 		t3.right = t5;
 		MaximumDepthofBinaryTree slt = new MaximumDepthofBinaryTree();
-		System.out.print(slt.maxPathSum(t1));
+		System.out.print(slt.maxDepth(t1));
 	}
 
 }

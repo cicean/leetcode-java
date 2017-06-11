@@ -1,8 +1,8 @@
 import java.util.HashMap;
 
-import com.sun.jndi.url.iiopname.iiopnameURLContextFactory;
-
 /**
+ *
+ * 290. Word Pattern
  * Given a pattern and a string str, find if str follows the same pattern.
  * 
  * Here follow means a full match, such that there is a bijection between a
@@ -18,8 +18,7 @@ import com.sun.jndi.url.iiopname.iiopnameURLContextFactory;
  * Credits: Special thanks to @minglotus6 for adding this problem and creating
  * all test cases.
  * 
- * Hide Tags Hash Table Hide Similar Problems (E) Isomorphic Strings (H) Word
- * Pattern II
+ * Hide Tags Hash Table Hide Similar Problems (E) Isomorphic Strings (H) Word¡¡Pattern II
  * 
  * @author cicean
  *

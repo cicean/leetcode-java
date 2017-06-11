@@ -59,7 +59,6 @@ public class Powxn {
         if(n == 1){
             return x;
         }
-        double val = pow(x, n/2);
         // 根据奇数还是偶数返回不同的值
         if(n % 2 == 0){
             return val * val;

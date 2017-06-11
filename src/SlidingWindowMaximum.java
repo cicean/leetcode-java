@@ -1,5 +1,5 @@
-import java.util.Deque;
-import java.util.LinkedList;
+import java.util.*;
+
 
 /*
  * 
@@ -57,6 +57,31 @@ public class SlidingWindowMaximum {
         }
         return result;
     }
+
+	//Java Solution runs O(kn) time O(1)
+	public int[] maxSlidingWindow_1(int[] nums, int k) {
+		int maxIndex = 0;
+		int currStorePtr=0;
+		for(int i=0;i<nums.length;i++){
+			if(i<= maxIndex +k-1){
+				if(nums[i]>=nums[maxIndex]) {
+					maxIndex =i;
+				}
+			}
+			else{
+				maxIndex =i-k+1;
+				for(int j=i-k+1;j<=i;j++){
+					if(nums[j]>=nums[maxIndex]) maxIndex =j;
+				}
+			}
+			nums[currStorePtr]=nums[maxIndex];
+
+			if(i>=k-1){
+				currStorePtr++;
+			}
+		}
+		return Arrays.copyOfRange(nums,0,currStorePtr);
+	}
 
 
 	

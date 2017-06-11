@@ -1,6 +1,9 @@
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
 /**
  * Created by cicean on 9/1/2016.
- * 362. Design Hit Counter  QuestionEditorial Solution  My Submissions
+
  Total Accepted: 3924
  Total Submissions: 7828
  Difficulty: Medium
@@ -53,6 +56,16 @@ public class DesignHitCounter {
      * 如果当前队首结点过期了, 就把那一秒内的计数都减去即可
      */
 
+    class Hit {
+        int timestamp;
+        int count;
+        Hit next;
+        Hit(int timestamp) {
+            this.timestamp = timestamp;
+            this.count = 1;
+        }
+    }
+
     public class HitCounter {
 
         private Hit start = new Hit(0);
@@ -67,6 +80,9 @@ public class DesignHitCounter {
         /** Record a hit.
          @param timestamp - The current timestamp (in seconds granularity). */
         public void hit(int timestamp) {
+
+            long timest = System.currentTimeMillis();
+
             if (tail.timestamp == timestamp) {
                 tail.count ++;
                 count ++;
@@ -90,15 +106,7 @@ public class DesignHitCounter {
         }
     }
 
-    class Hit {
-        int timestamp;
-        int count;
-        Hit next;
-        Hit(int timestamp) {
-            this.timestamp = timestamp;
-            this.count = 1;
-        }
-    }
+
 
 
     /**
@@ -139,6 +147,74 @@ public class DesignHitCounter {
             }
             return total;
         }
+
+
     }
+
+    //DropBox
+    // No multithreading
+
+    class DropBoxHit {
+
+        long timestamp;
+        int count;
+        DropBoxHit next;
+
+        public DropBoxHit(long timestamp) {
+            this.timestamp = timestamp;
+            this.count = 1;
+        }
+
+    }
+
+    public class DropBoxHitCounter{
+
+        private Lock lock;
+
+        private DropBoxHit head = new DropBoxHit(0);
+        private DropBoxHit tail = head;
+        private int count = 0;
+
+        public DropBoxHitCounter() {
+            lock = new ReentrantLock();
+        }
+
+        public void hit() {
+            synchronized (this) {}
+            lock.lock();
+            long timestamp = System.currentTimeMillis();
+            try {
+                Thread.sleep(100);
+                if (tail.timestamp == timestamp) {
+                    tail.count++;
+                    Thread.sleep(100);
+                    count++;
+                } else {
+                    tail.next = new DropBoxHit(timestamp);
+                    Thread.sleep(100);
+                    count++;
+                    tail = tail.next;
+                }
+                getHits();
+            } catch (InterruptedException e) {
+
+            }
+            lock.unlock();
+            }
+
+
+        public int getHits() {
+            long timestamp = System.currentTimeMillis();
+            while (head.next != null && timestamp - head.next.timestamp >= 300) {
+                count -= head.next.count;
+                head.next = head.next.next;
+            }
+            if (head.next == null) tail = head;
+            return count;
+        }
+
+
+    }
+
 
 }

@@ -2,6 +2,8 @@ package Bloomberg;
 
 import java.util.Arrays;
 import java.util.BitSet;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by cicean on 9/12/2016.
@@ -33,16 +35,20 @@ public class CountDuplicate {
 
     public int countDuplicate_bitset(int[] nums) {
         BitSet bs = new BitSet();
-        int num = 0;
-        bs.set(num);
-        bs.
+        Set<Integer> res = new HashSet<>();
+        for (int i :nums) {
+            if (!bs.get(i)) bs.set(i);
+            else res.add(i);
+        }
+        return res.size();
+
     }
 
 
     
     public static void main(String[] args) {
 		CountDuplicate slt = new CountDuplicate();
-		int[] nums = {2,1,2, 4, 8, 7, 8, 8};
-		System.out.println(slt.countDuplicate(nums));
+		int[] nums = {2,1,2, 4, 8, 7, 8, 8,4};
+		System.out.println(slt.countDuplicate_bitset(nums));
 	}
 }

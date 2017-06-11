@@ -55,3 +55,21 @@ class solution{
 		return min;
 	}
 }
+
+class MaxStack{
+
+	Stack<Integer> stk;
+	int max = Integer.MIN_VALUE;
+
+	public MaxStack(){
+		stk = new Stack<>();
+	}
+
+	public void push(int x) {
+		if (x >= max) {
+			stk.push(max);
+			max = x;
+		}
+	}
+
+}

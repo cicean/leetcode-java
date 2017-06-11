@@ -19,7 +19,7 @@ import java.util.Set;
  * 
  * You may assume all letters are in lowercase. If the order is invalid, return
  * an empty string. There may be multiple valid order of letters, return any one
- * of them is fine.
+ * of them is fine.ｇｇｇ
  * 
  * @author cicean [分析]
  *         先由输入构造出一张有向图，图的节点是字符，边指示字符顺序。考察相邻两字符串的每个字符来构造全图。假设当前考察的字符是c1,

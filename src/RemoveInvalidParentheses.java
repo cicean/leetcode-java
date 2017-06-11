@@ -24,6 +24,12 @@ import java.util.*;
  */
 public class RemoveInvalidParentheses {
 
+    public List<String> removeInvalidParentheses(String s) {
+        List<String> result = new ArrayList<String>();
+        remove(s, result, 0, 0, new char[]{'(', ')'});
+        return result;
+    }
+
     public void remove(String s, List<String> result, int last_i, int last_j, char[] par) {
         for (int stack = 0, i = last_i; i < s.length(); i++) {
             if (s.charAt(i) == par[0]) stack++;
@@ -49,11 +55,7 @@ public class RemoveInvalidParentheses {
         }
     }
 
-    public List<String> removeInvalidParentheses(String s) {
-        List<String> result = new ArrayList<String>();
-        remove(s, result, 0, 0, new char[]{'(', ')'});
-        return result;
-    }
+
 
     //BFS
     public List<String> removeInvalidParentheses1(String s) {
