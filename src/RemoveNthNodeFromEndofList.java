@@ -16,13 +16,15 @@
                    ---> n <----
  */
 
+import datastructure.ListNode;
+
 /**
  * Definition for singly-linked list.
  * 
-class ListNode {
+class datastructure.ListNode {
 	      int val;
-	      ListNode next;
-	     ListNode(int x) {
+	      datastructure.ListNode next;
+	     datastructure.ListNode(int x) {
 	          val = x;
 	          next = null;
 	      }
@@ -72,10 +74,10 @@ public class RemoveNthNodeFromEndofList {
 			 cur.next=temp;
 			 cur =temp;
 		 }
-		// ListNode n2 = new ListNode(2);
-		// ListNode n3 = new ListNode(3);
-		// ListNode n4 = new ListNode(4);
-		// ListNode n5 = new ListNode(5);
+		// datastructure.ListNode n2 = new datastructure.ListNode(2);
+		// datastructure.ListNode n3 = new datastructure.ListNode(3);
+		// datastructure.ListNode n4 = new datastructure.ListNode(4);
+		// datastructure.ListNode n5 = new datastructure.ListNode(5);
 		 
 		 int n=2;
 		 		 

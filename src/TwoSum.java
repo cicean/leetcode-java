@@ -1,6 +1,4 @@
-import java.util.*;
-import java.io.*;
-import java.lang.*;
+import java.util.HashMap;
 
 
 /*
@@ -39,8 +37,8 @@ public class TwoSum {
     	   int b=target - nums[i];
     	   if(map.get(b) !=null)
     	   {
-    		   return new int[]{map.get(b),i+1};
-       	   }else map.put(nums[i],i+1);
+    		   return new int[]{map.get(b),i};
+       	   }else map.put(nums[i],i);
     	  
     	}
        

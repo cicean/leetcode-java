@@ -1,4 +1,4 @@
-/**
+package Lintcode; /**
  * Convert binary search tree to doubly linked list with in-order traversal.
 
 Have you met this question in a real interview? Yes
@@ -25,7 +25,7 @@ return 1<->2<->3<->4<->5
  *         this.left = this.right = null;
  *     }
  * }
- * Definition for Doubly-ListNode.
+ * Definition for Doubly-datastructure.ListNode.
  * public class DoublyListNode {
  *     int val;
  *     DoublyListNode next, prev;
@@ -94,7 +94,7 @@ public class ConvertBinarySearchTreetoDoublyLinkedList {
      *         this.left = this.right = null;
      *     }
      * }
-     * Definition for Doubly-ListNode.
+     * Definition for Doubly-datastructure.ListNode.
      * public class DoublyListNode {
      *     int val;
      *     DoublyListNode next, prev;

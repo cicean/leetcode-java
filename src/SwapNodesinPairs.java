@@ -12,12 +12,14 @@
            2. Recursive solution with O(n) space (for practice).
  */
 
+import datastructure.ListNode;
+
 /**
  * Definition for singly-linked list.
- * public class ListNode {
+ * public class datastructure.ListNode {
  *     int val;
- *     ListNode next;
- *     ListNode(int x) {
+ *     datastructure.ListNode next;
+ *     datastructure.ListNode(int x) {
  *         val = x;
  *         next = null;
  *     }

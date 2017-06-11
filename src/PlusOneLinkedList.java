@@ -1,3 +1,5 @@
+import datastructure.ListNode;
+
 /**
  * Created by cicean on 9/1/2016.
  * 369. Plus One Linked List  QuestionEditorial Solution  My Submissions
@@ -22,10 +24,10 @@ public class PlusOneLinkedList {
     //方法：两次反转链表。
     /**
      * Definition for singly-linked list.
-     * public class ListNode {
+     * public class datastructure.ListNode {
      *     int val;
-     *     ListNode next;
-     *     ListNode(int x) { val = x; }
+     *     datastructure.ListNode next;
+     *     datastructure.ListNode(int x) { val = x; }
      * }
      */
     public class Solution {

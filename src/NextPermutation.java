@@ -28,6 +28,7 @@ public class NextPermutation {
         int last = num.length - 1;
         int i = last;
         while (i >0 && num[i - 1] >= num [i]) --i;
+        System.out.println("i = " + i);
         if (i == 0) {
             for (int l = 0, r = last; l < r; ++l, --r) {
                 int tmp = num[l];
@@ -71,7 +72,7 @@ public class NextPermutation {
     
     public static void main(String[] args) {
     	NextPermutation slt = new NextPermutation();
-		int[] num = {1,2,3};
+		int[] num = {1,3,2};
 		for(int i=0; i<num.length; i++){
 			System.out.print(num[i]+",");
 			}

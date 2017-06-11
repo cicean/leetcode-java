@@ -58,6 +58,39 @@ public class ImplementQueueusingStacks {
 		
 	}
 
+	//push O(n), popO(1), popO(1)
+	class MyQueue2{
+		Stack<Integer> stack1 = new Stack<Integer>();
+		Stack<Integer> stack2 = new Stack<Integer>();
+
+		public void push(int x) {
+			stack2.push(x);
+			while (!stack1.empty()) {
+				stack2.push(stack1.pop());
+			}
+			stack1 = stack2;
+			stack2 = stack1;
+		}
+
+		// Removes the element from in front of queue.
+		public void pop() {
+
+			stack1.pop();
+		}
+
+		// Get the front element.
+		public int peek() {
+
+			return stack1.peek();
+		}
+
+		// Return whether the queue is empty.
+		public boolean empty() {
+			return (stack1.empty() && stack2.empty());
+		}
+
+	}
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		

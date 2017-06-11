@@ -31,7 +31,7 @@ public class Permutations {
             return;
         }
         for (int i = 0; i < num.length; ++i) {
-            if (free[i] == true) {
+            if (free[i]) {
                 free[i] = false;
                 path.add(num[i]);
                 permuteRe(num, res, path, free);

@@ -13,7 +13,8 @@
 */
 
 public class TrappingRainWater {
-	public int trap_1(int[] A) {
+
+    public int trap_1(int[] A) {
         int n = A.length;
         if (n == 0) return 0;
         int[] maxLeft = new int[n];

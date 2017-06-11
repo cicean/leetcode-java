@@ -23,6 +23,11 @@ public class PlusOne {
         System.arraycopy(digits, 0, res, 1, digits.length);
         return res;
     }
+
+    public int[] plusOne(int[] num, int digits) {
+
+    }
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		PlusOne slt = new PlusOne();

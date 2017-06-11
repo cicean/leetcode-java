@@ -1,4 +1,4 @@
-/*
+/**
  * 9	Palindrome Number	29.8%	Easy
  Problem:    Palindrome Number
  Difficulty: Easy
@@ -14,11 +14,13 @@
  Solution: 1. Count the number of digits first (traverse once) then check the digits from both sides to center.
            2. Reverse the number, then check to see if x == reverse(x).
            3. Recursion (interesting but a little hard to understand). -> See C++.
+
  */
 
 
 public class PalindromeNumber {
 
+	//Bloomberg µçÃæ
 	 public boolean isPalindrome(int x) {
 	        return isPalindrome_2(x);
 	    }
@@ -45,6 +47,17 @@ public class PalindromeNumber {
 	        }
 	        return res;
 	    }
+
+	public boolean isPalindrome_3(int x) {
+		int p = x;
+		int q = 0;
+		while (x > 0) {
+			q = q * 10 + x % 10;
+			x = x / 10;
+		}
+
+		return p == q ? true : false;
+	}
 	    
 	    public static void main(String[] args)
 		{

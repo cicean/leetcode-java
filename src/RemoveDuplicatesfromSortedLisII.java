@@ -15,6 +15,8 @@ Hide Tags Linked List
  Solution: ...
  */
 
+import datastructure.ListNode;
+
 public class RemoveDuplicatesfromSortedLisII {
 	/**
 	 * recursive version

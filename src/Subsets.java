@@ -74,6 +74,26 @@ public class Subsets {
         }
         return res;
     }
+
+    public List<List<Integer>> subsets_bitops(int[] ns) {
+        long limit = 1 << ns.length;
+        List<List<Integer>> ret = new ArrayList<>();
+
+        for(long i =0; i < limit; i ++){
+            List<Integer> set = new ArrayList<>();
+            ret.add(set);
+            for(int j =0; j < ns.length; j ++){
+                if(isSet(i, j))
+                    set.add(ns[j]);
+            }
+        }
+
+        return ret;
+    }
+
+    boolean isSet(long n, int i){
+        return ((1 << i) & n) != 0  ;
+    }
     
   
     

@@ -1,3 +1,5 @@
+package Lintcode;
+
 /**
  * Given two strings, find the longest common substring.
 

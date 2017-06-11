@@ -1,22 +1,31 @@
-import java.lang.*;
-import java.io.*;
-
-
-
-/*
-7	Reverse Integer	25.7%	Easy
- Problem:    Reverse Integer
+/**
+ 7. Reverse Integer  QuestionEditorial Solution  My Submissions
+ Total Accepted: 165107
+ Total Submissions: 694049
  Difficulty: Easy
- Source:     https://oj.leetcode.com/problems/reverse-integer/
- Notes:
  Reverse digits of an integer.
+
  Example1: x = 123, return 321
  Example2: x = -123, return -321
+
+ click to show spoilers.
+
  Have you thought about this?
  Here are some good questions to ask before coding. Bonus points for you if you have already thought through this!
+
  If the integer's last digit is 0, what should the output be? ie, cases such as 10, 100.
+
  Did you notice that the reversed integer might overflow? Assume the input is a 32-bit integer, then the reverse of 1000000003 overflows. How should you handle such cases?
- Throw an exception? Good, but what if throwing an exception is not an option? You would then have to re-design the function (ie, add an extra parameter).
+
+ For the purpose of this problem, assume that your function returns 0 when the reversed integer overflows.
+
+ Update (2014-11-10):
+ Test cases had been added to test the overflow behavior.
+
+ Hide Company Tags Bloomberg Apple
+ Hide Tags Math
+ Hide Similar Problems (E) String to Integer (atoi)
+
  Solution: Use % and / iteratively.
  
  你有没有想过这些呢？
@@ -43,6 +52,9 @@ public class ReverseInteger {
 	public int reverse_2(int x) {
 		// Note: The Solution object is instantiated only once and is reused by
 		// each test case.
+
+		if (x > Integer.MAX_VALUE || x < Integer.MIN_VALUE) return 0;
+
 		int result = 0;
 
 		int flag = 0;

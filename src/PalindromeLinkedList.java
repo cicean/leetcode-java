@@ -1,3 +1,5 @@
+import datastructure.ListNode;
+
 /*
  * 234	Palindrome Linked List	23.4%	Eas
  * Given a singly linked list, determine if it is a palindrome.

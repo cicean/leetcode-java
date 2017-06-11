@@ -1,9 +1,9 @@
 import java.util.Stack;
 
-/*
+/**
  Author:     Andy, nkuwjg@gmail.com
  Date:       Jan 28, 2015
- Problem:    Flatten Binary Tree to Linked List
+ Problem:    114 Flatten Binary Tree to Linked List
  Difficulty: Medium
  Source:     https://oj.leetcode.com/problems/flatten-binary-tree-to-linked-list/
  Notes:
@@ -44,9 +44,8 @@ import java.util.Stack;
  */
 
 public class FlattenBinaryTreetoLinkedList {
-	public void flatten(TreeNode root) {
-        flatten_3(root);
-    }
+
+    // recursive
     public void flatten_1(TreeNode root) {
         if (root == null) return;
         flatten_1(root.left);
@@ -58,6 +57,8 @@ public class FlattenBinaryTreetoLinkedList {
         root.right = root.left;
         root.left = null;
     }
+
+    // stack
     public void flatten_2(TreeNode root) {
         if (root == null) return;
         Stack<TreeNode> stk = new Stack<TreeNode>();
@@ -70,15 +71,21 @@ public class FlattenBinaryTreetoLinkedList {
             cur.right = stk.empty() == true ? null : stk.peek();
         }
     }
-    public TreeNode flattenRe3(TreeNode root, TreeNode tail) {
+
+    public void flatten(TreeNode root) {
+        flatten_3(root);
+    }
+
+    private void flatten_3(TreeNode root) {
+        if (root == null) return;
+        flattenRe3(root, null);
+    }
+
+    private TreeNode flattenRe3(TreeNode root, TreeNode tail) {
         if (root == null) return tail;
         root.right = flattenRe3(root.left, flattenRe3(root.right, tail));
         root.left = null;
         return root;
-    }
-    public void flatten_3(TreeNode root) {
-        if (root == null) return;
-        flattenRe3(root, null);
     }
     
     public static void print(TreeNode root) {

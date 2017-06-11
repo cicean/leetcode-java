@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.PriorityQueue;
 
@@ -69,88 +70,53 @@ public class FindMedianfromDataStream {
             else
                 return maxHeap.peek();
         }
-    };
+    }
 
 // Your MedianFinder object will be instantiated and called as such:
 // MedianFinder mf = new MedianFinder();
 // mf.addNum(1);
 // mf.findMedian();
-
-    // LintCode
-
-    /**
-     * Clarification
-     What's the definition of Median?
-     - Median is the number that in the middle of a sorted array. If there are n numbers in a sorted array A, the median is A[(n - 1) / 2]. For example, if A=[1,2,3], median is 2. If A=[1,19], median is 1.
-
-     Example
-     For numbers coming list: [1, 2, 3, 4, 5], return [1, 1, 2, 2, 3].
-
-     For numbers coming list: [4, 5, 1, 3, 2, 6, 0], return [4, 4, 4, 3, 3, 3, 3].
-
-     For numbers coming list: [2, 20, 100], return [2, 2, 20].
-
-     Challenge
-     Total run time in O(nlogn).
-
-     Tags
-     LintCode Copyright Heap Priority Queue Google
-     */
-
-    public class Solution {
-        public int[] medianII(int[] nums) {
-            // write your code here
-            if(nums.length <= 1) return nums;
-            int[] res = new int[nums.length];
-            PriorityQueue<Integer> minheap = new PriorityQueue<Integer>();
-            PriorityQueue<Integer> maxheap = new PriorityQueue<Integer>(11, new Comparator<Integer>(){
-                public int compare(Integer arg0, Integer arg1) {
-                    return arg1 - arg0;
-                }
-            });
-            // 将前两个元素先加入堆中
-            minheap.offer(Math.max(nums[0], nums[1]));
-            maxheap.offer(Math.min(nums[0], nums[1]));
-            res[0] = res[1] = Math.min(nums[0], nums[1]);
-            for(int i = 2; i < nums.length; i++){
-                int mintop = minheap.peek();
-                int maxtop = maxheap.peek();
-                int curr = nums[i];
-                // 新数在较小的一半中
-                if (curr < maxtop){
-                    if (maxheap.size() <= minheap.size()){
-                        maxheap.offer(curr);
-                    } else {
-                        minheap.offer(maxheap.poll());
-                        maxheap.offer(curr);
-                    }
-                    // 新数在中间
-                } else if (curr >= maxtop && curr <= mintop){
-                    if (maxheap.size() <= minheap.size()){
-                        maxheap.offer(curr);
-                    } else {
-                        minheap.offer(curr);
-                    }
-                    // 新数在较大的一半中
-                } else {
-                    if(minheap.size() <= maxheap.size()){
-                        minheap.offer(curr);
-                    } else {
-                        maxheap.offer(minheap.poll());
-                        minheap.offer(curr);
-                    }
-                }
-                if (maxheap.size() == minheap.size()){
-                    res[i] = (maxheap.peek() + minheap.peek()) / 2;
-                } else if (maxheap.size() > minheap.size()){
-                    res[i] = maxheap.peek();
-                } else {
-                    res[i] = minheap.peek();
-                }
-            }
-            return res;
-        }
+    
+    //LTE
+    private int initSize = 5;
+    private int[] store = new int[5];
+    private int count = 0;
+    
+    // Adds a number into the data structure.
+    public void addNum(int num) {
+        if (count >= initSize) increasingArray();
+        if (num != 0) store[count] = num;
+        count++;
+        System.out.println("insert numbers" + count);
     }
+
+    // Returns the median of current data stream
+    public double findMedian() {
+    	int[] tmp = new int[count];
+        System.arraycopy(store, 0, tmp, 0, count);
+    	Arrays.sort(tmp);
+    	int low = count / 2;
+        return count % 2 == 0 ? (double) (tmp[low - 1] + tmp[low]) / 2 : new Double(tmp[low]);
+    }
+    
+    private void increasingArray() {
+        initSize += 5;
+        System.out.println("initSize = " + initSize);
+        int[] temp = store;
+        store = new int[initSize];
+        System.arraycopy(temp, 0, store, 0, temp.length);
+    }
+    
+    public static void main(String[] args) {
+		FindMedianfromDataStream slt = new FindMedianfromDataStream();
+		slt.addNum(6);
+		System.out.println(slt.findMedian());
+		slt.addNum(10);
+		System.out.println(slt.findMedian());
+		slt.addNum(2);
+		System.out.println(slt.findMedian());
+		
+	}
 
 
 }

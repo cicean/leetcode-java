@@ -13,6 +13,8 @@
 	¡Ónode.val = node.next.val£¨node.next = node.next.nextº¥ø…
  */
 
+import datastructure.ListNode;
+
 public class DeleteNodeinaLinkedList {
 
 	
@@ -20,6 +22,18 @@ public class DeleteNodeinaLinkedList {
 		if(node == null) return;
         node.val = node.next.val;
         node.next = node.next.next;
+    }
+	
+	public void deleteNode2(ListNode node) {
+        if (node != null) {
+            if (node.next == null) {
+                node = null;
+            } else {
+                node.val = node.next.val;
+                node.next = node.next.next;
+            }
+
+        }
     }
 	
 	public  void print(ListNode node){
@@ -58,7 +72,7 @@ public class DeleteNodeinaLinkedList {
 		 
 		 DeleteNodeinaLinkedList slt = new DeleteNodeinaLinkedList();
 		 slt.print(l1);
-		 slt.deleteNode(n3);
+		 slt.deleteNode2(n6);
 		 slt.print(l1);
 	}
 

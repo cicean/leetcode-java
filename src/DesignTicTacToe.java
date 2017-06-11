@@ -71,7 +71,9 @@ public class DesignTicTacToe {
      数据结构：
      两个大小为n的一维数组计数器rows和cols，对角线计数器diag和逆对角线计数器anti_diag
      思路：
-     如果玩家1在第一行某一列放了一个子，那么rows[row]自增1，cols[col]自增1，如果玩家2在第一行某一列放了一个子，则rows[row]自减1，cols[col]自减1，于是当rows[row]等于n或者-n的时候，或者cols[col]等于n或者-n，则游戏结束返回该玩家即可，对角线和逆对角线如法炮制
+     如果玩家1在第一行某一列放了一个子，那么rows[row]自增1，cols[col]自增1，
+     如果玩家2在第一行某一列放了一个子，则rows[row]自减1，cols[col]自减1，
+     于是当rows[row]等于n或者-n的时候，或者cols[col]等于n或者-n，则游戏结束返回该玩家即可，对角线和逆对角线如法炮制
 
      注意
      注意判断对角线的时候，是两个if并列的，不是if else，因为一个点有可能既是正对角线，也是反对角线，那就是中间的点。

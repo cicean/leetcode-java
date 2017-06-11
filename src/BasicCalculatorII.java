@@ -133,6 +133,53 @@ public class BasicCalculatorII {
         return num.pop();
     }
 	
+	//pocket gem
+	/**
+	 * 只有‘＋’和‘＊’，其实就是一样的。
+	 * 我还写了一个小bug，就是每次见到sign之后，之前的number要清零，
+	 * 还调试了一会儿。嗯，这个确实赖我。。。
+	 * 然后又要支持‘－’，注意这不一样了，要考虑2+3*－4+5之类的情况。好不容易搞定了，又说要考虑括号。。。
+	 * @param s
+	 */
+	
+	public int calculate_pg(String s) {
+		int res = 0;
+        if (s == null) return res;
+        int i = 0;
+        int last = 0, last_result = 1;
+        char last_operater = '+';
+        int sign = 1;
+        char[] arr = s.toCharArray();
+        while (i < s.length()) {
+            if (arr[i] == ' ') {
+                i++;
+                continue;
+            }
+            if (arr[i] == '+' || arr[i] == '-') {
+                res += last_result * sign;
+                sign = arr[i++] == '+' ? 1 : -1;
+                last_result = 1;
+                last_operater = '+';
+            } else if (arr[i] == '/' || arr[i] == '*') {
+                last_operater = arr[i];
+                i++;
+            }
+            if (Character.isDigit(arr[i])) {
+                last = 0;
+                while (i < arr.length && Character.isDigit(arr[i])) {
+                    last = last * 10 + arr[i++] - '0';
+                }
+
+                if (last_operater == '*') last_result *= last;
+                else if (last_operater == '/') last_result /= last;
+                else last_result = last;
+            }
+        }
+        res += last_result * sign;
+        return res;
+
+	}
+	
 	
 	
 	public static void main(String[] args) {
@@ -141,7 +188,7 @@ public class BasicCalculatorII {
 		
 		System.out.println(slt.calculate_1("3+2*2"));
 		System.out.println(slt.calculate_1(" 3/2 "));
-		System.out.println(slt.calculate_1(" 3+5 / 2 "));
+		System.out.println(slt.calculate_pg(" 3+5 / 2 "));
 	}
 
 }

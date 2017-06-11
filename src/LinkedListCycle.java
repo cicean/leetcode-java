@@ -16,12 +16,14 @@
   从相遇点开始一个指针，头开始一个指针，两者相遇即为环开始点
 */
 
+import datastructure.ListNode;
+
 /**
  * Definition for singly-linked list.
- * class ListNode {
+ * class datastructure.ListNode {
  *     int val;
- *     ListNode next;
- *     ListNode(int x) {
+ *     datastructure.ListNode next;
+ *     datastructure.ListNode(int x) {
  *         val = x;
  *         next = null;
  *     }
@@ -61,7 +63,7 @@ public class LinkedListCycle {
 		LinkedListCycle slt = new LinkedListCycle();
 		System.out.print(slt.hasCycle(a));
 		
-	//	ListNode r = detectCycle(a);
+	//	datastructure.ListNode r = detectCycle(a);
 	//	if (null != r)
 	//		System.out.println(r.val);
 	}

@@ -41,6 +41,7 @@ public class SortColors {
     }
 
     //api is_low(), is_mid(), is_high().
+    //FaceBook
     public void sortArray(int[] nums) {
         int left = 0, right = nums.length - 1;
         if (right <= 1) return;

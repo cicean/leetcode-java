@@ -1,5 +1,4 @@
-import java.util.Arrays;
-
+import java.util.*;
 
 /*
  3	Longest Substring Without Repeating Characters	20.8%	Medium
@@ -12,8 +11,9 @@ import java.util.Arrays;
            2. More space, but maybe faster.
  */
 
-public class lengthOfLongestSubstring {
+public class LongestSubstringWithoutRepeatingCharacters extends Exception{
 	 public int lengthOfLongestSubstring_1(String s) {
+		   	if (s == null) throw new RuntimeException();
 	        boolean[] hash = new boolean[256];
 	        Arrays.fill(hash,false);
 	        int n = s.length();
@@ -45,11 +45,33 @@ public class lengthOfLongestSubstring {
 	        }
 	        return res;
 	    }
+
+	public int lengthOfLongestSubstring(String s) {
+		if (s == null) return 0;
+		int i = 0, j = 0, max = 0;
+	    Set<Character> set = new HashSet<>();
+	    
+	    while (j < s.length()) {
+	        if (!set.contains(s.charAt(j))) {
+	            set.add(s.charAt(j++));
+	            max = Math.max(max, set.size());
+	        } else {
+	            set.remove(s.charAt(i++));
+	        }
+	    }
+	    
+	    return max;
+
+	}
+
+
 	    
 	    public static void main(String[] args) {
-	    	lengthOfLongestSubstring slt = new lengthOfLongestSubstring();
-			int len = slt.lengthOfLongestSubstring_1("wlrbbmqbhcdarzowkkyhiddqscdxrjmowfrxsjybl"
-					+ "dbefsarcbynecdyggxxpklorellnmpapqfwkhopkmco");
-			System.out.println(len);
+	    	LongestSubstringWithoutRepeatingCharacters slt = new LongestSubstringWithoutRepeatingCharacters();
+			
+			String test = "abcabcbb";
+			
+			System.out.println(slt.lengthOfLongestSubstring(test));
+			System.out.println(slt.lengthOfLongestSubstring_1(test));
 		}
 }

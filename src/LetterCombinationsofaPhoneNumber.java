@@ -18,14 +18,15 @@ import java.util.Scanner;
  Solution: ...
  */
 
-  //假设有k个digit 每个digit可以代表m个字符, 时间O(m^k) 空间O(m^k)
+//假设有k个digit 每个digit可以代表m个字符, 时间O(m^k) 空间O(m^k)
 public class LetterCombinationsofaPhoneNumber {
-	public List<String> letterCombinations(String digits) {
+    public List<String> letterCombinations(String digits) {
         ArrayList<String> res = new ArrayList<String>();
-        String[] keyboard = new String[]{" ","","abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
-        letterCombinationsRe(keyboard,res,digits,"");
+        String[] keyboard = new String[]{"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+        letterCombinationsRe(keyboard, res, digits, "");
         return res;
     }
+
     public void letterCombinationsRe(String[] keyboard, ArrayList<String> res, String digits, String s) {
         if (s.length() == digits.length()) {
             res.add(s);
@@ -33,34 +34,35 @@ public class LetterCombinationsofaPhoneNumber {
         }
         String letters = keyboard[digits.charAt(s.length()) - '0'];
         for (int i = 0; i < letters.length(); ++i) {
-            letterCombinationsRe(keyboard, res, digits, s+letters.charAt(i));
+            letterCombinationsRe(keyboard, res, digits, s + letters.charAt(i));
         }
     }
 
-      //FIFO queue
-      public List<String> letterCombinations2(String digits) {
-          LinkedList<String> ans = new LinkedList<String>();
-          String[] mapping = new String[] {"0", "1", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
-          ans.add("");
-          for(int i =0; i<digits.length();i++){
-              int x = Character.getNumericValue(digits.charAt(i));
-              while(ans.peek().length()==i){
-                  String t = ans.remove();
-                  for(char s : mapping[x].toCharArray())
-                      ans.add(t+s);
-              }
-          }
-          return ans;
-      }
-    
-    public static void main(String[] args) {
-		// TODO Auto-generated method stub
-    	LetterCombinationsofaPhoneNumber slt=  new LetterCombinationsofaPhoneNumber();
-		Scanner sc =  new Scanner(System.in);
-    	System.out.println("Please input an integer");
-    	String s= sc.nextLine();
-    	List<String> res = slt.letterCombinations(s);
-    	System.out.print(res);
+    //FIFO queue
+    public List<String> letterCombinations2(String digits) {
+        LinkedList<String> ans = new LinkedList<String>();
+        if (digits == null || digits.length() == 0) return ans;
+        String[] mapping = new String[]{"0", "1", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+        ans.add("");
+        for (int i = 0; i < digits.length(); i++) {
+            int x = Character.getNumericValue(digits.charAt(i));
+            while (ans.peek().length() == i) {
+                String t = ans.remove();
+                for (char s : mapping[x].toCharArray())
+                    ans.add(t + s);
+            }
+        }
+        return ans;
     }
-    
+
+    public static void main(String[] args) {
+        // TODO Auto-generated method stub
+        LetterCombinationsofaPhoneNumber slt = new LetterCombinationsofaPhoneNumber();
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Please input an integer");
+        String s = sc.nextLine();
+        List<String> res = slt.letterCombinations(s);
+        System.out.print(res);
+    }
+
 }

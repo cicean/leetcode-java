@@ -1,4 +1,4 @@
-/*
+/**
  Author:     King, wangjingui@outlook.com
  Date:       Dec 20, 2014
  Problem:    Search Insert Position
@@ -13,6 +13,8 @@
  [1,3,5,6], 7 -> 4
  [1,3,5,6], 0 -> 0
  Solution: Binary search.
+ Bloomberg µÁ√Ê
+ Give target and sorted array {1,2,2,2,4,5}, find target index
  */
 
 public class SearchInsertPosition {

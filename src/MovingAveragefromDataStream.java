@@ -51,9 +51,9 @@ public class MovingAveragefromDataStream {
     public class MovingAverage2 {
 
         /** Initialize your data structure here. */
-        Queue<Integer> data = new LinkedList<>();
+    	Queue<Integer> data = new LinkedList<>();
         int size;
-        int sum;
+        long sum;
         public MovingAverage2(int size) {
             this.size = size;
             this.sum = 0;
@@ -65,11 +65,11 @@ public class MovingAveragefromDataStream {
                 int head = data.poll();
                 sum = sum - head + val;
 
-                return sum/size;
+                return (double)sum / size;
             }else{
                 sum += val;
                 data.offer(val);
-                return sum / data.size();
+                return (double)sum / data.size();
             }
         }
     }

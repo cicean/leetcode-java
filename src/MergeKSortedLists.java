@@ -1,3 +1,5 @@
+import datastructure.ListNode;
+
 import java.util.Comparator;
 import java.util.List;
 import java.util.PriorityQueue;
@@ -16,10 +18,10 @@ import java.util.Queue;
  */
 /**
  * Definition for singly-linked list.
- * public class ListNode {
+ * public class datastructure.ListNode {
  *     int val;
- *     ListNode next;
- *     ListNode(int x) {
+ *     datastructure.ListNode next;
+ *     datastructure.ListNode(int x) {
  *         val = x;
  *         next = null;
  *     }
@@ -67,8 +69,8 @@ public class MergeKSortedLists {
     }
 	
 	public ListNode mergeKLists_1(List<ListNode> lists) {
-        Comparator<ListNode> comp =  new Comparator<ListNode>(){  
-            public int compare(ListNode a,  ListNode b) {  
+        Comparator<ListNode> comp =  new Comparator<ListNode>(){
+            public int compare(ListNode a, ListNode b) {
                 if(b.val > a.val) {  
                     return -1;  
                 }else if(b.val < a.val){  
