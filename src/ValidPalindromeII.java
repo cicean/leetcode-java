@@ -1,4 +1,5 @@
 /**
+ * 680. Valid Palindrome II
  * Created by miaowang on 9/18/17.
  * Given a non-empty string s, you may delete at most one character. Judge whether you can make it a palindrome.
 
@@ -18,34 +19,45 @@ public class ValidPalindromeII {
 
 
             int left = 0;
-            int right = s.length();
             int count = 0;
-            while(left < right) {
-                if (s.charAt(left) == s.charAt(right)) {
+            while(left < s.length()/2) {
+                if (s.charAt(left) == s.charAt(s.length() - left -1)) {
                     left++;
-                    right--;
                 } else {
-                    if (s.charAt(left+1) == s.charAt(right)) {
+                    if (s.charAt(left+1) == s.charAt(s.length() - left -1)) {
                         count++;
                         left=left+2;
-                        right--;
-                        System.out.print(s.charAt(left+1) + "=" + s.charAt(right));
-                    } else if (s.charAt(left) == s.charAt(right-1)) {
+                    } else if (s.charAt(left) == s.charAt(s.length() - left -1)) {
                         count++;
                         left++;
-                        right=right-2;
-                        System.out.print(s.charAt(left) + "=" + s.charAt(right+1));
                     } else {
-                        System.out.print(s.charAt(left) + "!=" + s.charAt(right));
                         return false;
                     }
 
-                    if (count > 1) {
-                        return false;
-                    }
+                }
+
+                if (count > 1) {
+                    return false;
                 }
             }
 
-        return count <= 1 ? true : false;
+        return true;
+    }
+
+    public boolean isPalindromeRange(String s, int i, int j) {
+        for (int k = i; k <= i + (j - i) / 2; k++) {
+            if (s.charAt(k) != s.charAt(j - k + i)) return false;
+        }
+        return true;
+    }
+    public boolean validPalindrome_1(String s) {
+        for (int i = 0; i < s.length() / 2; i++) {
+            if (s.charAt(i) != s.charAt(s.length() - 1 - i)) {
+                int j = s.length() - 1 - i;
+                return (isPalindromeRange(s, i+1, j) ||
+                    isPalindromeRange(s, i, j-1));
+            }
+        }
+        return true;
     }
 }
