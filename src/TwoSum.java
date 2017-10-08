@@ -1,4 +1,4 @@
-import java.util.HashMap;
+import java.util.*;
 
 
 /*
@@ -13,10 +13,10 @@ You may assume that each input would have exactly one solution.
 Input: numbers={2, 7, 11, 15}, target=9
 Output: index1=1, index2=2
 
-O(n2) runtime, O(1) space ¨C Brute force:
-The brute force approach is simple. Loop through each element x and find if there is another value that equals to target ¨C x. As finding another value requires looping through the rest of array, its runtime complexity is O(n2).
+O(n2) runtime, O(1) space ï¿½C Brute force:
+The brute force approach is simple. Loop through each element x and find if there is another value that equals to target ï¿½C x. As finding another value requires looping through the rest of array, its runtime complexity is O(n2).
 
-O(n) runtime, O(n) space ¨C Hash table:
+O(n) runtime, O(n) space ï¿½C Hash table:
 We could reduce the runtime complexity of looking up a value to O(1) using a hash map that maps a value to its index.
 
 Solution: 1. Hash table. O(n)
@@ -32,6 +32,8 @@ public class TwoSum {
 	
 	public int[] twoSum(int[] nums, int target) {
        HashMap<Integer, Integer> map = new HashMap <Integer, Integer>();
+       List<List<Integer>> res = new ArrayList<>();
+       res.s
        for (int i=0; i<nums.length; i++)
        {
     	   int b=target - nums[i];
