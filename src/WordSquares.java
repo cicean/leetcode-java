@@ -1,3 +1,5 @@
+import java.util.*;
+
 /**
  * Created by cicean on 10/16/2016.
  * 425. Word Squares   QuestionEditorial Solution  My Submissions
@@ -7,7 +9,7 @@
  Contributors: Admin
  Given a set of words (without duplicates), find all word squares you can build from them.
 
- A sequence of words forms a valid word square if the kth row and column read the exact same string, where 0 ¡Ü k < max(numRows, numColumns).
+ A sequence of words forms a valid word square if the kth row and column read the exact same string, where 0 ï¿½ï¿½ k < max(numRows, numColumns).
 
  For example, the word sequence ["ball","area","lead","lady"] forms a word square because each word reads the same both horizontally and vertically.
 
