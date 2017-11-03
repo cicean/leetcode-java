@@ -1,3 +1,5 @@
+import java.util.*;
+
 /**
  * Created by cicean on 11/14/2016.
  * 439. Ternary Expression Parser   QuestionEditorial Solution  My Submissions
@@ -9,7 +11,7 @@
 
  Note:
 
- The length of the given string is ¡Ü 10000.
+ The length of the given string is ï¿½ï¿½ 10000.
  Each number will contain only one digit.
  The conditional expressions group right-to-left (as usual in most languages).
  The condition will always be either T or F. That is, the condition will never be a digit.
@@ -49,5 +51,37 @@
 
  */
 public class TernaryExpressionParser {
+
+  /**
+   * Very easy 1 pass Stack Solution in JAVA (NO STRING CONCAT)
+   Iterate the expression from tail, whenever encounter a character before '?', calculate the right value and push back to stack.
+
+   P.S. this code is guaranteed only if "the given expression is valid" base on the requirement.
+
+   */
+
+  public String parseTernary(String expression) {
+    if (expression == null || expression.length() == 0) return "";
+    Deque<Character> stack = new LinkedList<>();
+
+    for (int i = expression.length() - 1; i >= 0; i--) {
+      char c = expression.charAt(i);
+      if (!stack.isEmpty() && stack.peek() == '?') {
+
+        stack.pop(); //pop '?'
+        char first = stack.pop();
+        stack.pop(); //pop ':'
+        char second = stack.pop();
+
+        if (c == 'T') stack.push(first);
+        else stack.push(second);
+      } else {
+        stack.push(c);
+      }
+    }
+
+    return String.valueOf(stack.peek());
+  }
+
 
 }

@@ -1,7 +1,7 @@
 import java.util.*;
 
 /**
- * 636. Exclusive Time of Functions
+ * ns636. Exclusive Time of Functions
  DescriptionHintsSubmissionsDiscussSolution
  Discuss Pick One
  Given the running logs of n functions that are executed in a nonpreemptive single threaded CPU, find the exclusive time of these functions.
@@ -142,30 +142,22 @@ public class ExclusiveTimeofFunctions {
    */
 
   public class Solution2 {
-    public int[] exclusiveTime(int n, List < String > logs) {
-      Stack < Integer > stack = new Stack < > ();
+    public int[] exclusiveTime(int n, List<String> logs) {
       int[] res = new int[n];
-      String[] s = logs.get(0).split(":");
-      stack.push(Integer.parseInt(s[0]));
-      int i = 1, prev = Integer.parseInt(s[2]);
-      while (i < logs.size()) {
-        s = logs.get(i).split(":");
-        if (s[1].equals("start")) {
-          if (!stack.isEmpty())
-            res[stack.peek()] += Integer.parseInt(s[2]) - prev;
-          stack.push(Integer.parseInt(s[0]));
-          prev = Integer.parseInt(s[2]);
-        } else {
-          res[stack.peek()] += Integer.parseInt(s[2]) - prev + 1;
-          stack.pop();
-          prev = Integer.parseInt(s[2]) + 1;
+      Stack<Integer> stack = new Stack<>();
+      int prevTime = 0;
+      for (String log : logs) {
+        String[] parts = log.split(":");
+        if (!stack.isEmpty()) res[stack.peek()] +=  Integer.parseInt(parts[2]) - prevTime;
+        prevTime = Integer.parseInt(parts[2]);
+        if (parts[1].equals("start")) stack.push(Integer.parseInt(parts[0]));
+        else {
+          res[stack.pop()]++;
+          prevTime++;
         }
-        i++;
       }
       return res;
     }
   }
-
-
 
 }
