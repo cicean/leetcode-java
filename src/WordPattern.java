@@ -1,4 +1,4 @@
-import java.util.HashMap;
+import java.util.*;
 
 /**
  *
@@ -18,7 +18,7 @@ import java.util.HashMap;
  * Credits: Special thanks to @minglotus6 for adding this problem and creating
  * all test cases.
  * 
- * Hide Tags Hash Table Hide Similar Problems (E) Isomorphic Strings (H) Word¡¡Pattern II
+ * Hide Tags Hash Table Hide Similar Problems (E) Isomorphic Strings (H) Wordï¿½ï¿½Pattern II
  * 
  * @author cicean
  *
@@ -44,6 +44,18 @@ public class WordPattern {
 		}
 		return true;
 	}
+
+	public boolean wordPattern_2(String pattern, String str) {
+		String[] words = str.split(" ");
+		if (words.length != pattern.length())
+			return false;
+		Map index = new HashMap();
+		for (Integer i=0; i<words.length; ++i)
+			if (index.put(pattern.charAt(i), i) != index.put(words[i], i))
+				return false;
+		return true;
+	}
+
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

@@ -11,7 +11,7 @@ import java.util.Map;
  * LeetCode: Group Shifted Strings
 AUG 8 2015
 
-Given a string, we can ¡°shift¡± each of its letter to its successive letter, for example: ¡°abc¡± -> ¡°bcd¡±. We can keep ¡°shifting¡± which forms the sequence:
+Given a string, we can ï¿½ï¿½shiftï¿½ï¿½ each of its letter to its successive letter, for example: ï¿½ï¿½abcï¿½ï¿½ -> ï¿½ï¿½bcdï¿½ï¿½. We can keep ï¿½ï¿½shiftingï¿½ï¿½ which forms the sequence:
 
 1
 "abc" -> "bcd" -> ... -> "xyz"
@@ -28,9 +28,38 @@ given: ["abc", "bcd", "acef", "xyz", "az", "ba", "a", "z"], Return:
   ["acef"],
   ["a","z"]
 ]
-Note: For the return value, each inner list¡¯s elements must follow the lexicographic order.
+Note: For the return value, each inner listï¿½ï¿½s elements must follow the lexicographic order.
  */
 public class GroupShiftedStrings {
+
+	public class Solution {
+		public List<List<String>> groupStrings(String[] strings) {
+			List<List<String>> result = new ArrayList<List<String>>();
+			Map<String, List<String>> map = new HashMap<String, List<String>>();
+			for (String str : strings) {
+				int offset = str.charAt(0) - 'a';
+				String key = "";
+				for (int i = 0; i < str.length(); i++) {
+					char c = (char) (str.charAt(i) - offset);
+					if (c < 'a') {
+						c += 26;
+					}
+					key += c;
+				}
+				if (!map.containsKey(key)) {
+					List<String> list = new ArrayList<String>();
+					map.put(key, list);
+				}
+				map.get(key).add(str);
+			}
+			for (String key : map.keySet()) {
+				List<String> list = map.get(key);
+				Collections.sort(list);
+				result.add(list);
+			}
+			return result;
+		}
+	}
 
 	public List<List<String>> groupString(String[] strings) {
 		

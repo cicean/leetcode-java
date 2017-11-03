@@ -2,7 +2,7 @@ import java.util.*;
 import java.util.Map.Entry;
 
 /*
- 49	Anagrams	24.4%	Medium
+ 49	Group Anagrams	24.4%	Medium
  Problem:    Anagrams
  Difficulty: Easy
  Source:     https://oj.leetcode.com/problems/anagrams/
@@ -70,20 +70,20 @@ public class GroupAnagrams {
 
 	/**
 	 * ask the interview whether need the order of the group by al increasing
-	 * й╠╪Д O(NKlogK) ©у╪Д O(N)
+	 * й╠О©╫О©╫ O(NKlogK) О©╫у╪О©╫ O(N)
 	 * k = word length
-	 * еп╤оа╫╦Ж╢ййг╥Яйг╠Дпн╢йё╛вН╪Р╣╔╣д╥╫╥╗йг╫╚а╫╦Ж╢й╟╢вжд╦еепРё╛©╢╫А╧Шйг╥ЯоЮм╛║ё
-	 * уБлБжпнрцгр╙╫╚кЫспм╛н╙р╩╦Ж╠Дпн╢й╢й╦Ы╣д╢й╧И╣╫р╩фПё╛вН©Л╣д╥╫╥╗тРйгсц╧Чоё╠М║ё
-	 * кЫртуБлБ╬мйг╫А╨о╧Чоё╠М╨меепР║ёнрцг╫╚ц©╦Ж╢йеепР╨Сё╛╦Ы╬щуБ╦Ж╪Эж╣ё╛
-	 * ур╣╫╧Чоё╠МжпоЮс╕╣дап╠Мё╛╡╒лМ╪с╫Ьх╔║ён╙акбЗвЦлБд©вжд╦кЁпР╣др╙гСё╛
-	 * нрцгйДЁЖж╝г╟╩╧р╙╫╚ц©╦Жап╠М╟╢уудз╡©╣д╢йеепРр╩об║ё
-	 * ©иртж╠╫ссцJava╣дCollections.sort()уБ╦ЖAPI║ё
+	 * О©╫п╤О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫г╥О©╫О©╫г╠О©╫О©╫н╢йёО©╫О©╫О©╫Р╣╔╣д╥О©╫О©╫О©╫О©╫г╫О©╫О©╫О©╫О©╫О©╫О©╫й╟О©╫О©╫О©╫д╦О©╫О©╫О©╫Рё╛©О©╫О©╫О©╫О©╫О©╫г╥О©╫О©╫О©╫м╛О©╫О©╫
+	 * О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫р╙О©╫О©╫О©╫О©╫О©╫О©╫м╛н╙р╩О©╫О©╫О©╫О©╫О©╫н╢й╢й╦О©╫О©╫д╢й╧И╣╫р╩О©╫О©╫О©╫О©╫О©╫д╥О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫ц╧О©╫оёО©╫О©╫
+	 * О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫г╫О©╫о╧О©╫оёО©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫г╫О©╫ц©О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫Сё╛╦О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫ж╣О©╫О©╫
+	 * О©╫р╣О©╫О©╫О©╫оёО©╫О©╫О©╫О©╫О©╫О©╫с╕О©╫О©╫О©╫п╠О©╫О©╫О©╫О©╫О©╫с╫О©╫х╔О©╫О©╫н╙О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫д©О©╫О©╫д╦кЁО©╫О©╫О©╫р╙О©╫О©╫
+	 * О©╫О©╫О©╫О©╫О©╫О©╫О©╫ж╝г╟О©╫О©╫р╙О©╫О©╫ц©О©╫О©╫О©╫п╠О©╫О©╫О©╫О©╫з╡О©╫О©╫д╢О©╫О©╫О©╫О©╫О©╫р╩О©╫б║О©╫
+	 * О©╫О©╫О©╫О©╫ж╠О©╫О©╫О©╫О©╫JavaО©╫О©╫Collections.sort()О©╫О©╫О©╫APIО©╫О©╫
 	 */
 	public class Solution {
 		public List<List<String>> groupAnagrams(String[] strs) {
 			Map<String, List<String>> map = new HashMap<String, List<String>>();
 			for(String str : strs){
-				// ╫╚╣╔╢й╟╢вжд╦еепР
+				// О©╫О©╫О©╫О©╫О©╫й╟О©╫О©╫О©╫д╦О©╫О©╫О©╫О©╫
 				char[] carr = str.toCharArray();
 				Arrays.sort(carr);
 				String key = new String(carr);
@@ -95,7 +95,7 @@ public class GroupAnagrams {
 				map.put(key, list);
 			}
 			List<List<String>> res = new ArrayList<List<String>>();
-			// ╫╚ап╠М╟╢╣╔╢йеепР
+			// О©╫О©╫О©╫п╠О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫
 			for(String key : map.keySet()){
 				List<String> curr = map.get(key);
 				Collections.sort(curr);
