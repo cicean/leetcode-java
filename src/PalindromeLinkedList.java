@@ -7,14 +7,14 @@ import datastructure.ListNode;
 	Follow up:
 	Could you do it in O(n) time and O(1) space?
 	
-	¸ø¶¨Ò»¸öµ¥Á´±í£¬ÅÐ¶ÏËüÊÇ·ñÊÇ»ØÎÄ¡£
-	½øÒ»²½Ë¼¿¼£º
-	Äã¿ÉÒÔÔÚO(n)Ê±¼ä¸´ÔÓ¶ÈºÍO(1)¿Õ¼ä¸´ÔÓ¶ÈÍê³ÉÂð£¿
+	ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½Ç»ï¿½ï¿½Ä¡ï¿½
+	ï¿½ï¿½Ò»ï¿½ï¿½Ë¼ï¿½ï¿½ï¿½ï¿½
+	ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½O(n)Ê±ï¿½ä¸´ï¿½Ó¶Èºï¿½O(1)ï¿½Õ¼ä¸´ï¿½Ó¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-	½âÌâË¼Â·£º
-	1). Ê¹ÓÃ¿ìÂýÖ¸ÕëÑ°ÕÒÁ´±íÖÐµã
-	2). ½«Á´±íµÄºó°ë²¿·Ö¾ÍµØÄæÖÃ£¬È»ºó±È¶ÔÇ°ºóÁ½°ëµÄÔªËØÊÇ·ñÒ»ÖÂ
-	3). »Ö¸´Ô­Ê¼Á´±íµÄ½á¹¹£¨¿ÉÑ¡£©
+	ï¿½ï¿½ï¿½ï¿½Ë¼Â·ï¿½ï¿½
+	1). Ê¹ï¿½Ã¿ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½Ñ°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½
+	2). ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äºï¿½ë²¿ï¿½Ö¾Íµï¿½ï¿½ï¿½ï¿½Ã£ï¿½È»ï¿½ï¿½È¶ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½ï¿½Ç·ï¿½Ò»ï¿½ï¿½
+	3). ï¿½Ö¸ï¿½Ô­Ê¼ï¿½ï¿½ï¿½ï¿½Ä½á¹¹ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½
  */
 public class PalindromeLinkedList {
 
@@ -46,10 +46,33 @@ public class PalindromeLinkedList {
         	end = end.next;
         }
         return true;
-        
-        
-        
+
     }
+
+
+  class Solution {
+    public boolean isPalindrome(ListNode head) {
+      if(head == null || head.next == null)
+        return true;
+      if(head.val == head.next.val && head.next.next == null)
+        return true;
+      ListNode slow = head;
+      ListNode cur = head.next;
+      while(cur.next != null) {
+        if(slow.val == cur.next.val) {
+          if(cur.next.next != null)
+            return false;
+          cur.next = null;
+          slow = slow.next;
+          cur = slow.next;
+          if(cur == null || slow.val == cur.val)
+            return true;
+        } else
+          cur = cur.next;
+      }
+      return false;
+    }
+  }
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

@@ -4,7 +4,7 @@
  Total Accepted: 3782
  Total Submissions: 9872
  Difficulty: Medium
- Given an Android 3x3 key lock screen and two integers m and n, where 1 ¡Ü m ¡Ü n ¡Ü 9, count the total number of unlock patterns of the Android lock screen, which consist of minimum of m keys and maximum n keys.
+ Given an Android 3x3 key lock screen and two integers m and n, where 1 ï¿½ï¿½ m ï¿½ï¿½ n ï¿½ï¿½ 9, count the total number of unlock patterns of the Android lock screen, which consist of minimum of m keys and maximum n keys.
 
  Rules for a valid pattern:
  Each pattern must connect at least m keys and at most n keys.
@@ -37,21 +37,21 @@
 public class AndroidUnlockPatterns {
 
     /**
-     * ÕâµÀÌâÕ§Ò»¿´ÌâÄ¿ÕâÃ´³¤ÒÔÎªÊÇÒ»¸öÉè¼ÆÌâ£¬ÆäÊµ²»ÊÇ£¬ÕâµÀÌâ»¹ÊÇ±È½ÏÓÐÒâË¼µÄ£¬
-     * ÆðÂë¸úÊµ¼Ê½áºÏµÄ±È½Ï½ôÃÜ¡£ÕâµÀÌâËµµÄÊÇ°²×¿»ú×ÓµÄ½âËø·½·¨£¬
-     * ÓÐ9¸öÊý×Ö¼ü£¬Èç¹ûÃÜÂëµÄ³¤¶È·¶Î§ÔÚ[m, n]Ö®¼ä£¬ÎÊËùÓÐµÄ½âËøÄ£Ê½¹²ÓÐ¶àÉÙÖÖ£¬
-     * ×¢ÒâÌâÄ¿ÖÐ¸ø³öµÄÒ»Ð©·Ç·¨µÄ»¬¶¯Ä£Ê½¡£ÄÇÃ´ÎÒÃÇÏÈÀ´¿´Ò»ÏÂÄÄÐ©ÊÇ·Ç·¨µÄ£¬
-     * Ê×ÏÈ1²»ÄÜÖ±½Óµ½3£¬±ØÐë¾­¹ý2£¬Í¬ÀíµÄÓÐ4µ½6£¬7µ½9£¬1µ½7£¬2µ½8£¬3µ½9£¬
-     * »¹ÓÐ¾ÍÊÇ¶Ô½ÇÏß±ØÐë¾­¹ý5£¬ÀýÈç1µ½9£¬3µ½7µÈ¡£
-     * ÎÒÃÇ½¨Á¢Ò»¸ö¶þÎ¬Êý×éjumps£¬ÓÃÀ´¼ÇÂ¼Á½¸öÊý×Ö¼üÖ®¼äÊÇ·ñÓÐÖÐ¼ä¼ü£¬
-     * È»ºóÔÙÓÃÒ»¸öÒ»Î»Êý×évisitedÀ´¼ÇÂ¼Ä³¸ö¼üÊÇ·ñ±»·ÃÎÊ¹ý£¬
-     * È»ºóÎÒÃÇÓÃµÝ¹éÀ´½â£¬ÎÒÃÇÏÈ¶Ô1µ÷ÓÃµÝ¹éº¯Êý£¬
-     * ÔÚµÝ¹éº¯ÊýÖÐ£¬ÎÒÃÇ±éÀú1µ½9Ã¿¸öÊý×Önext£¬
-     * È»ºóÕÒËûÃÇÖ®¼äÊÇ·ñÓÐjumpÊý×Ö£¬Èç¹ûnextÃ»±»·ÃÎÊ¹ý£¬
-     * ²¢ÇÒjumpÎª0£¬»òÕßjump±»·ÃÎÊ¹ý£¬ÎÒÃÇ¶Ônextµ÷ÓÃµÝ¹éº¯Êý¡£
-     * Êý×Ö1µÄÄ£Ê½¸öÊýËã³öÀ´ºó£¬ÓÉÓÚ1,3,7,9ÊÇ¶Ô³ÆµÄ£¬ËùÒÔÎÒÃÇ³Ë4¼´¿É£¬
-     * È»ºóÔÙ¶ÔÊý×Ö2µ÷ÓÃµÝ¹éº¯Êý£¬2,4,6,9Ò²ÊÇ¶Ô³ÆµÄ£¬ÔÙ³Ë4£¬
-     * ×îºóµ¥¶À¶Ô5µ÷ÓÃÒ»´Î£¬È»ºó°ÑËùÓÐµÄ¼ÓÆðÀ´¾ÍÊÇ×îÖÕ½á¹ûÁË£¬
+     * ï¿½ï¿½ï¿½ï¿½ï¿½Õ§Ò»ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½Ã´ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½â£¬ï¿½ï¿½Êµï¿½ï¿½ï¿½Ç£ï¿½ï¿½ï¿½ï¿½ï¿½â»¹ï¿½Ç±È½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¼ï¿½Ä£ï¿½
+     * ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½Ê½ï¿½ÏµÄ±È½Ï½ï¿½ï¿½Ü¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½ï¿½Ç°ï¿½×¿ï¿½ï¿½ï¿½ÓµÄ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+     * ï¿½ï¿½9ï¿½ï¿½ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½È·ï¿½Î§ï¿½ï¿½[m, n]Ö®ï¿½ä£¬ï¿½ï¿½ï¿½ï¿½ï¿½ÐµÄ½ï¿½ï¿½ï¿½Ä£Ê½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½Ö£ï¿½
+     * ×¢ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½Ð¸ï¿½ï¿½ï¿½ï¿½ï¿½Ò»Ð©ï¿½Ç·ï¿½ï¿½Ä»ï¿½ï¿½ï¿½Ä£Ê½ï¿½ï¿½ï¿½ï¿½Ã´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ð©ï¿½Ç·Ç·ï¿½ï¿½Ä£ï¿½
+     * ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½ï¿½ï¿½Ö±ï¿½Óµï¿½3ï¿½ï¿½ï¿½ï¿½ï¿½ë¾­ï¿½ï¿½2ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½4ï¿½ï¿½6ï¿½ï¿½7ï¿½ï¿½9ï¿½ï¿½1ï¿½ï¿½7ï¿½ï¿½2ï¿½ï¿½8ï¿½ï¿½3ï¿½ï¿½9ï¿½ï¿½
+     * ï¿½ï¿½ï¿½Ð¾ï¿½ï¿½Ç¶Ô½ï¿½ï¿½ß±ï¿½ï¿½ë¾­ï¿½ï¿½5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½9ï¿½ï¿½3ï¿½ï¿½7ï¿½È¡ï¿½
+     * ï¿½ï¿½ï¿½Ç½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Î¬ï¿½ï¿½ï¿½ï¿½jumpsï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¼ï¿½Ö®ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½Ð¼ï¿½ï¿½ï¿½ï¿½
+     * È»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Ò»Î»ï¿½ï¿½ï¿½ï¿½visitedï¿½ï¿½ï¿½ï¿½Â¼Ä³ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ñ±»·ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½
+     * È»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÃµÝ¹ï¿½ï¿½ï¿½ï¿½â£¬ï¿½ï¿½ï¿½ï¿½ï¿½È¶ï¿½1ï¿½ï¿½ï¿½ÃµÝ¹éº¯ï¿½ï¿½ï¿½ï¿½
+     * ï¿½ÚµÝ¹éº¯ï¿½ï¿½ï¿½Ð£ï¿½ï¿½ï¿½ï¿½Ç±ï¿½ï¿½ï¿½1ï¿½ï¿½9Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½nextï¿½ï¿½
+     * È»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½jumpï¿½ï¿½ï¿½Ö£ï¿½ï¿½ï¿½ï¿½nextÃ»ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½
+     * ï¿½ï¿½ï¿½ï¿½jumpÎª0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½jumpï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¶ï¿½nextï¿½ï¿½ï¿½ÃµÝ¹éº¯ï¿½ï¿½ï¿½ï¿½
+     * ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½Ä£Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1,3,7,9ï¿½Ç¶Ô³ÆµÄ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç³ï¿½4ï¿½ï¿½ï¿½É£ï¿½
+     * È»ï¿½ï¿½ï¿½Ù¶ï¿½ï¿½ï¿½ï¿½ï¿½2ï¿½ï¿½ï¿½ÃµÝ¹éº¯ï¿½ï¿½ï¿½ï¿½2,4,6,9Ò²ï¿½Ç¶Ô³ÆµÄ£ï¿½ï¿½Ù³ï¿½4ï¿½ï¿½
+     * ï¿½ï¿½óµ¥¶ï¿½ï¿½ï¿½5ï¿½ï¿½ï¿½ï¿½Ò»ï¿½Î£ï¿½È»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÐµÄ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ½ï¿½ï¿½ï¿½Ë£ï¿½
      */
 
     public class Solution {
@@ -93,7 +93,7 @@ public class AndroidUnlockPatterns {
     }
 
     /**
-     * ÆäÖÐusedÊÇÒ»¸ö9Î»µÄmask£¬Ã¿Î»¶ÔÓ¦Ò»¸öÊý×Ö£¬Èç¹ûÎª1±íÊ¾´æÔÚ£¬0±íÊ¾²»´æÔÚ£¬(i1, j1)ÊÇÖ®Ç°µÄÎ»ÖÃ£¬(i, j)ÊÇµ±Ç°µÄÎ»ÖÃ£¬ËùÒÔ»¬¶¯ÊÇ´Ó(i1, j1)µ½(i, j)£¬ÖÐ¼äµãÎª((i1+i)/2, (j1+j)/2), ÕâÀïµÄIºÍJ·Ö±ðÎªi1+iºÍj1+j£¬»¹Ã»ÓÐ³ýÒÔ2£¬ËùÒÔIºÍJ¶¼ÊÇÕûÊý¡£Èç¹ûI%2»òÕßJ%2²»Îª0£¬ËµÃ÷ÖÐ¼äµãµÄ×ø±ê²»ÊÇÕûÊý£¬¼´ÖÐ¼äµã²»´æÔÚ£¬Èç¹ûÖÐ¼äµã´æÔÚ£¬Èç¹ûÖÐ¼äµã±»Ê¹ÓÃÁË£¬ÔòÕâÌõÏßÒ²ÊÇ³ÉÁ¢µÄ£¬¿ÉÒÔµ÷ÓÃµÝ¹é
+     * ï¿½ï¿½ï¿½ï¿½usedï¿½ï¿½Ò»ï¿½ï¿½9Î»ï¿½ï¿½maskï¿½ï¿½Ã¿Î»ï¿½ï¿½Ó¦Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ö£ï¿½ï¿½ï¿½ï¿½Îª1ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Ú£ï¿½0ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½Ú£ï¿½(i1, j1)ï¿½ï¿½Ö®Ç°ï¿½ï¿½Î»ï¿½Ã£ï¿½(i, j)ï¿½Çµï¿½Ç°ï¿½ï¿½Î»ï¿½Ã£ï¿½ï¿½ï¿½ï¿½Ô»ï¿½ï¿½ï¿½ï¿½Ç´ï¿½(i1, j1)ï¿½ï¿½(i, j)ï¿½ï¿½ï¿½Ð¼ï¿½ï¿½Îª((i1+i)/2, (j1+j)/2), ï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½Jï¿½Ö±ï¿½Îªi1+iï¿½ï¿½j1+jï¿½ï¿½ï¿½ï¿½Ã»ï¿½Ð³ï¿½ï¿½ï¿½2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½Jï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½I%2ï¿½ï¿½ï¿½ï¿½J%2ï¿½ï¿½Îª0ï¿½ï¿½Ëµï¿½ï¿½ï¿½Ð¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê²»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¼ï¿½ã²»ï¿½ï¿½ï¿½Ú£ï¿½ï¿½ï¿½ï¿½ï¿½Ð¼ï¿½ï¿½ï¿½ï¿½Ú£ï¿½ï¿½ï¿½ï¿½ï¿½Ð¼ï¿½ã±»Ê¹ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò²ï¿½Ç³ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½ï¿½ï¿½Ôµï¿½ï¿½ÃµÝ¹ï¿½
 
 
      used is the 9-bit bitmask telling which keys have already been used and (i1,j1) and (i2,j2)are the previous two key coordinates. A step is valid if...
@@ -124,5 +124,105 @@ public class AndroidUnlockPatterns {
             return res;
         }
     };
+
+    /**
+     * Summary
+
+     After Android launched its "unlock pattern" system to protect our smart phones from unauthorized access, the most
+     common question that comes to one's mind is: How secure exactly are these patterns? The current article gives an
+     answer to this question, as presenting an algorithm, which computes the number of all valid pattern combinations.
+     It is intended for intermediate users and introduces the following ideas: Backtracking, Arrays.
+
+     Solution
+
+     Approach #1: (Backtracking) [Accepted]
+
+     Algorithm
+
+     The algorithm uses backtracking technique to enumerate all possible kk combinations of numbers [1â€¦ 9][1â€¦ 9] where
+     m \leq k \leq nmâ‰¤kâ‰¤n. During the generation of the recursive solution tree, the algorithm cuts all the branches
+     which lead to patterns which doesn't satisfy the rules and counts only the valid patterns. In order to compute a
+     valid pattern, the algorithm performs the following steps:
+
+     Select a digit ii which is not used in the pattern till this moment. This is done with the help of a usedused
+     array which stores all available digits.
+
+     We need to keep last inserted digit lastlast. The algorithm makes a check whether one of the following conditions
+     is valid.
+
+     There is a knight move (as in chess) from lastlast towards ii or lastlast and ii are adjacent digits in a row, in
+     a column. In this case the sum of both digits should be an odd number.
+
+     The middle element midmid in the line which connects ii and lastlast was previously selected. In case ii and
+     lastlast are positioned at both ends of the diagonal, digit midmid = 5 should be previously selected.
+
+     lastlast and ii are adjacent digits in a diagonal
+
+     In case one of the conditions above is satisfied, digit ii becomes part of partially generated valid pattern and
+     the algorithm continues with the next candidate digit till the pattern is fully generated. Then it counts it.
+     In case none of the conditions are satisfied, the algorithm rejects the current digit ii, backtracks and continues
+     to search for other valid digits among the unused ones.
+
+     Complexity Analysis
+
+     Time complexity : O( n!)O(n!), where nn is maximum pattern length
+
+     The algorithm computes each pattern once and no element can appear in the pattern twice. The time complexity is proportional to the number of the computed patterns. One upper bound of the number of all possible combinations is :
+
+     \ \sum_{i=m}^{n} {_9}P_i = \ \sum_{i=m}^{n} \frac{9!}{(9 - i)!}
+     â€‹â€‹
+     Space complexity : O(n)O(n), where nn is maximum pattern length In the worst case the maximum depth of recursion is nn. Therefore we need O( n)O(n) space used by the system recursive stack
+     */
+
+    public class Solution1 {
+
+        private boolean used[] = new boolean[9];
+
+        public int numberOfPatterns(int m, int n) {
+            int res = 0;
+            for (int len = m; len <= n; len++) {
+                res += calcPatterns(-1, len);
+                for (int i = 0; i < 9; i++) {
+                    used[i] = false;
+                }
+            }
+            return res;
+        }
+
+        private boolean isValid(int index, int last) {
+            if (used[index])
+                return false;
+            // first digit of the pattern
+            if (last == -1)
+                return true;
+            // knight moves or adjacent cells (in a row or in a column)
+            if ((index + last) % 2 == 1)
+                return true;
+            // indexes are at both end of the diagonals for example 0,0, and 8,8
+            int mid = (index + last)/2;
+            if (mid == 4)
+                return used[mid];
+            // adjacent cells on diagonal  - for example 0,0 and 1,0 or 2,0 and //1,1
+            if ((index%3 != last%3) && (index/3 != last/3)) {
+                return true;
+            }
+            // all other cells which are not adjacent
+            return used[mid];
+        }
+
+        private int calcPatterns(int last, int len) {
+            if (len == 0)
+                return 1;
+            int sum = 0;
+            for (int i = 0; i < 9; i++) {
+                if (isValid(i, last)) {
+                    used[i] = true;
+                    sum += calcPatterns(i, len - 1);
+                    used[i] = false;
+                }
+            }
+            return sum;
+        }
+    }
 
 }

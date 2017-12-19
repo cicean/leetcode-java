@@ -39,28 +39,34 @@ import java.util.Arrays;
  Notice that a/aa/aaa/file1.txt is not the longest file path, if there is another path aaaaaaaaaaaaaaaaaaaaa/sth.png.
 
  Hide Company Tags Google
- ¸ø¶¨Ò»´®Â·¾¶£¬Çó×î³¤µÄÎÄ¼þÂ·¾¶¡£
+ ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½î³¤ï¿½ï¿½ï¿½Ä¼ï¿½Â·ï¿½ï¿½ï¿½ï¿½
  */
 public class LongestAbsoluteFilePath {
-    public class Solution {
-        public int firstUniqChar(String s) {
-            int[] dic = new int[26];
-            Arrays.fill(dic, -1);
-            for(int i = 0;i<s.length();i++) {
-                int index = s.charAt(i) - 'a';
-                if(dic[index]==-2) continue;
-                else if(dic[index]==-1)
-                    dic[index] = i;
-                else{
-                    dic[index] = -2;
-                }
+
+    public int lengthLongestPath(String input) {
+        String[] paths = input.split("\n");
+        int[] stack = new int[paths.length+1];
+        int maxLen = 0;
+        for(String s:paths){
+            int lev = s.lastIndexOf("\t")+1, curLen = stack[lev+1] = stack[lev]+s.length()-lev+1;
+            if(s.contains(".")) maxLen = Math.max(maxLen, curLen-1);
+        }
+        return maxLen;
+    }
+
+    class Solution {
+        public int lengthLongestPath(String input) {
+            String[] paths = input.split("\n");
+            int[] stack = new int[paths.length+1];
+            int maxLen = 0;
+            for(String s:paths){
+                //stack[i] the prefix length of level i
+                int lev = s.lastIndexOf("\t")+1;
+                int curLen = stack[lev]+s.length()-lev+1;
+                stack[lev+1] = stack[lev]+s.length()-lev+1;
+                if(s.contains(".")) maxLen = Math.max(maxLen, curLen-1);
             }
-            int ret = s.length();
-            for(int i: dic){
-                if(i>=0&&i<ret)
-                    ret = i;
-            }
-            return ret==s.length()?-1:ret;
+            return maxLen;
         }
     }
 

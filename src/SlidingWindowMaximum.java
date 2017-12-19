@@ -20,7 +20,7 @@ Window position                Max
 Therefore, return the max sliding window as [3,3,5,5,6,7].
 
 Note: 
-You may assume k is always valid, ie: 1 ¡Ü k ¡Ü input array's size for non-empty array.
+You may assume k is always valid, ie: 1 ï¿½ï¿½ k ï¿½ï¿½ input array's size for non-empty array.
 
 Follow up:
 Could you solve it in linear time?
@@ -28,15 +28,15 @@ Could you solve it in linear time?
 Hint:
 
 How about using a data structure such as deque (double-ended queue)?
-The queue size need not be the same as the window¡¯s size.
+The queue size need not be the same as the windowï¿½ï¿½s size.
 Remove redundant elements and the queue should store only elements that need to be considered.
 Hide Tags Heap
 Hide Similar Problems (H) Minimum Window Substring (E) Min Stack (H) Longest Substring with At Most Two Distinct Characters
 
- * Î¬»¤Ò»¸ödequeÀ´±£´æindex£¬±£Ö¤£º
-£¨1£©´Ó deque.peekLast() µ½ deque.peekFirst() ¶ÔÓ¦µÄnums[i] (deque.peekFirst() <= i <= deque.peekLast()) µÄÖµµÝ¼õ
-£¨2£©¶ÔÓÚµÚi¸ö»¬¶¯´°¿Ú£¬deque.peekLast() > i - k£¬¼´dequeµÄ×îºóÒ»¸öÔªËØÒ»¶¨ÔÚµ±Ç°µÄµÚ i ¸ö»¬¶¯´°¿ÚÄÚ¡£
-£¨3£©¶ÔÓÚµÚi¸ö»¬¶¯´°¿Ú£¬¶ÔÓ¦µÄmaximumÖµÒ»¶¨ÊÇ deque.peekLast()¡£
+ * Î¬ï¿½ï¿½Ò»ï¿½ï¿½dequeï¿½ï¿½ï¿½ï¿½ï¿½ï¿½indexï¿½ï¿½ï¿½ï¿½Ö¤ï¿½ï¿½
+ï¿½ï¿½1ï¿½ï¿½ï¿½ï¿½ deque.peekLast() ï¿½ï¿½ deque.peekFirst() ï¿½ï¿½Ó¦ï¿½ï¿½nums[i] (deque.peekFirst() <= i <= deque.peekLast()) ï¿½ï¿½Öµï¿½Ý¼ï¿½
+ï¿½ï¿½2ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú£ï¿½deque.peekLast() > i - kï¿½ï¿½ï¿½ï¿½dequeï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Ôªï¿½ï¿½Ò»ï¿½ï¿½ï¿½Úµï¿½Ç°ï¿½Äµï¿½ i ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¡ï¿½
+ï¿½ï¿½3ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú£ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½maximumÖµÒ»ï¿½ï¿½ï¿½ï¿½ deque.peekLast()ï¿½ï¿½
  */
 public class SlidingWindowMaximum {
 
@@ -81,6 +81,28 @@ public class SlidingWindowMaximum {
 			}
 		}
 		return Arrays.copyOfRange(nums,0,currStorePtr);
+	}
+
+	public static int[] slidingWindowMax(final int[] in, final int w) {
+		final int[] max_left = new int[in.length];
+		final int[] max_right = new int[in.length];
+
+		max_left[0] = in[0];
+		max_right[in.length - 1] = in[in.length - 1];
+
+		for (int i = 1; i < in.length; i++) {
+			max_left[i] = (i % w == 0) ? in[i] : Math.max(max_left[i - 1], in[i]);
+
+			final int j = in.length - i - 1;
+			max_right[j] = (j % w == 0) ? in[j] : Math.max(max_right[j + 1], in[j]);
+		}
+
+		final int[] sliding_max = new int[in.length - w + 1];
+		for (int i = 0, j = 0; i + w <= in.length; i++) {
+			sliding_max[j++] = Math.max(max_right[i], max_left[i + w - 1]);
+		}
+
+		return sliding_max;
 	}
 
 
