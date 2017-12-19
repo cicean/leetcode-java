@@ -95,8 +95,6 @@ public class DecodeString {
         }
     }
 
-    BigDecimal
-
     public String decodeString(String s) { // shorter but less optimized REGEX
         Matcher matcher = Pattern.compile("(\\d*)\\[([a-z]*)\\]").matcher(s);
         while (matcher.find()) {

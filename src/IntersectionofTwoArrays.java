@@ -16,12 +16,13 @@ import java.util.*;
  The result can be in any order.
  Hide Tags Binary Search Hash Table Two Pointers Sort
  Hide Similar Problems (E) Intersection of Two Arrays II
- ¸ø¶¨Á½¸öÊı×é£¬ÇóËûÃÇµÄ½»¼¯£¨²»ËãÖØ¸´£©
+ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½é£¬ï¿½ï¿½ï¿½ï¿½ï¿½ÇµÄ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø¸ï¿½ï¿½ï¿½
  */
 public class IntersectionofTwoArrays {
     /**
-     * ÏÈÏëµ½µÄÊÇHashSet()£¬ÆäÊµHashMapÒ²¿ÉÒÔ£¬Ö»ÊÇĞèÒªÔÚ±éÀúnums2µÄÊ±ºò£¬Ìí¼Óµ½resÊı×éÖĞµÄÊıÒªremoveµô£¬ÂÔÎ¢Âé·³ÁËÒ»µã¡£ÔÚLCÀïÅÜµÄÊ±ºò£¬HashSetÒ²Òª¿ìÒ»µã¡£
-     ÁíÒ»ÖÖÀàËÆHashMap×ö·¨µÄBitSet()¾Í¿ìµÄ¶àÁË¡£
+     * ï¿½ï¿½ï¿½ëµ½ï¿½ï¿½ï¿½ï¿½HashSet()ï¿½ï¿½ï¿½ï¿½ÊµHashMapÒ²ï¿½ï¿½ï¿½Ô£ï¿½Ö»ï¿½ï¿½ï¿½ï¿½Òªï¿½Ú±ï¿½ï¿½ï¿½nums2ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Óµï¿½resï¿½ï¿½ï¿½ï¿½ï¿½Ğµï¿½ï¿½ï¿½Òªremoveï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¢ï¿½é·³ï¿½ï¿½Ò»ï¿½ã¡£ï¿½ï¿½LCï¿½ï¿½ï¿½Üµï¿½Ê±ï¿½ï¿½HashSetÒ²Òªï¿½ï¿½Ò»ï¿½ã¡£
+     ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½HashMapï¿½ï¿½ï¿½ï¿½ï¿½ï¿½BitSet()ï¿½Í¿ï¿½Ä¶ï¿½ï¿½Ë¡ï¿½
+     O(n)
      */
 
     //HashSet
@@ -66,4 +67,34 @@ public class IntersectionofTwoArrays {
             return Arrays.copyOfRange(res, 0, index);
         }
     }
+
+    //O(nlogn) ort both arrays, use two pointers
+
+    public class Solution3 {
+        public int[] intersection(int[] nums1, int[] nums2) {
+            Set<Integer> set = new HashSet<>();
+            Arrays.sort(nums1);
+            Arrays.sort(nums2);
+            int i = 0;
+            int j = 0;
+            while (i < nums1.length && j < nums2.length) {
+                if (nums1[i] < nums2[j]) {
+                    i++;
+                } else if (nums1[i] > nums2[j]) {
+                    j++;
+                } else {
+                    set.add(nums1[i]);
+                    i++;
+                    j++;
+                }
+            }
+            int[] result = new int[set.size()];
+            int k = 0;
+            for (Integer num : set) {
+                result[k++] = num;
+            }
+            return result;
+        }
+    }
+
 }

@@ -2,15 +2,12 @@ package Bloomberg;
 
 import datastructure.PrintList;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by cicean on 9/12/2016.
- * Bloomberg 新鲜面经
- * 实现一个函数，打印100000到999999所有前三位Sum等于后三位Sum的数.
+ * Bloomberg 锟斤拷锟斤拷锟芥经
+ * 实锟斤拷一锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷印100000锟斤拷999999锟斤拷锟斤拷前锟斤拷位Sum锟斤拷锟节猴拷锟斤拷位Sum锟斤拷锟斤拷.
  */
 public class PrintNumber {
 
@@ -50,6 +47,7 @@ public class PrintNumber {
                 }
             }
         }
+
         return res;
     }
     

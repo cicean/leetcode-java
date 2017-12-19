@@ -23,11 +23,11 @@ public class MovingAveragefromDataStream {
     /**
      * Ë¼Â·:sliding window
 
-     »¬¶¯´°¿ÚµÄË¼Ïë¾ÍÊÇ¸ù¾Ý»¬¶¯´°¿ÚµÄ´óÐ¡ÒÀ´Î´ÓÇ°ÍùºóÔÚÊý×éÖÐÈ¡ÏàÓ¦´°¿Ú´óÐ¡µÄÔªËØ,ÍùºóÒÆ¶¯µÄ¹ý³ÌÖÐ,ÐèÒª²»Í£µØÒÆ³ý´°¿ÚµÄÊ×ÔªËØ,È»ºó½«Ä¿Ç°ÔªËØ¼ÓÈëµ½´°¿ÚÖÐ,Ö±µ½ÒÆ¶¯µ½Êý×éÎ²²¿¡£»¬¶¯´°¿ÚºÜÈÝÒ× µÄÒ»ÖÖÊµÏÖ·½Ê½¾ÍÊÇÊ¹ÓÃË«¶Ë¶ÓÁÐ¡£
+     ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½Ë¼ï¿½ï¿½ï¿½ï¿½Ç¸ï¿½ï¿½Ý»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÚµÄ´ï¿½Ð¡ï¿½ï¿½ï¿½Î´ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½Ú´ï¿½Ð¡ï¿½ï¿½Ôªï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½Ä¹ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½Òªï¿½ï¿½Í£ï¿½ï¿½ï¿½Æ³ï¿½ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½Ôªï¿½ï¿½,È»ï¿½ï¿½Ä¿Ç°Ôªï¿½Ø¼ï¿½ï¿½ëµ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,Ö±ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úºï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ò»ï¿½ï¿½Êµï¿½Ö·ï¿½Ê½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½Ë«ï¿½Ë¶ï¿½ï¿½Ð¡ï¿½
 
-     ¼¼ÇÉ:
+     ï¿½ï¿½ï¿½ï¿½:
 
-     1.¿ÉÒÔÊÇÓÃlongÀàÐÍ±ÜÃâÒç³ö
+     1.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½longï¿½ï¿½ï¿½Í±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      */
 
     public class MovingAverage {
@@ -71,6 +71,29 @@ public class MovingAveragefromDataStream {
                 data.offer(val);
                 return (double)sum / data.size();
             }
+        }
+    }
+
+    class MovingAverage3 {
+
+        private int[] window;
+        private int n, insert;
+        private int sum;
+
+        /** Initialize your data structure here. */
+        public MovingAverage3(int size) {
+            window = new int[size];
+            insert = 0;
+            sum = 0;
+        }
+
+        public double next(int val) {
+            if (n < window.length)  n++;
+            sum -= window[insert];
+            sum += val;
+            window[insert] = val;
+            insert = (insert + 1)%window.length;
+            return (double) sum/n;
         }
     }
 }

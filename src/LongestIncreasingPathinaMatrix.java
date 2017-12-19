@@ -1,3 +1,5 @@
+import java.util.HashSet;
+
 /**
  * Created by cicean on 8/30/2016.
  * 329. Longest Increasing Path in a Matrix  QuestionEditorial Solution  My Submissions
@@ -32,16 +34,19 @@
  Hide Company Tags Google
  Hide Tags
 
- ÌâÒâ£º¸ø¶¨Ò»¸ö¾ØÕó£¬ÔÚÀïÃæÕÒ³ö×î´óÉÏÉıÂ·¾¶
+ ï¿½ï¿½ï¿½â£ºï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½
  */
+
+
+
 public class LongestIncreasingPathinaMatrix {
 
     /**
-     * ¼ÇÒä»¯ËÑË÷¡£
+     * ï¿½ï¿½ï¿½ä»¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-     Éèdis[i][j]Îªµ±Ç°µã³ö·¢×î´óÉÏÉıÂ·¾¶µÄÖµ¡£³õÊ¼ÉèÖÃÎª0£¬±íÊ¾¸ÃµãÎ´Öª£¬ĞèÒª¸üĞÂ¡£
+     ï¿½ï¿½dis[i][j]Îªï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Îª0ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½Ãµï¿½Î´Öªï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½Â¡ï¿½
 
-     ÔÙ´ÎÅöµ½µÄÊ±ºòÖ»ĞèÒª·µ»Ø¸ÃÖµ¼´¿É¡£
+     ï¿½Ù´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ö»ï¿½ï¿½Òªï¿½ï¿½ï¿½Ø¸ï¿½Öµï¿½ï¿½ï¿½É¡ï¿½
      */
 
     //O(mn) time O(mn) space
@@ -114,6 +119,55 @@ public class LongestIncreasingPathinaMatrix {
             }
             return ans;
         }
+    }
+
+    class Solution {
+    /*
+    dfs + Memoization
+    è¿™ä¸ªDFSå’Œislandçš„DFSæ–¹å‘ä¸åŒï¼Œæ‰€ä»¥ç”¨äº†Memoizationã€‚ islandç±»æ˜¯ç”±i,jæ‹“å±•åˆ°å®ƒçš„å‘¨è¾¹ï¼Œè¿™é“é¢˜æ˜¯ç”±å‘¨è¾¹æ¥è®¡ç®—iï¼Œjå¤„çš„å€¼
+    https://leetcode.com/articles/longest-increasing-path-matrix/
+    è¿™é‡Œç”¨çš„æ˜¯Approach #2
+    å¯¹æ¯”Approach #1 (Naive DFS)
+    å…¶ä»–æ–¹æ³•å¾…ç ”ç©¶https://leetcode.com/articles/longest-increasing-path-matrix/
+
+
+    Time complexity : O(mn). Each vertex/cell will be calculated once and only once, and each edge will be visited once and only once. The total time complexity is then O(V+E). V is the total number of vertices and E is the total number of edges. In our problem, O(V) = O(mn), O(E) = O(4V) = O(mn).
+
+Space complexity : O(mn). The cache dominates the space complexity
+    */
+
+        private static final int[][] dirs = new int[][] {{0, 1}, {1, 0}, {-1, 0}, {0, -1}};
+        private int m, n;
+
+        public int longestIncreasingPath(int[][] matrix) {
+            if (matrix == null || matrix.length == 0 || matrix[0] == null || matrix[0].length == 0)
+                return 0;
+            m = matrix.length;
+            n = matrix[0].length;
+            int res = 0;
+            int[][] cache = new int[m][n];
+            for (int i = 0; i < m; i++) {
+                for (int j = 0; j < n; j++) {
+                    res = Math.max(res, dfs(matrix, i, j, cache));
+                }
+            }
+            return res;
+        }
+
+        private int dfs(int[][] matrix, int i, int j, int[][] cache) {
+            if (cache[i][j] != 0) return cache[i][j];
+            int max = 1;
+            for (int[] dir : dirs) {
+                int x = i + dir[0];
+                int y = j + dir[1];
+                if (x >= 0 && x < m && y >= 0 && y < n && matrix[x][y] > matrix[i][j]) {
+                    max = Math.max(max, 1 + dfs(matrix, x, y, cache));
+                }
+            }
+            cache[i][j] = max;
+            return cache[i][j];
+        }
+
     }
 
 }
