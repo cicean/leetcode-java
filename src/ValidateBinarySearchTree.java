@@ -40,6 +40,24 @@ public class ValidateBinarySearchTree {
 		}
 	}
 
+	private TreeNode lastNode;
+	private boolean isVaild;
+
+	private void inorderTraverse(TreeNode root) {
+		if (root == null) {
+			return;
+		}
+
+		inorderTraverse(root.left);
+		if ( lastNode != null && lastNode.val >= root.val) {
+			isVaild = false;
+			return;
+		}
+		inorderTraverse(root.right);
+
+	}
+
+
 	public boolean isValidBST(TreeNode root) {
 
 		return isValidBSTRe(root, null, null);

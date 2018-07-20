@@ -81,5 +81,4 @@ public class ReplaceWords {
       this.isWord = false;
     }
   }
-
 }

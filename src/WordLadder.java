@@ -2,7 +2,7 @@ import java.util.*;
 
 /*
  127	Word Ladder	19.3%	Medium
- Problem:    Word Ladder
+ Problem:    sWord Ladder
  Difficulty: High
  Source:     https://oj.leetcode.com/problems/word-ladder/
  Notes:
@@ -28,13 +28,13 @@ public class WordLadder {
 	
 	/**
 	 * Note
-¿¼ÂÇ±ß½çÇé¿ö£¬Èç¹ûdictÎª¿Õ£¬»òstart.equals(end)£¬Ôò²»Âú×ãBFSÖÐÑ­»·µÄÌõ¼þ£¬ÔÚ×îºó·µ»Ø0.
-Èç¹ûÊÇÕý³£Çé¿ö£¬startºÍend²»µÈÇÒdict°üº¬×ª»»ÐèÒªµÄ½×ÌÝ´Ê×é£¬ÄÇÃ´×ª»»´ÎÊý¼Ó2£¬¾ÍÊÇËùÇóµÄ×ª»»ÐòÁÐ³¤¶È¡£Ê¹ÓÃBFS£¬ÀûÓÃÆä°´²ã´Î²Ù×÷µÄÐÔÖÊ£¬¿ÉÒÔµÃµ½×îÓÅ½â¡£
+ï¿½ï¿½ï¿½Ç±ß½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½dictÎªï¿½Õ£ï¿½ï¿½ï¿½start.equals(end)ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½BFSï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ó·µ»ï¿½0.
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½startï¿½ï¿½endï¿½ï¿½ï¿½ï¿½ï¿½ï¿½dictï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½Òªï¿½Ä½ï¿½ï¿½Ý´ï¿½ï¿½é£¬ï¿½ï¿½Ã´×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½Ð³ï¿½ï¿½È¡ï¿½Ê¹ï¿½ï¿½BFSï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ä°´ï¿½ï¿½Î²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê£ï¿½ï¿½ï¿½ï¿½ÔµÃµï¿½ï¿½ï¿½ï¿½Å½â¡£
 
-µÚÒ»²ãwhileÑ­»·£ºÀûÓÃ¶ÓÁÐÏÈ½øÏÈ³öµÄÔ­Ôò£¬ÏÈÓÃsize = q.size()È·¶¨ÏÂÒ»²ãforÑ­»·Òª´Ó¶ÓÁÐÈ¡³ösize¸öÔªËØ¡£ÕâÑù¿ÉÒÔ±£Ö¤ÕâÒ»²ã±»ÍêÈ«±éÀú¡£µ±ÀïÃæµÄÈý²ãforÑ­»·½áÊø£¬¼´qµÄÇ°size¸öÔªËØÈ«²¿±éÀú¹ýÖ®ºó£¬²Ù×÷´ÎÊýcount++.
-µÚ¶þ²ãforÑ­»·£º¶Ôµ±Ç°ÕâÒ»²ãµÄsize¸öÔªËØ½øÐÐ±éÀú¡£Ã¿´ÎÑ­»·È¡³öµÄÔªËØ´æÎªÐÂµÄ×Ö·û´®cur¡£
-µÚÈý²ãforÑ­»·£º±éÀú×Ö·û´®curµÄÃ¿¸ö×Ö·û¡£
-µÚËÄ²ãforÑ­»·£º½«±éÀúµ½µÄcurµÄµÚi¸ö×Ö·û»»³É´Óaµ½zµÄ26¸ö×ÖÄ¸£¬´æÎªÐÂ×Ö·û´®word¡£È»ºó²éÕÒdictÀïÊÇ·ñ°üº¬word£ºÈô´æÔÚ£¬Ôò´ÓdictÖÐÉ¾³ý´ËÔªËØ·ÀÖ¹ÒÔºóÖØ¸´Ê¹ÓÃ£¨ÎÞÏÞÑ­»·£©£¬²¢½«Õâ¸öÔªËØ·ÅÈë¶ÓÁÐq£¬ÓÃÓÚÏÂÒ»²ãµÄBFSÑ­»·¡£Ò»µ©ÕÒµ½ºÍendÏàÍ¬µÄ×Ö·û´®£¬¾Í·µ»Ø×ª»»ÐòÁÐ³¤¶È = ²Ù×÷²ãÊý + 2£¬¼´count+2¡£
+ï¿½ï¿½Ò»ï¿½ï¿½whileÑ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã¶ï¿½ï¿½ï¿½ï¿½È½ï¿½ï¿½È³ï¿½ï¿½ï¿½Ô­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½size = q.size()È·ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½forÑ­ï¿½ï¿½Òªï¿½Ó¶ï¿½ï¿½ï¿½È¡ï¿½ï¿½sizeï¿½ï¿½Ôªï¿½Ø¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô±ï¿½Ö¤ï¿½ï¿½Ò»ï¿½ã±»ï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½forÑ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½qï¿½ï¿½Ç°sizeï¿½ï¿½Ôªï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ó£¬²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½count++.
+ï¿½Ú¶ï¿½ï¿½ï¿½forÑ­ï¿½ï¿½ï¿½ï¿½ï¿½Ôµï¿½Ç°ï¿½ï¿½Ò»ï¿½ï¿½ï¿½sizeï¿½ï¿½Ôªï¿½Ø½ï¿½ï¿½Ð±ï¿½ï¿½ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½Ñ­ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Ôªï¿½Ø´ï¿½Îªï¿½Âµï¿½ï¿½Ö·ï¿½ï¿½ï¿½curï¿½ï¿½
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½forÑ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½curï¿½ï¿½Ã¿ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
+ï¿½ï¿½ï¿½Ä²ï¿½forÑ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½curï¿½Äµï¿½iï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½É´ï¿½aï¿½ï¿½zï¿½ï¿½26ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½wordï¿½ï¿½È»ï¿½ï¿½ï¿½ï¿½ï¿½dictï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½wordï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú£ï¿½ï¿½ï¿½ï¿½dictï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½Ôªï¿½Ø·ï¿½Ö¹ï¿½Ôºï¿½ï¿½Ø¸ï¿½Ê¹ï¿½Ã£ï¿½ï¿½ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ôªï¿½Ø·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½qï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½BFSÑ­ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½endï¿½ï¿½Í¬ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½Ð³ï¿½ï¿½ï¿½ = ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ + 2ï¿½ï¿½ï¿½ï¿½count+2ï¿½ï¿½
 	 * @param start
 	 * @param end
 	 * @param dict
@@ -48,9 +48,13 @@ public class WordLadder {
             int size = q.size();
             for (int i = 0; i < size; i++) {
                 String cur = q.poll();
-                //ÀïÃæµÄÁ½´ÎÑ­»·ÊÇ½«curµÄÃ¿Ò»Î»¶¼Ìæ»»³É26¸ö×ÖÄ¸µÄÇé¿ö£¬ÔÙÈ¥dictÖÐ²éÕÒ
+                //if give the start = end
+                if (cur.equals(end)) {
+                    return count + 1;
+                }
+                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½Ç½ï¿½curï¿½ï¿½Ã¿Ò»Î»ï¿½ï¿½ï¿½æ»»ï¿½ï¿½26ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¥dictï¿½Ð²ï¿½ï¿½ï¿½
                 for (int j = 0; j < cur.length(); j++) {
-                    //ÔÚ×îÄÚ²ãµÄÑ­»·ÏòqÔö¼ÓÔªËØ£¬²¢´ÓdictÀïÉ¾³ý£¬ÌåÏÖbfsË¼Ïë
+                    //ï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½qï¿½ï¿½ï¿½ï¿½Ôªï¿½Ø£ï¿½ï¿½ï¿½ï¿½ï¿½dictï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½bfsË¼ï¿½ï¿½
                     for (char c = 'a'; c <= 'z'; c++) {
                         StringBuilder sb = new StringBuilder(cur);
                         sb.setCharAt(j, c);
@@ -68,7 +72,7 @@ public class WordLadder {
         return 0;
     }
 	/**
-	 * Ö÷Òª½âÌâË¼Â·µÄbfs£¬°ÑÃ¿Ò»ÖÖ¿ÉÄÜµÄcharacter¶¼·Å½øÈ¥ÊÔ£¬¿´ÄÜ²»ÄÜÓÐÒ»ÌõÏß±ßµ½endWord. 
+	 * ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½Ë¼Â·ï¿½ï¿½bfsï¿½ï¿½ï¿½ï¿½Ã¿Ò»ï¿½Ö¿ï¿½ï¿½Üµï¿½characterï¿½ï¿½ï¿½Å½ï¿½È¥ï¿½Ô£ï¿½ï¿½ï¿½ï¿½Ü²ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ß±ßµï¿½endWord. 
 	 * @param start
 	 * @param end
 	 * @param dict
@@ -111,8 +115,8 @@ public class WordLadder {
 	}
 	
 	/**
-	 * µ±È»£¬ÕâÑùµÄÊ±¼ä»¹²»ÊÇ×îÓÅ»¯µÄ£¬
-	 * Èç¹ûÎÒÃÇ´ÓÁ½Í·É¨£¬É¨µ½ÖÐ¼äÈÎºÎÒ»¸öwordÄÜ¹»´®ÁªÆðÀ´¶¼¿ÉÒÔ£¬Èç¹ûÃ»ÓÐÕÒµ½¿ÉÒÔ´®ÁªµÄword,ÄÇÃ´·µ»Ø0¡£
+	 * ï¿½ï¿½È»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ä»¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å»ï¿½ï¿½Ä£ï¿½
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç´ï¿½ï¿½ï¿½Í·É¨ï¿½ï¿½É¨ï¿½ï¿½ï¿½Ð¼ï¿½ï¿½Îºï¿½Ò»ï¿½ï¿½wordï¿½Ü¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô£ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½ï¿½word,ï¿½ï¿½Ã´ï¿½ï¿½ï¿½ï¿½0ï¿½ï¿½
 	 * @param start
 	 * @param end
 	 * @param dict

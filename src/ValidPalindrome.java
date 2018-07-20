@@ -37,9 +37,9 @@ public class ValidPalindrome {
 
      For the purpose of this problem, we define empty string as valid palindrome.
 
-     ÖØµãÊÇ.toLowerCase()ºÍCharacter.isLetterOrDigit()Á½¸öº¯ÊýµÄÊ¹ÓÃ£»
-     ÒÔ¼°Ö¸ÕëÔÚ±êµãÇé¿öÏÂÒÆ¶¯ºóµÄcontinueÓï¾ä¡£
-     * O(n) time without extra memory. ----> Ö¸ÕëÂï¡£
+     ï¿½Øµï¿½ï¿½ï¿½.toLowerCase()ï¿½ï¿½Character.isLetterOrDigit()ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½Ã£ï¿½
+     ï¿½Ô¼ï¿½Ö¸ï¿½ï¿½ï¿½Ú±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½continueï¿½ï¿½ä¡£
+     * O(n) time without extra memory. ----> Ö¸ï¿½ï¿½ï¿½ï¡£
      */
 
     public class Solution {
@@ -66,6 +66,7 @@ public class ValidPalindrome {
             }
             return true;
         }
+
     }
 
 
