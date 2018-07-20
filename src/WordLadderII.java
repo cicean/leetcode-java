@@ -142,7 +142,7 @@ public class WordLadderII {
 
         // continue to match the rest
         if (isMatch(str, k + 1, pat, j + 1, map, set)) {
-          return true;
+          return true
         }
 
         // backtracking

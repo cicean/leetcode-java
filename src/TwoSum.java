@@ -33,7 +33,6 @@ public class TwoSum {
 	public int[] twoSum(int[] nums, int target) {
        HashMap<Integer, Integer> map = new HashMap <Integer, Integer>();
        List<List<Integer>> res = new ArrayList<>();
-       res.s
        for (int i=0; i<nums.length; i++)
        {
     	   int b=target - nums[i];

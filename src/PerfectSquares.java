@@ -2,7 +2,7 @@ import java.util.Arrays;
 
 /**
  *
- * 279. Perfect Squares  QuestionEditorial Solution  My Submissions
+ * 279. mPerfect Squares  QuestionEditorial Solution  My Submissions
  Total Accepted: 51250
  Total Submissions: 149182
  Difficulty: Medium

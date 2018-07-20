@@ -38,63 +38,63 @@ import java.util.*;
  twitter.getNewsFeed(1);
  Hide Company Tags Amazon Twitter
  Hide Tags Hash Table Heap Design
- ÒªÇóÉè¼ÆÒ»¸öÊý¾Ý½á¹¹£¬Ê¹ÆäÄÜÂú×ãtwitterµÄ4ÖÖ»ù±¾²Ù×÷£¬
- ·¢ÍÆ¡¢»ñµÃ¹Ø×¢ÓÃ»§ºÍ×ÔÉí×îÐÂ10ÌõÍÆÎÄ¡¢¹Ø×¢ÓÃ»§ºÍÈ¡Ïû¹Ø×¢¡£
+ Òªï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ý½á¹¹ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½twitterï¿½ï¿½4ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ ï¿½ï¿½ï¿½Æ¡ï¿½ï¿½ï¿½Ã¹ï¿½×¢ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½10ï¿½ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½×¢ï¿½Ã»ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½×¢ï¿½ï¿½
  */
 public class DesignTwitter {
 
     /**
-     * ÕâµÀÌâÈÃÎÒÃÇÉè¼Æ¸ö¼òµ¥µÄÍÆÌØ£¬¾ßÓÐ·¢²¼ÏûÏ¢£¬»ñµÃÐÂÏÊÊÂ£¬Ìí¼Ó¹Ø×¢ºÍÈ¡Ïû¹Ø×¢µÈ¹¦ÄÜ¡£
-     * ÎÒÃÇÐèÒªÓÃÁ½¸ö¹þÏ£±íÀ´×ö£¬µÚÒ»¸öÊÇ½¨Á¢ÓÃ»§ºÍÆäËùÓÐºÃÓÑÖ®¼äµÄÓ³Éä£¬
-     * ÁíÒ»¸öÊÇ½¨Á¢ÓÃ»§ºÍÆäËùÓÐÏûÏ¢Ö®¼äµÄÓ³Éä¡£ÓÉÓÚ»ñµÃÐÂÏÊÊÂÊÇÐèÒª°´Ê±¼äË³ÐòÅÅÁÐµÄ£¬
-     * ÄÇÃ´ÎÒÃÇ¿ÉÒÔÓÃÒ»¸öÕûÐÍ±äÁ¿cntÀ´Ä£ÄâÊ±¼äµã£¬Ã¿·¢Ò»¸öÏûÏ¢£¬cnt×ÔÔö1£¬
-     * ÄÇÃ´ÎÒÃÇ¾ÍÖªµÀcnt´óµÄÊÇ×î½ü·¢µÄ¡£ÄÇÃ´ÎÒÃÇÔÚ½¨Á¢ÓÃ»§ºÍÆäËùÓÐÏûÏ¢Ö®¼äµÄÓ³ÉäÊ±£¬
-     * »¹ÐèÒª½¨Á¢Ã¿¸öÏûÏ¢ºÍÆäÊ±¼äµãcntÖ®¼äµÄÓ³Éä¡£ÕâµÀÌâµÄÖ÷ÒªÄÑµãÔÚÓÚÊµÏÖgetNewsFeed()º¯Êý£¬
-     * Õâ¸öº¯Êý»ñÈ¡×Ô¼ººÍºÃÓÑµÄ×î½ü10ÌõÏûÏ¢£¬ÎÒÃÇµÄ×ö·¨ÊÇÓÃ»§Ò²Ìí¼Óµ½×Ô¼ºµÄºÃÓÑÁÐ±íÖÐ£¬
-     * È»ºó±éÀú¸ÃÓÃ»§µÄËùÓÐºÃÓÑ£¬±éÀúÃ¿¸öºÃÓÑµÄËùÓÐÏûÏ¢£¬Î¬»¤Ò»¸ö´óÐ¡Îª10µÄ¹þÏ£±í£¬
-     * Èç¹ûÐÂ±éÀúµ½µÄÏûÏ¢±È¹þÏ£±íÖÐ×îÔçµÄÏûÏ¢ÒªÍí£¬
-     * ÄÇÃ´½«Õâ¸öÏûÏ¢¼ÓÈë£¬È»ºóÉ¾³ýµô×îÔçµÄÄÇ¸öÏûÏ¢£¬ÕâÑùÎÒÃÇ¾Í¿ÉÒÔÕÒ³ö×î½ü10ÌõÏûÏ¢ÁË£¬
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¸ï¿½ï¿½òµ¥µï¿½ï¿½ï¿½ï¿½Ø£ï¿½ï¿½ï¿½ï¿½Ð·ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â£ï¿½ï¿½ï¿½Ó¹ï¿½×¢ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½×¢ï¿½È¹ï¿½ï¿½Ü¡ï¿½
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ç½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ðºï¿½ï¿½ï¿½Ö®ï¿½ï¿½ï¿½Ó³ï¿½ä£¬
+     * ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ç½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢Ö®ï¿½ï¿½ï¿½Ó³ï¿½ä¡£ï¿½ï¿½ï¿½Ú»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½Ê±ï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ï¿½ÐµÄ£ï¿½
+     * ï¿½ï¿½Ã´ï¿½ï¿½ï¿½Ç¿ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Í±ï¿½ï¿½ï¿½cntï¿½ï¿½Ä£ï¿½ï¿½Ê±ï¿½ï¿½ã£¬Ã¿ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½cntï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½
+     * ï¿½ï¿½Ã´ï¿½ï¿½ï¿½Ç¾ï¿½Öªï¿½ï¿½cntï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½Ã´ï¿½ï¿½ï¿½ï¿½ï¿½Ú½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢Ö®ï¿½ï¿½ï¿½Ó³ï¿½ï¿½Ê±ï¿½ï¿½
+     * ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½cntÖ®ï¿½ï¿½ï¿½Ó³ï¿½ä¡£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½Ñµï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½getNewsFeed()ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½Ô¼ï¿½ï¿½Íºï¿½ï¿½Ñµï¿½ï¿½ï¿½ï¿½10ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½Çµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½Ò²ï¿½ï¿½Óµï¿½ï¿½Ô¼ï¿½ï¿½Äºï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½Ð£ï¿½
+     * È»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ðºï¿½ï¿½Ñ£ï¿½ï¿½ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ï¿½ï¿½Ñµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½Î¬ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ð¡Îª10ï¿½Ä¹ï¿½Ï£ï¿½ï¿½
+     * ï¿½ï¿½ï¿½ï¿½Â±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½È¹ï¿½Ï£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢Òªï¿½ï¿½
+     * ï¿½ï¿½Ã´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ë£¬È»ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¸ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾Í¿ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½ï¿½ï¿½10ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½Ë£ï¿½
      */
 
     /**
      * Map + Set + PriorityQueue
 
-     ÏµÍ³Ó¦µ±Î¬»¤ÏÂÁÐÐÅÏ¢£º
+     ÏµÍ³Ó¦ï¿½ï¿½Î¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½
 
-     1). Ò»¸öÈ«¾ÖµÄÍÆÎÄ¼ÆÊýÆ÷£ºpostCount ÓÃ»§·¢ÍÆÎÄÊ±£¬¼ÆÊýÆ÷+1
+     1). Ò»ï¿½ï¿½È«ï¿½Öµï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½postCount ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+1
 
-     2). ÍÆÎÄId -> ÍÆÎÄ¼ÆÊýÆ÷µÄÓ³Éä£ºtweetIdMap ÓÃÀ´¼ÇÂ¼ÍÆÎÄµÄ´ÎÐò
+     2). ï¿½ï¿½ï¿½ï¿½Id -> ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó³ï¿½ä£ºtweetIdMap ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ÄµÄ´ï¿½ï¿½ï¿½
 
-     3). ÍÆÎÄId -> ÓÃ»§IdµÄÓ³Éä£ºtweetOwnerMap ÓÃÀ´¼ÇÂ¼ÍÆÎÄµÄ·¢ËÍÕßÊÇË­
+     3). ï¿½ï¿½ï¿½ï¿½Id -> ï¿½Ã»ï¿½Idï¿½ï¿½Ó³ï¿½ä£ºtweetOwnerMap ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ÄµÄ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë­
 
-     4). ÓÃ»§Id -> ¹Ø×¢¶ÔÏó¼¯ºÏµÄÓ³Éä£º followeeMap ÓÃÀ´¼ÇÂ¼ÓÃ»§µÄ¹Ø×¢¶ÔÏó£¨¹Ø×¢/È¡Ïû¹Ø×¢£©
-     ·½·¨µÄÊµÏÖ£º
+     4). ï¿½Ã»ï¿½Id -> ï¿½ï¿½×¢ï¿½ï¿½ï¿½ó¼¯ºÏµï¿½Ó³ï¿½ä£º followeeMap ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¼ï¿½Ã»ï¿½ï¿½Ä¹ï¿½×¢ï¿½ï¿½ï¿½ó£¨¹ï¿½×¢/È¡ï¿½ï¿½ï¿½ï¿½×¢ï¿½ï¿½
+     ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½Ö£ï¿½
 
-     1). ¹Ø×¢ follow / È¡Ïû¹Ø×¢ unfollow£º
+     1). ï¿½ï¿½×¢ follow / È¡ï¿½ï¿½ï¿½ï¿½×¢ unfollowï¿½ï¿½
 
-     Ö»ÐèÒªÎ¬»¤followeeMapÖÐ¶ÔÓ¦µÄ¹Ø×¢¶ÔÏó¼¯ºÏfolloweeSet¼´¿É
-     2). ·¢ËÍÍÆÎÄ postTweet£º
+     Ö»ï¿½ï¿½ÒªÎ¬ï¿½ï¿½followeeMapï¿½Ð¶ï¿½Ó¦ï¿½Ä¹ï¿½×¢ï¿½ï¿½ï¿½ó¼¯ºï¿½followeeSetï¿½ï¿½ï¿½ï¿½
+     2). ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ postTweetï¿½ï¿½
 
-     ¸üÐÂÍÆÎÄ¼ÆÊýÆ÷postCount£¬Î¬»¤tweetIdMap£»
+     ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½postCountï¿½ï¿½Î¬ï¿½ï¿½tweetIdMapï¿½ï¿½
 
-     ÏòÓÃ»§µÄÍÆÎÄ·¢ËÍÁÐ±íÖÐÐÂÔöÒ»Ìõ¼ÇÂ¼
-     3). »ñÈ¡ÍÆÎÄÍÆËÍ getNewsFeed£º
+     ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Â¼
+     3). ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ getNewsFeedï¿½ï¿½
 
-     ÕâÀïÐèÒªÊ¹ÓÃÓÅÏÈ¶ÓÁÐPriorityQueue£¬¼ÇÎªpq
+     ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÒªÊ¹ï¿½ï¿½ï¿½ï¿½ï¿½È¶ï¿½ï¿½ï¿½PriorityQueueï¿½ï¿½ï¿½ï¿½Îªpq
 
-     ±éÀúÓÃ»§µÄ¹Ø×¢¶ÔÏóÁÐ±í£¬½«Ã¿Ò»Î»¹Ø×¢¶ÔÏóµÄ×îÐÂÒ»ÌõÍÆÎÄÌí¼ÓÖÁpqÖÐ¡£
+     ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½Ä¹ï¿½×¢ï¿½ï¿½ï¿½ï¿½ï¿½Ð±ï¿½ï¿½ï¿½Ã¿Ò»Î»ï¿½ï¿½×¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½pqï¿½Ð¡ï¿½
 
-     È»ºó´ÓpqÖÐµ¯³ö×î½üµÄÒ»ÌõÍÆÎÄ£¬¼ÇÎªtopTweetId£»
+     È»ï¿½ï¿½ï¿½pqï¿½Ðµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½ï¿½ÎªtopTweetIdï¿½ï¿½
 
-     Í¨¹ýtweetOwnerMapÕÒµ½ÕâÌõÍÆÎÄµÄ·¢ËÍÕßuserId£¬È»ºó½«¸Ã·¢ËÍÕßµÄÏÂÒ»Ìõ±È½ÏÐÂµÄÍÆÎÄÌí¼ÓÖÁpq¡£
+     Í¨ï¿½ï¿½tweetOwnerMapï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÄµÄ·ï¿½ï¿½ï¿½ï¿½ï¿½userIdï¿½ï¿½È»ï¿½ó½«¸Ã·ï¿½ï¿½ï¿½ï¿½ßµï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½È½ï¿½ï¿½Âµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½pqï¿½ï¿½
 
-     Ö±µ½µ¯³ö10Ìõ×îÐÂµÄÍÆÎÄ£¬»òÕßpqÎª¿ÕÎªÖ¹¡£
+     Ö±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½10ï¿½ï¿½ï¿½ï¿½ï¿½Âµï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½ï¿½ï¿½ï¿½pqÎªï¿½ï¿½ÎªÖ¹ï¿½ï¿½
 
      */
 
     public class Twitter {
         /**
-         * ÐèÒª¶¨ÒåÒ»¸ö±íÊ¾Ã¿Ò»Ìõ×´Ì¬µÄ£¬Ö÷ÒªÊÇÊ±¼äid£¬ÒÔ¼°ÖØÐÂ¶¨ÒåÅÅÐòµÄ
+         * ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ê¾Ã¿Ò»ï¿½ï¿½×´Ì¬ï¿½Ä£ï¿½ï¿½ï¿½Òªï¿½ï¿½Ê±ï¿½ï¿½idï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½Â¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
          *
          * */
         private class Tweet {
@@ -107,9 +107,9 @@ public class DesignTwitter {
 
         }
         private int timeStamp ;
-        //Ã¿¸öÈË·¢²¼µÄÍÆÌØÐÅÏ¢
+        //Ã¿ï¿½ï¿½ï¿½Ë·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
         private HashMap<Integer,List<Tweet>> timelines;
-        //ÈË¼Ê¹ØÏµ£¬»áÖØ¸´followËùÒÔÒªÓÃset
+        //ï¿½Ë¼Ê¹ï¿½Ïµï¿½ï¿½ï¿½ï¿½ï¿½Ø¸ï¿½followï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½set
         private HashMap<Integer,HashSet<Integer>> relations;
         /** Initialize your data structure here. */
         public Twitter() {
@@ -129,12 +129,12 @@ public class DesignTwitter {
 
         /** Retrieve the 10 most recent tweet ids in the user's news feed. Each item in the news feed must be posted by users who the user followed or by the user herself. Tweets must be ordered from most recent to least recent. */
         /**
-         * È«²¿¶¼Ñ¡Ç°10£¬È»ºó°´ÕÕÊ±¼ä´ÁÅÅÐò£¬×¢ÒâÒªÑ¡Ôñ×Ô¼ºµÄºÍ±ðÈËµÄ
+         * È«ï¿½ï¿½ï¿½ï¿½Ñ¡Ç°10ï¿½ï¿½È»ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¢ï¿½ï¿½ÒªÑ¡ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ÄºÍ±ï¿½ï¿½Ëµï¿½
          * */
         public List<Integer> getNewsFeed(int userId) {
             HashSet<Integer> followees = relations.get(userId);
             List<Tweet> candidates = new ArrayList<Tweet>();
-            //·Ö±ðÑ¡Ôñ£¬¿ÉÒÔÑ¡ÔñÃ¿¸öÈËµÄÇ°10Ìõ¾ÍºÃ
+            //ï¿½Ö±ï¿½Ñ¡ï¿½ñ£¬¿ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½Ëµï¿½Ç°10ï¿½ï¿½ï¿½Íºï¿½
             List<Tweet> timeline = timelines.get(userId);
             if(timeline!=null){
                 for(int i=timeline.size()-1;i>=Math.max(0,timeline.size()-10);i--){
@@ -178,7 +178,11 @@ public class DesignTwitter {
             HashSet<Integer> list = relations.get(followerId);
             if(list == null) return ;
             list.remove(followeeId);
+
+            List<Integer> test = new ArrayList<>();
+
         }
+
     }
 
 /**

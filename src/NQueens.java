@@ -31,7 +31,8 @@ public class NQueens {
 	        solveNQueensRe(n, 0, 0, 0, sol, res);
 	        return res;
 	    }
-	    public void solveNQueensRe(int n, int row, int ld, int rd, List<char[]> sol, List<String[]> res) {
+
+	 public void solveNQueensRe(int n, int row, int ld, int rd, List<char[]> sol, List<String[]> res) {
 	        if (row == (1<<n) -1 ) {
 	            String[] temp = new String[n];
 	            for (int i = 0; i < n; ++i) 

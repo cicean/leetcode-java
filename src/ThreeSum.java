@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -20,7 +21,7 @@ import java.util.List;
  Solution: Simplify '3sum' to '2sum' O(n^2). http://en.wikipedia.org/wiki/3SUM
 */
 
-//Ê±¼ä O(N^2) ¿Õ¼ä O(1)
+//Ê±ï¿½ï¿½ O(N^2) ï¿½Õ¼ï¿½ O(1)
 public class ThreeSum {
 	 public List<List<Integer>> threeSum(int[] num) {
 		 Arrays.sort(num);

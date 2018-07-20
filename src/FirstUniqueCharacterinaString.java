@@ -16,7 +16,7 @@
  Note: You may assume the string contain only lowercase letters.
 
  Hide Company Tags Amazon
- лБрБё╨╦Ь╤╗р╩╦Ж╫Жсип║п╢вжд╦вИЁи╣двж╥Ш╢╝ё╛я╟ур╣зр╩╦Жж╩тзвж╥Ш╢╝жпЁЖож╣двжд╦╣доб╠Й
+ О©╫О©╫О©╫Бё╨О©╫О©╫О©╫О©╫р╩О©╫О©╫О©╫О©╫О©╫О©╫п║п╢О©╫О©╫д╦О©╫О©╫и╣О©╫О©╫ж╥О©╫О©╫О©╫О©╫О©╫я╟О©╫р╣О©╫р╩О©╫О©╫ж╩О©╫О©╫О©╫ж╥О©╫О©╫О©╫О©╫пЁО©╫О©╫ж╣О©╫О©╫О©╫д╦О©╫О©╫О©╫б╠О©╫
 
  */
 public class FirstUniqueCharacterinaString {
@@ -36,7 +36,5 @@ public class FirstUniqueCharacterinaString {
             }
             return -1;
         }
-
-
     }
 }
