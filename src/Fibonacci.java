@@ -43,7 +43,7 @@ public class Fibonacci {
     
     public int fibonacci_1(int n) {
         // write your code here
-        int res = 0;
+        //int res = 0;
         if (n == 0) {return 0;}
         if (n == 1) {return 1;}
         if (n == 2) {return 1;}

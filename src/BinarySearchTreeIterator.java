@@ -27,6 +27,49 @@ import java.util.*;
  * while (i.hasNext()) v[f()] = i.next();
  */
 
+class JiuZhang {
+
+    public class BSTIterator {
+        private Stack<TreeNode> stack = new Stack<>();
+
+        public BSTIterator(TreeNode root) {
+            while (root != null) {
+                stack.push(root);
+                root = root.left;
+            }
+        }
+
+        public boolean hasNext() {
+            return !stack.isEmpty();
+        }
+
+        public TreeNode next() {
+            TreeNode curt = stack.peek();
+            TreeNode node = curt;
+
+            //move pointer to next value
+            //if have right to the tree node.right 's left,
+            //not will go first left90
+            if (node.right == null) {
+                node = stack.pop();
+                while (!stack.isEmpty() && stack.peek().right == node) {
+                    node = stack.pop();
+                }
+            } else {
+                node = node.right;
+                while (node != null) {
+                    stack.push(node);
+                    node = node.left;
+                }
+            }
+
+            return curt;
+        }
+
+    }
+
+}
+
 public class BinarySearchTreeIterator {
 
     private Stack<TreeNode> stk;

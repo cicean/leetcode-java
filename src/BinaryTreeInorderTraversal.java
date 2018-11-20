@@ -78,8 +78,9 @@ public class BinaryTreeInorderTraversal {
 
 
     
-    //mirror traversal
-    public List<Integer> inorderTraversal(TreeNode root) {
+    //morris traversal
+    // O(1) extra space
+    public List<Integer> inorderTraversal_morris(TreeNode root) {
         List<Integer> res = new ArrayList<Integer>();
         TreeNode cur = root;
         while (cur != null) {
@@ -102,6 +103,85 @@ public class BinaryTreeInorderTraversal {
         }
         return res;
     }
+
+    /**
+     * 与递归和使用栈空间遍历的思想不同，Morris 算法使用二叉树中的叶节点的right指针来保存后面将要访问的节点的信息，
+     * 当这个right指针使用完成之后，再将它置为null，但是在访问过程中有些节点会访问两次，
+     * 所以与递归的空间换时间的思路不同，Morris则是使用时间换空间的思想。
+     * 1. 如果当前节点的左孩子为空，则输出当前节点并将其右孩子作为当前节点。
+     * 2. 如果当前节点的左孩子不为空，在当前节点的左子树中找到当前节点在中序遍历下的前驱节点。
+     * 2.1. 如果前驱节点的右孩子为空，将它的右孩子设置为当前节点。当前节点更新为当前节点的左孩子。
+     * 2.2. 如果前驱节点的右孩子为当前节点，将它的右孩子重新设为空（恢复树的形状）。输出当前节点。当前节点更新为当前节点的右孩子。
+     * 3. 重复1、2两步直到当前节点为空。
+     * @param root
+     * @return
+     */
+    public List<Integer> inorderTraversal_jiuzhang_morris(TreeNode root) {
+        List<Integer> nums = new ArrayList<>();
+        TreeNode cur = null;
+
+        while (root != null) {
+            if (root.left != null) {
+                cur = root.left;
+                while (cur.right != null && cur.right != root) {
+                    cur = cur.right;
+                }
+
+                if (cur.right == root) {
+                    nums.add(root.val);
+                    cur.right = null;
+                    root = root.right;
+                } else {
+                    cur.right = root;
+                    root = root.left;
+                }
+            } else {
+                nums.add(root.val);
+                root = root.right;
+            }
+        }
+
+        return nums;
+    }
+
+    //if give you TreeNode father pointer please traversal in O(1) extra space
+    public List<Integer> inorderTraversal_databricks(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        TreeNode cur = root;
+        TreeNode last = null;
+
+        while (cur != null) {
+            if (last == cur.parent) {
+                last = cur;
+                if (cur.left != null) {
+                    cur = cur.left;
+                } else {
+                    res.add(cur.val);
+                    if (cur.right != null) {
+                        cur = cur.right;
+                    } else {
+                        cur = cur.parent;
+                    }
+
+                }
+            } else if (last == cur.left){
+                last = cur;
+                res.add(cur.val);
+                if (cur.right != null) {
+                    cur = cur.right;
+                } else {
+                    cur = cur.parent;
+                }
+            } else {
+                last = cur;
+                cur = cur.parent;
+            }
+        }
+
+        return res;
+    }
+
+
 
     //facebook if is BST the inoder should be the increasing array;
     public int[] inorderBST(TreeNode root) {

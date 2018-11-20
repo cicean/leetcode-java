@@ -26,111 +26,40 @@ import java.util.*;
  */
 public class BasicCalculatorII {
 
-	public int calculate_1(String s) {
-        if(s==null || s.length()==0) return 0;
-        
-        LinkedList<Integer> list = new LinkedList<Integer>();
-        
-        for(int i=0; i<s.length(); i++) {
+    public int calculate(String s) {
+        if (s == null || s.length() == 0) {
+            return 0;
+        }
+
+        Stack<Integer> stack = new Stack<>();
+        char sign = '+';
+        int num = 0;
+
+        for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
-            if(Character.isDigit(c)) {
-                int cur = c-'0';
-                while(i+1<s.length() && Character.isDigit(s.charAt(i+1))) {
-                    cur = cur * 10 + s.charAt(i+1) - '0';
-                    ++i;
+            if (Character.isDigit(c)) {
+                num = num * 10 + c - '0';
+            }
+            if (c != ' ' && !Character.isDigit(c) || i + 1 == s.length()) {
+                if (sign == '+') {
+                    stack.push(num);
+                } else if (sign == '-') {
+                    stack.push(-num);
+                } else if (sign == '/') {
+                    stack.push(stack.pop() / num);
+                } else if (sign == '*') {
+                    stack.push(stack.pop() * num);
                 }
-                if(!list.isEmpty() && (list.peek() == 2 || list.peek()==3)) {
-                    int op = list.pop();
-                    int opl = list.pop();
-                    int res = 0;
-                    if(op==2) res = opl * cur;
-                    else res = opl / cur;
-                    list.push(res);
-                } else {
-                    list.push(cur);
-                }               
-            } else if(c==' ') continue;
-            else {
-                switch (c) {
-                    case '+': list.push(0);
-                    break;
-                    case '-': list.push(1);
-                    break;
-                    case '*': list.push(2);
-                    break;
-                    case '/': list.push(3);
-                    break;
-                    default: return -1;
-                }
+                sign = c;
+                num = 0;
             }
         }
-        
-        if(list.isEmpty()) return 0;
-        Collections.reverse(list);
-        
-        int res = list.poll();
-        
-        while(!list.isEmpty()) {
-        	int op = list.poll();
-        	int opr = list.poll();
-        	if(op==0) res += opr;
-        	else res -= opr;
+
+        int res = 0;
+        while (!stack.isEmpty()) {
+            res += stack.pop();
         }
         return res;
-    }
-	
-	public int calculate_2(String s) {
-        if(s == null || s.length() == 0)
-            return 0;
-        Stack<Integer> num = new Stack<Integer>();
-        Stack<Character> symbol = new Stack<Character>();
-        s += "#";
-        boolean isNum = false;
-        int count = 0;
-        for(int i = 0 ; i < s.length() ; i++){
-            if(s.charAt(i) == ' ')
-                continue;
-            char temp = s.charAt(i);
-            if(Character.isDigit(temp)){
-                count = count * 10 + (temp - '0') ; // ����������
-                isNum = true;
-            }else{
-                if(isNum){  // �������� ��ǰ������ѹ��
-                    num.push(count);
-                    count = 0;
-                    isNum = false;
-                    if(!symbol.isEmpty() && (symbol.peek() == '*' || symbol.peek() == '/')){
-                        char tempSymbol = symbol.pop();
-                        int b = num.pop();
-                        int a = num.pop();
-                        if(tempSymbol == '*'){
-                            num.push(a*b);
-                        }else{
-                            num.push(a/b);
-                        }
-                    }
-                }
-                if(temp != '#'){ // ������ѹ��
-                    symbol.push(temp);
-                }
-            }
-        }
-        
-        if(!symbol.isEmpty()){
-            int rep = 0;
-            while(!symbol.isEmpty()){  // �Ӽ�����
-                char tempSymbol = symbol.pop();
-                int a = num.pop();
-                if(tempSymbol == '+'){
-                    rep+=a;
-                }else{
-                    rep-=a;
-                }
-            }
-            num.push(rep + num.pop());
-        }
-        
-        return num.pop();
     }
 	
 	//pocket gem

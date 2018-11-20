@@ -101,6 +101,99 @@ public class WordSearchII {
 	 
 		return false;
 	}
+
+
+	class TrieNode {
+		String word;
+		Map<Character, TrieNode> children;
+		public TrieNode() {
+			word = null;
+			children = new HashMap<Character, TrieNode>();
+		}
+
+
+	}
+
+	class Trie{
+		private TrieNode root;
+
+		public Trie(TrieNode root) {
+			this.root = root;
+		}
+
+		public void insert(String word) {
+			TrieNode cur = root;
+			for (int i = 0; i < word.length(); i++) {
+				cur.children.putIfAbsent(word.charAt(i), new TrieNode());
+				cur = cur.children.get(word.charAt(i));
+			}
+			cur.word =  word;
+		}
+	}
+
+	/**
+	 * @param board: A list of lists of character
+	 * @param words: A list of string
+	 * @return: A list of string
+	 */
+
+	public int[] dx = {1, 0, -1, 0};
+	public int[] dy = {0, 1, 0, -1};
+
+	public List<String> wordSearchII(char[][] board, List<String> words) {
+		// write your code here
+		List<String> results = new ArrayList<>();
+		if (board == null || words == null) {
+			return results;
+		}
+		TrieNode root = new TrieNode();
+		Trie tree = new Trie(root);
+		for (String word : words) {
+			tree.insert(word);
+		}
+
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[i].length; j++) {
+				search(board, i, j, root, results);
+			}
+		}
+
+		return results;
+	}
+
+	private void search(char[][] board, int x, int y, TrieNode root, List<String> results) {
+		if (!root.children.containsKey(board[x][y])) {
+			return;
+		}
+
+		TrieNode child = root.children.get(board[x][y]);
+
+		if (child.word != null) {
+			if (!results.contains(child.word)) {
+				results.add(child.word);
+			}
+		}
+
+		char tmp = board[x][y];
+		board[x][y] = 0;
+
+		for (int i = 0; i < 4; i++) {
+			if (!isValid(board, x + dx[i], y + dy[i])) {
+				continue;
+			}
+			search(board, x + dx[i], y + dy[i], child, results);
+		}
+
+		board[x][y] = tmp;
+	}
+
+	private boolean isValid(char[][] board, int x, int y) {
+		if (x < 0 || x >= board.length || y < 0 || y >= board[x].length) {
+			return false;
+		}
+
+		return board[x][y] != 0;
+	}
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

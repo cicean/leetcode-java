@@ -49,6 +49,34 @@ public class ShortestWordDistanceIII {
 		return min;
 }
 
+	public int shortestWordDistance_III(String[] words, String word1, String word2) {
+		//find index of word1
+		//start from index-1 to left && index + 1 to right search for word2
+		//find word2 --> label minDist
+		//find next index of word1
+		//search left and right in range [1, minDist]
+
+		int minDist=Integer.MAX_VALUE;
+		for (int i=0;i<words.length;i++){
+			if (words[i].equals(word1)){
+				for (int j=1;j<minDist;j++){
+					int left=i-j;
+					int right=i+j;
+					if (left>=0 && left<words.length && words[left].equals(word2)){
+						minDist=j;
+						break;
+
+					}
+					if (right>=0 && right<words.length && words[right].equals(word2)){
+						minDist=j;
+						break;
+					}
+				}
+			}
+		}
+		return minDist;
+	}
+
 
 public static void main(String[] args) {
 	// TODO Auto-generated method stub

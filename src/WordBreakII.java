@@ -136,6 +136,7 @@ public class WordBreakII {
             wordBreakRe(s, dict, path + word, i + 1, res);
         }
     }
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		WordBreakII slt = new WordBreakII();
@@ -149,5 +150,7 @@ public class WordBreakII {
 		List<String> res = slt.wordBreak(str, dict);
 		System.out.print(res);
 	}
+
+
 
 }

@@ -20,6 +20,8 @@ Hide Similar Problems (H) Read N Characters Given Read4 II - Call multiple times
  */
 
 
+import java.util.*;
+
 /**
  * ∏¥‘”∂»
 
@@ -148,4 +150,49 @@ class Reader4k{
 	int read4k(char[] buf) {
 		return 4096;
 	}
+}
+
+
+public List<String> buildOrder(String target, Map<String, List<String>> dependences) {
+	if (target == null || dependences == null) return null;
+
+	Map<String, Integer> indegree = new HashMap<>();
+	Map<String, List<String>> prebuildtotarget = new HashMap<>();
+	Queue<String> queue = new LinkedList<>();
+	Set<String> uniquedependence = new HashSet<>();
+	for (Map.Entry<String, List<String>> entry : dependences.entrySet()) {
+		indegree.put(entry.getKey(), entry.getValue().size());
+		uniquedependence.add(entry.getKey());
+		for (String prebuilddependence : entry.getValue()) {
+			prebuildtotarget.computeIfAbsent(prebuilddependence, x -> new ArrayList<String>()).add(entry.getKey());
+			uniquedependence.add(prebuilddependence);
+			if (!dependences.containsKey(prebuilddependence)) {
+				indegree.put(prebuilddependence, 0);
+				queue.offer(prebuilddependence);
+			}
+		}
+	}
+
+	List<String> results = new ArrayList<>();
+
+	while (!queue.isEmpty()) {
+		String curr = queue.poll();
+		results.add(curr);
+		if (!prebuildtotarget.containsKey(curr)) {
+			continue;
+		}
+
+		for (String next : prebuildtotarget.get(curr)) {
+			if (indegree.get(next) - 1 == 0) {
+				queue.offer(next);
+			}
+			indegree.put(next, indegree.get(next) - 1);
+		}
+
+
+	}
+
+	return results.size() != uniquedependence.size() ? new ArrayList<>() : results;
+
+}
 }

@@ -83,6 +83,8 @@ public class FindMinOrMaxNodeInBinaryTree {
   // Returns the min value in a binary tree
   static int findMin(Node node)
   {
+
+
     if (node == null)
       return Integer.MAX_VALUE;
 

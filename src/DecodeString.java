@@ -1,4 +1,3 @@
-import java.math.BigDecimal;
 import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -104,5 +103,47 @@ public class DecodeString {
             matcher.reset(s = sb.toString());
         }
         return s;
+    }
+
+    // jiuzhang solution
+    public String expressionExpand(String s) {
+        // write your code here
+        if (s == null || s.length() == 0) {
+            return "";
+        }
+
+        Stack<Character> st = new Stack<>();
+        for (char c : s.toCharArray()) {
+            if (c == ']') {
+                StringBuilder sb = new StringBuilder();
+                while (!st.isEmpty() && st.peek() != '[') {
+                    sb.append(st.pop());
+                }
+                sb.reverse();
+
+                st.pop();
+                int repeats = 0;
+                int base = 1;
+                while (!st.isEmpty() && Character.isDigit(st.peek())) {
+                    repeats += (st.pop() - '0') * base;
+                    base *= 10;
+                }
+                while (repeats > 0) {
+                    for (char x :sb.toString().toCharArray()) {
+                        st.push(x);
+                    }
+                    repeats--;
+                }
+            } else {
+                st.push(c);
+            }
+        }
+
+        StringBuilder sb = new StringBuilder();
+        while (!st.isEmpty()) {
+            sb.append(st.pop());
+        }
+        sb.reverse();
+        return sb.toString();
     }
 }

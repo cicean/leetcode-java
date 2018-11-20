@@ -88,7 +88,7 @@ public class BinaryTreePreorderTraversal {
         }
         return res;
     }
-    public List<Integer> preorderTraversal_5(TreeNode root) {
+    public List<Integer> preorderTraversal_morris(TreeNode root) {
         List<Integer> res = new ArrayList<Integer>();
         if(root == null) return res;
         TreeNode cur = root;
@@ -110,6 +110,67 @@ public class BinaryTreePreorderTraversal {
                 }
             }
         }
+        return res;
+    }
+
+    public List<Integer> preorderTraversal_jiuzhang_morris(TreeNode root) {
+        // morris traversal
+        List<Integer> nums = new ArrayList<>();
+        TreeNode cur = null;
+        while (root != null) {
+            if (root.left != null) {
+                cur = root.left;
+                // find the predecessor of root node
+                while (cur.right != null && cur.right != root) {
+                    cur = cur.right;
+                }
+                if (cur.right == root) {
+                    cur.right = null;
+                    root = root.right;
+                } else {
+                    nums.add(root.val);
+                    cur.right = root;
+                    root = root.left;
+                }
+            } else {
+                nums.add(root.val);
+                root = root.right;
+            }
+        }
+        return nums;
+    }
+
+    // with parent node
+    public List<Integer> preorderTraversal_databricks(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        TreeNode cur = root;
+        TreeNode last = null;
+
+        while (cur != null) {
+            if (last == cur.parent) {
+                res.add(cur.val);
+                last = cur;
+
+                if (cur.left != null) {
+                    cur = cur.left;
+                } else if (cur.right != null) {
+                    cur = cur.right;
+                } else {
+                    cur = cur.parent;
+                }
+            } else if (last == cur.left) {
+                last = cur;
+                if (cur.right != null) {
+                    cur = cur.right;
+                } else {
+                    cur = cur.parent;
+                }
+            } else {
+                last = cur;
+                cur = cur.parent;
+            }
+        }
+
         return res;
     }
     

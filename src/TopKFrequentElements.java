@@ -1,5 +1,6 @@
 import datastructure.PrintList;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -286,6 +287,7 @@ public class TopKFrequentElements {
 
 		res.printListandList(slt.topKFrequent_d_2(nums, 2));
 
+		SimpleDateFormat
 		slt.addNum(1);
 		slt.addNum(2);
 		slt.addNum(2);

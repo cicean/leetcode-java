@@ -53,7 +53,7 @@ public class InsertDeleteGetRandomO1 {
     public class RandomizedSet {
         ArrayList<Integer> nums;
         HashMap<Integer, Integer> locs;
-        java.util.Random rand = new java.util.Random();
+        Random rand = new Random();
         /** Initialize your data structure here. */
         public RandomizedSet() {
             nums = new ArrayList<Integer>();

@@ -27,6 +27,40 @@ import java.util.Scanner;
 
 public class RegularExpressionMatching {
 
+	/**
+	 * Approach 1: Recursion
+	 * Intuition
+	 *
+	 * If there were no Kleene stars (the * wildcard character for regular expressions),
+	 * the problem would be easier - we simply check from left to right if each character of the text matches the pattern.
+	 *
+	 * When a star is present,
+	 * we may need to check many different suffixes of the text and see if they match the rest of the pattern.
+	 * A recursive solution is a straightforward way to represent this relationship.
+	 *
+	 * Algorithm
+	 *
+	 * Without a Kleene star, our solution would look like this:
+	 *
+	 *
+	 * If a star is present in the pattern, it will be in the second position \text{pattern[1]}pattern[1].
+	 * Then, we may ignore this part of the pattern, or delete a matching character in the text.
+	 * If we have a match on the remaining strings after any of these operations, then the initial inputs matched.
+	 *
+	 * Time Complexity: Let T, PT,P be the lengths of the text and the pattern respectively.
+	 * In the worst case, a call to match(text[i:], pattern[2j:]) will be made
+	 * times, and strings of the order O(T - i)O(T?i) and O(P - 2*j)O(P?2?j) will be made.
+	 * Thus, the complexity has the order
+	 * Space Complexity: For every call to match, we will create those strings as described above, possibly creating duplicates.
+	 * though there are only order O(T^2 + P^2)O(T
+	 * 2
+	 *  +P
+	 * 2
+	 *  ) unique suffixes of PP and TT that are actually required.
+	 * @param s
+	 * @param p
+	 * @return
+	 */
 	 public boolean isMatch_1(String s, String p) {
 	        if (p.length() == 0) return s.length() == 0;
 	        if (p.length() == 1) {
@@ -69,10 +103,12 @@ dp[i][j] = dp[i][j - 1];
 dp[i][j] = dp[i][j - 2];
 
 再考虑匹配2个及2个以上前面字符的情况，这种情况可以这么考虑:
-如果dp[i][j] = true是'*'匹配k(k>=2)个前面字符的结果，那么'*'匹配k-1个前面字符的结果也必须是true，所以条件之一便是dp[i - 1][j] == true，另外一个条件便是s的最后一个字符必须匹配p的'*'前面的字符，所以得到
+如果dp[i][j] = true是'*'匹配k(k>=2)个前面字符的结果，那么'*'匹配k-1个前面字符的结果也必须是true，所以条件之一便是dp[i - 1][j] == true，
+	  另外一个条件便是s的最后一个字符必须匹配p的'*'前面的字符，所以得到
 dp[i][j] = dp[i -1][j] && (p.charAt(j - 2) == s.charAt(i - 1) || p.charAt(j - 2) == '.'
 	  * 
-	  * 这道题关键是对'*'匹配p前面字符的理解及处理，另外对dp数组的初始化也是要注意的，我是比较喜欢把dp[0][j]与dp[i][0]单独考虑，当然也可以放在大loop里处理。
+	  * 这道题关键是对'*'匹配p前面字符的理解及处理，另外对dp数组的初始化也是要注意的，我是比较喜欢把dp[0][j]与dp[i][0]单独考虑，
+	  * 当然也可以放在大loop里处理。
 	  * 
 	  * O(n^2), space: O(n^2)
 	  * @param s
