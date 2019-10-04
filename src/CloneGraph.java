@@ -66,10 +66,10 @@ public class CloneGraph {
 			return null;
 		queue.offer(node);
 		map.put(node, new UndirectedGraphNode(node.label));
-		while (queue.isEmpty() == false) {
+		while (!queue.isEmpty()) {
 			UndirectedGraphNode cur = queue.poll();
 			for (UndirectedGraphNode neighbor : cur.neighbors) {
-				if (map.containsKey(neighbor) == false) {
+				if (!map.containsKey(neighbor)) {
 					UndirectedGraphNode newnode = new UndirectedGraphNode(
 							neighbor.label);
 					map.put(neighbor, newnode);
@@ -80,7 +80,6 @@ public class CloneGraph {
 		}
 		return map.get(node);
 	}
-
 
 
 	public class Solution {
