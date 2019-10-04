@@ -21,6 +21,16 @@ import java.util.*;
  *     int end;
  *     Interval() { start = 0; end = 0; }
  *     Interval(int s, int e) { start = s; end = e; }
+ *
+ *     Complexity Analysis
+ *
+ * Time complexity : O(n\log{}n)O(nlogn)
+ *
+ * Other than the sort invocation, we do a simple linear scan of the list, so the runtime is dominated by the O(nlgn)O(nlgn) complexity of sorting.
+ *
+ * Space complexity : O(1)O(1) (or O(n)O(n))
+ *
+ * If we can sort intervals in place, we do not need more than constant additional space. Otherwise, we must allocate linear space to store a copy of intervals and sort that.
  * }
  */
 
