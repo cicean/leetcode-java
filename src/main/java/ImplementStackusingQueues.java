@@ -14,25 +14,25 @@ You must use only standard operations of a queue -- which means only push to bac
 Depending on your language, queue may not be supported natively. You may simulate a queue by using a list or deque (double-ended queue), as long as you use only standard operations of a queue.
 You may assume that all operations are valid (for example, no pop or top operations will be called on an empty stack).
 Update (2015-06-11):
-The class name of the Java function had been updated to MyStack instead of Stack.
+The class name of the Java function had been updated to Ali.MyStack instead of Stack.
  * Solution:
- * 1.1用两个队列，push: O(1)，pop: O(n)，top: O(n)
- * 用两个队列q1，q2实现一个栈。push时把新元素添加到q1的队尾。pop时把q1中除最后一个元素外逐个添加到q2中，
- * 然后pop掉q1中的最后一个元素，然后注意记得q1和q2，
- * 以保证我们添加元素时始终向q1中添加。top的道理类似。
- * 1.2用两个队列，push: O(n)，pop: O(1)，top: O(1)
- * 所有元素都倒序保存在q1中，即后添加的元素在q1的最前端，
- * 如何做到呢？每次push时，把新元素放到空的q2，然后把q1中元素逐个添加到q2的队尾，
- * 最后交换q1和q2。这样q1队首的元素就是最后添加的元素，pop和top直接返回q1队首的元素就好。
+ * 1.1锟斤拷锟斤拷锟斤拷锟斤拷锟叫ｏ拷push: O(1)锟斤拷pop: O(n)锟斤拷top: O(n)
+ * 锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷q1锟斤拷q2实锟斤拷一锟斤拷栈锟斤拷push时锟斤拷锟斤拷元锟斤拷锟斤拷拥锟絨1锟侥讹拷尾锟斤拷pop时锟斤拷q1锟叫筹拷锟斤拷锟揭伙拷锟皆拷锟斤拷锟斤拷锟斤拷锟斤拷拥锟絨2锟叫ｏ拷
+ * 然锟斤拷pop锟斤拷q1锟叫碉拷锟斤拷锟揭伙拷锟皆拷兀锟饺伙拷锟阶拷锟角碉拷q1锟斤拷q2锟斤拷
+ * 锟皆憋拷证锟斤拷锟斤拷锟斤拷锟皆拷锟绞笔硷拷锟斤拷锟絨1锟斤拷锟斤拷印锟絫op锟侥碉拷锟斤拷锟斤拷锟狡★拷
+ * 1.2锟斤拷锟斤拷锟斤拷锟斤拷锟叫ｏ拷push: O(n)锟斤拷pop: O(1)锟斤拷top: O(1)
+ * 锟斤拷锟斤拷元锟截讹拷锟斤拷锟津保达拷锟斤拷q1锟叫ｏ拷锟斤拷锟斤拷锟斤拷拥锟皆拷锟斤拷锟絨1锟斤拷锟斤拷前锟剿ｏ拷
+ * 锟斤拷锟斤拷锟斤拷锟斤拷兀锟矫匡拷锟絧ush时锟斤拷锟斤拷锟斤拷元锟截放碉拷锟秸碉拷q2锟斤拷然锟斤拷锟絨1锟斤拷元锟斤拷锟斤拷锟斤拷锟接碉拷q2锟侥讹拷尾锟斤拷
+ * 锟斤拷蠼换锟絨1锟斤拷q2锟斤拷锟斤拷锟斤拷q1锟斤拷锟阶碉拷元锟截撅拷锟斤拷锟斤拷锟斤拷锟接碉拷元锟截ｏ拷pop锟斤拷top直锟接凤拷锟斤拷q1锟斤拷锟阶碉拷元锟截就好★拷
  * 
- * 你可以假设所有的操作都是有效的（例如，不会对空栈执行pop或者top操作）
- * 取决于你使用的语言，queue可能没有被原生支持。你可以使用list或者deque（双端队列）模拟一个队列，只要保证你仅仅使用队列的标准操作即可——亦即只有如下操作是有效的：push to back（加入队尾），pop from front（弹出队首），size（取队列大小）以及is empty（判断是否为空）
+ * 锟斤拷锟斤拷约锟斤拷锟斤拷锟斤拷械牟锟斤拷锟斤拷锟斤拷锟斤拷锟叫э拷模锟斤拷锟斤拷纾拷锟斤拷锟皆匡拷栈执锟斤拷pop锟斤拷锟斤拷top锟斤拷锟斤拷锟斤拷
+ * 取锟斤拷锟斤拷锟斤拷使锟矫碉拷锟斤拷锟皆ｏ拷queue锟斤拷锟斤拷没锟叫憋拷原锟斤拷支锟街★拷锟斤拷锟斤拷锟绞癸拷锟絣ist锟斤拷锟斤拷deque锟斤拷双锟剿讹拷锟叫ｏ拷模锟斤拷一锟斤拷锟斤拷锟叫ｏ拷只要锟斤拷证锟斤拷锟斤拷锟绞癸拷枚锟斤拷械谋锟阶硷拷锟斤拷锟斤拷锟斤拷伞锟斤拷锟斤拷嗉粗伙拷锟斤拷锟斤拷虏锟斤拷锟斤拷锟斤拷锟叫э拷模锟絧ush to back锟斤拷锟斤拷锟斤拷锟轿诧拷锟斤拷锟絧op from front锟斤拷锟斤拷锟斤拷锟斤拷锟阶ｏ拷锟斤拷size锟斤拷取锟斤拷锟叫达拷小锟斤拷锟皆硷拷is empty锟斤拷锟叫讹拷锟角凤拷为锟秸ｏ拷
 
-	解题思路：
-	push(x) -- 使用queue的push to back操作.
-	pop() -- 将queue中除队尾外的所有元素pop from front然后push to back，最后执行一次pop from front
-	top() -- 将queue中所有元素pop from front然后push to back，使用辅助变量top记录每次弹出的元素，返回top
-	empty() -- 使用queue的is empty操作.
+	锟斤拷锟斤拷思路锟斤拷
+	push(x) -- 使锟斤拷queue锟斤拷push to back锟斤拷锟斤拷.
+	pop() -- 锟斤拷queue锟叫筹拷锟斤拷尾锟斤拷锟斤拷锟斤拷锟皆拷锟絧op from front然锟斤拷push to back锟斤拷锟斤拷锟街达拷锟揭伙拷锟絧op from front
+	top() -- 锟斤拷queue锟斤拷锟斤拷锟斤拷元锟斤拷pop from front然锟斤拷push to back锟斤拷使锟矫革拷锟斤拷锟斤拷锟斤拷top锟斤拷录每锟轿碉拷锟斤拷锟斤拷元锟截ｏ拷锟斤拷锟斤拷top
+	empty() -- 使锟斤拷queue锟斤拷is empty锟斤拷锟斤拷.
  * 
  * 
  * 
