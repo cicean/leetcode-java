@@ -55,7 +55,8 @@ public class TreasureIsland {
     }
 
     private  boolean isSafe(char[][] grid, int r, int c) {
-        return r >= 0 && r < grid.length && c >= 0 && c < grid[0].length && grid[r][c] != 'D';
+        return r >= 0 && r < grid.length && c >= 0 && c < grid[0].length
+                && grid[r][c] != 'D';
     }
 
     private class Point {

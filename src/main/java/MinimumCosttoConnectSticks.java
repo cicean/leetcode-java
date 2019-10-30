@@ -97,8 +97,8 @@ public class MinimumCosttoConnectSticks {
     }
 
 
-    private int[] sticks;
-    private int inputIndex = 0, inputEnd, resultStart = 0, resultEnd = 0;
+//    private int[] sticks;
+//    private int inputIndex = 0, inputEnd, resultStart = 0, resultEnd = 0;
 
     private int getMin() {
         if (inputIndex >= inputEnd && resultStart >= resultEnd) return 0;
@@ -133,6 +133,74 @@ public class MinimumCosttoConnectSticks {
             first = getMin();
         }
         return res;
+    }
+
+    private List<Integer> sticks;
+    private int inputIndex = 0, inputEnd, resultStart = 0, resultEnd = 0;
+
+    private int getMin() {
+        if (inputIndex >= inputEnd && resultStart >= resultEnd) return 0;
+        if (inputIndex >= inputEnd || (resultStart < resultEnd && sticks.get(resultStart) < sticks.get(inputIndex)))
+            return sticks.get(resultStart++).intValue();
+        return sticks.get(inputIndex++).intValue();
+    }
+
+    int minimumTime(int numOfSubFiles, List<Integer> files)
+    {
+        Collections.sort(files);
+        // for(int i: sticks) {
+        //     System.out.print(i+" ");
+        // }
+        // System.out.println();
+        // for(int i: this.sticks) {
+        //     System.out.print(i+" ");
+        // }
+        // System.out.println();
+
+        int res = 0;
+        int first = getMin();
+        while (first > 0) {
+            int second = getMin();
+            if (second > 0) {
+                int val = first + second;
+                res += val;
+                sticks.set(resultEnd++, val);
+            }
+            first = getMin();
+        }
+        return res;
+
+    }
+
+
+    int minimumTime(int numOfSubFiles, List<Integer> files)
+    {
+        if (numOfSubFiles == 0) {
+            return 0;
+        }
+
+        if (numOfSubFiles == 1) {
+            return files.get(0).intValue();
+        }
+
+        // WRITE YOUR CODE HERE
+        PriorityQueue<Integer> pq =  new PriorityQueue<>();
+        // init the queue
+        for (Integer i : files) {
+            pq.offer(i);
+        }
+
+        int res = 0;
+        while (pq.size() > 1) {
+            Integer tmp1 = pq.poll();
+            Integer tmp2 = pq.poll();
+            res += tmp1 + tmp2;
+            pq.offer(tmp1 + tmp2);
+            System.out.println("Test print pq :" + res);
+        }
+
+        return res;
+
     }
 
 }

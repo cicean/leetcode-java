@@ -85,6 +85,7 @@ public class ThirdMaximumNumber {
                 }
             }
         }
+        int tmp = pq.poll();
         if (pq.size() < 3) {
             while (pq.size() > 1) {
                 pq.poll();

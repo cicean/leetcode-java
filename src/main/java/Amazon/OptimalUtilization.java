@@ -50,8 +50,11 @@ import java.util.*;
 
 public class OptimalUtilization {
 
-    public List<List<Integer>> aircraftUtilization(int maxTravelDist, int[][] forwardRouteList, int[][] returnRouteList){
+    public List<List<Integer>> aircraftUtilization(int maxTravelDist,
+                                                   int[][] forwardRouteList,
+                                                   int[][] returnRouteList){
         List<List<Integer>> res = new ArrayList<>();
+
         int len1 = forwardRouteList.length, len2 = returnRouteList.length;
         if(len1 == 0 || len2 == 0) return res;
         Arrays.sort(forwardRouteList, (int[] a, int[] b) -> (a[1] - b[1]));
@@ -75,5 +78,97 @@ public class OptimalUtilization {
             ++left;
         }
         return map.get(maxVal);
+    }
+
+    List<List<Integer>> optimalUtilization(
+            int deviceCapacity,
+            List<List<Integer>> foregroundAppList,
+            List<List<Integer>> backgroundAppList)
+    {
+        // WRITE YOUR CODE HERE
+        List<List<Integer>> res = new ArrayList<>();
+        int len1 = foregroundAppList.size();
+        int len2 = backgroundAppList.size();
+
+        if (len1 == 0 || len2 == 0) {
+            return res;
+        }
+
+        Collections.sort(foregroundAppList, (List<Integer> a, List<Integer> b) -> (a.get(1).intValue() - b.get(1).intValue()));
+        Collections.sort(backgroundAppList, (List<Integer> a, List<Integer> b) -> (a.get(1).intValue() - b.get(1).intValue()));
+        int left = 0, right = len2 - 1, maxVal = -1;
+        Map<Integer, List<List<Integer>>> map = new HashMap<>();
+        while (left < len1 && right >= 0) {
+            int sum = foregroundAppList.get(left).get(1) + backgroundAppList.get(right).get(1);
+            if (sum > deviceCapacity) {
+                --right;
+                continue;
+            }
+            if (sum >= maxVal) {
+                int r = right;
+                map.putIfAbsent(sum, new ArrayList<>());
+                while (r >= 0 && backgroundAppList.get(r).get(1) == backgroundAppList.get(right).get(1)) {
+                    List<Integer> list =  new ArrayList<>();
+                    list.add(foregroundAppList.get(left).get(0));
+                    list.add(backgroundAppList.get(r).get(0));
+                    map.get(sum).add(list);
+                    --r;
+                }
+                maxVal = sum;
+            }
+            ++left;
+        }
+
+        return map.get(maxVal);
+    }
+
+    List<List<Integer>> optimalUtilization(
+            int deviceCapacity,
+            List<List<Integer>> foregroundAppList,
+            List<List<Integer>> backgroundAppList)
+    {
+        // WRITE YOUR CODE HERE
+        List<List<Integer>> res = new ArrayList<>();
+        int len1 = foregroundAppList.size();
+        int len2 = backgroundAppList.size();
+
+        if (len1 == 0 || len2 == 0) {
+            return res;
+        }
+
+        Collections.sort(foregroundAppList, (List<Integer> a, List<Integer> b) -> (a.get(1).intValue() - b.get(1).intValue()));
+        Collections.sort(backgroundAppList, (List<Integer> a, List<Integer> b) -> (a.get(1).intValue() - b.get(1).intValue()));
+        int max = Integer.MIN_VALUE;
+        int m = foregroundAppList.size();
+        int n = backgroundAppList.size();
+        int i =0;
+        int j =n-1;
+        while(i<m && j >= 0) {
+            int sum = foregroundAppList.get(i).get(1) + backgroundAppList.get(j).get(1);
+            if(sum > deviceCapacity) {
+                --j;
+            } else {
+                if(max <= sum) {
+                    if(max < sum) {
+                        max = sum;
+                        res.clear();
+                    }
+                    List<Integer> tmp1 = new ArrayList<Integer>();
+                    tmp1.add(foregroundAppList.get(i).get(0));
+                    tmp1.add(backgroundAppList.get(j).get(0));
+                    res.add(tmp1);
+                    int index = j-1;
+                    while(index >=0 && backgroundAppList.get(index).get(1) == backgroundAppList.get(index+1).get(1)) {
+                        List<Integer> tmp2 = new ArrayList<Integer>();
+                        tmp1.add(foregroundAppList.get(i).get(0));
+                        tmp1.add(backgroundAppList.get(index--).get(0));
+                        res.add(tmp2);
+                    }
+                }
+                ++i;
+            }
+        }
+
+        return res;
     }
 }
