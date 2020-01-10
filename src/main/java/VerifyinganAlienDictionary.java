@@ -86,4 +86,37 @@ public class VerifyinganAlienDictionary {
         }
         return true;
     }
+
+    public boolean isAlienSorted_myself(String[] words, String order) {
+
+        String pre_words = words[0];
+        int[] order_map = new int[26];
+
+        for (int i = 0; i < order.length(); i++) {
+            char c = order.charAt(i);
+            order_map[c - 'a'] = i;
+        }
+
+        int i = 1;
+        while (i < words.length) {
+            for (int j = 0; j < pre_words.length(); j++) {
+                if (order_map[pre_words.charAt(j) - 'a'] > order_map[words[i].charAt(j)]) {
+                    return false;
+                }
+                if (order_map[pre_words.charAt(j) - 'a'] == order_map[words[i].charAt(j)]) {
+                    j++;
+                    continue;
+                }
+
+                if (order_map[pre_words.charAt(j) - 'a'] < order_map[words[i].charAt(j)]) {
+                    break;
+                }
+
+            }
+            pre_words = words[i];
+            i++;
+        }
+
+        return true;
+    }
 }
