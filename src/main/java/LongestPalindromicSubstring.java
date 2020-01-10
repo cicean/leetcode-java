@@ -20,6 +20,72 @@ import java.util.Arrays;
 
 
 public class LongestPalindromicSubstring {
+
+	/**
+	 * Approach 3: Dynamic Programming
+	 * To improve over the brute force solution, we first observe how we can avoid unnecessary re-computation while validating palindromes. Consider the case "ababa". If we already knew that "bab" is a palindrome, it is obvious that "ababa" must be a palindrome since the two left and right end letters are the same.
+	 *
+	 * We define P(i,j)P(i,j) as following:
+	 *
+	 * P(i,j) = \begin{cases} \text{true,} &\quad\text{if the substring } S_i \dots S_j \text{ is a palindrome}\\ \text{false,} &\quad\text{otherwise.} \end{cases}P(i,j)={
+	 * true,
+	 * false,
+	 * ​
+	 *
+	 * if the substring S
+	 * i
+	 * ​
+	 *  …S
+	 * j
+	 * ​
+	 *   is a palindrome
+	 * otherwise.
+	 * ​
+	 *
+	 *
+	 * Therefore,
+	 *
+	 * P(i, j) = ( P(i+1, j-1) \text{ and } S_i == S_j )P(i,j)=(P(i+1,j−1) and S
+	 * i
+	 * ​
+	 *  ==S
+	 * j
+	 * ​
+	 *  )
+	 *
+	 * The base cases are:
+	 *
+	 * P(i, i) = trueP(i,i)=true
+	 *
+	 * P(i, i+1) = ( S_i == S_{i+1} )P(i,i+1)=(S
+	 * i
+	 * ​
+	 *  ==S
+	 * i+1
+	 * ​
+	 *  )
+	 *
+	 * This yields a straight forward DP solution, which we first initialize the one and two letters palindromes,
+	 * and work our way up finding all three letters palindromes, and so on...
+	 *
+	 * Complexity Analysis
+	 *
+	 * Time complexity : O(n^2)O(n
+	 * 2
+	 *  ). This gives us a runtime complexity of O(n^2)O(n
+	 * 2
+	 *  ).
+	 *
+	 * Space complexity : O(n^2)O(n
+	 * 2
+	 *  ). It uses O(n^2)O(n
+	 * 2
+	 *  ) space to store the table.
+	 *
+	 * Additional Exercise
+	 * @param s
+	 * @return
+	 */
 	 public String longestPalindrome_1(String s) {
 	        int n = s.length();
 	        boolean[][] dp = new boolean[n][n];
