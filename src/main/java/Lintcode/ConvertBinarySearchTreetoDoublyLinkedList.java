@@ -1,16 +1,87 @@
-package Lintcode; /**
- * Convert binary search tree to doubly linked list with in-order traversal.
-
-Have you met this question in a real interview? Yes
-Example
-Given a binary search tree:
-
-    4
-   / \
-  2   5
- / \
-1   3
-return 1<->2<->3<->4<->5
+package Lintcode;
+/**
+ * 426. Convert Binary Search Tree to Sorted Doubly Linked List
+ * Medium
+ *
+ * 677
+ *
+ * 75
+ *
+ * Add to List
+ *
+ * Share
+ * Convert a Binary Search Tree to a sorted Circular Doubly-Linked List in place.
+ *
+ * You can think of the left and right pointers as synonymous to the predecessor and successor pointers in a doubly-linked list.
+ * For a circular doubly linked list, the predecessor of the first element is the last element,
+ * and the successor of the last element is the first element.
+ *
+ * We want to do the transformation in place. After the transformation,
+ * the left pointer of the tree node should point to its predecessor,
+ * and the right pointer should point to its successor. You should return the pointer to the smallest element of the linked list.
+ *
+ *
+ *
+ * Example 1:
+ *
+ *
+ * Input: root = [4,2,5,1,3]
+ *
+ *
+ * Output: [1,2,3,4,5]
+ *
+ * Explanation: The figure below shows the transformed BST. The solid line indicates the successor relationship, while the dashed line means the predecessor relationship.
+ *
+ * Example 2:
+ *
+ * Input: root = [2,1,3]
+ * Output: [1,2,3]
+ * Example 3:
+ *
+ * Input: root = []
+ * Output: []
+ * Explanation: Input is an empty tree. Output is also an empty Linked List.
+ * Example 4:
+ *
+ * Input: root = [1]
+ * Output: [1]
+ *
+ *
+ * Constraints:
+ *
+ * -1000 <= Node.val <= 1000
+ * Node.left.val < Node.val < Node.right.val
+ * All values of Node.val are unique.
+ * 0 <= Number of Nodes <= 2000
+ * Accepted
+ * 55,098
+ * Submissions
+ * 97,712
+ * Seen this question in a real interview before?
+ *
+ * Yes
+ *
+ * No
+ * Contributor
+ * 1337c0d3r
+ * 0 ~ 6 months6 months ~ 1 year1 year ~ 2 years
+ *
+ * Facebook
+ * |
+ * 21
+ *
+ * Lyft
+ * |
+ * 4
+ *
+ * Databricks
+ * |
+ * 2
+ *
+ * Amazon
+ * |
+ * 2
+ * Binary Tree Inorder Traversal
  * @author cicean
  *
  */
@@ -152,5 +223,43 @@ class ResultType {
     public ResultType(DoublyListNode first, DoublyListNode last) {
         this.first = first;
         this.last = last;
+    }
+}
+
+class Solution {
+    // the smallest (first) and the largest (last) nodes
+    private Node first = null;
+    private Node last = null;
+
+    private void helper(Node node) {
+        if (node != null) {
+            // left
+            helper(node.left);
+            // node
+            if (last != null) {
+                // link the previous node (last)
+                // with the current one (node)
+                last.right = node;
+                node.left = last;
+            }
+            else {
+                // keep the smallest node
+                // to close DLL later on
+                first = node;
+            }
+            last = node;
+            // right
+            helper(node.right);
+        }
+    }
+
+    public Node treeToDoublyList(Node root) {
+        if (root == null) return null;
+
+        helper(root);
+        // close DLL
+        last.right = first;
+        first.left = last;
+        return first;
     }
 }

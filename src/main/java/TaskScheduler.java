@@ -187,4 +187,26 @@ public class TaskScheduler {
         return idle_slots > 0 ? idle_slots + tasks.length : tasks.length;
     }
 
+    /**
+     *
+     * @param tasks
+     * @param n
+     * @return
+     */
+
+    public int leastInterval_(char[] tasks, int n) {
+        int[] counter = new int[26];
+        for (char ch : tasks)
+            counter[ch - 'A']++;
+
+        Arrays.sort(counter); // O(1) for 26 elements
+        int max = counter[25] - 1; // except last bucket
+        int idleSlots = max * n;
+
+        for (int i = 0; i <= 24; i++)
+            idleSlots -= Math.min(counter[i], max);
+
+        return idleSlots > 0 ? idleSlots + tasks.length : tasks.length;
+    }
+
 }
