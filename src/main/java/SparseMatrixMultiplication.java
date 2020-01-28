@@ -3,29 +3,60 @@ import java.util.Map;
 
 /**
  * 
+ * 311. Sparse Matrix Multiplication
+ * Medium
+ *
+ * 352
+ *
+ * 141
+ *
+ * Add to List
+ *
+ * Share
  * Given two sparse matrices A and B, return the result of AB.
-
-You may assume that A's column number is equal to B's row number.
-
-Example:
-
-A = [
-  [ 1, 0, 0],
-  [-1, 0, 3]
-]
-
-B = [
-  [ 7, 0, 0 ],
-  [ 0, 0, 0 ],
-  [ 0, 0, 1 ]
-]
-
-
-     |  1 0 0 |   | 7 0 0 |   |  7 0 0 |
-AB = | -1 0 3 | x | 0 0 0 | = | -7 0 3 |
-                  | 0 0 1 |
-Show Company Tags
-Show Tags
+ *
+ * You may assume that A's column number is equal to B's row number.
+ *
+ * Example:
+ *
+ * Input:
+ *
+ * A = [
+ *   [ 1, 0, 0],
+ *   [-1, 0, 3]
+ * ]
+ *
+ * B = [
+ *   [ 7, 0, 0 ],
+ *   [ 0, 0, 0 ],
+ *   [ 0, 0, 1 ]
+ * ]
+ *
+ * Output:
+ *
+ *      |  1 0 0 |   | 7 0 0 |   |  7 0 0 |
+ * AB = | -1 0 3 | x | 0 0 0 | = | -7 0 3 |
+ *                   | 0 0 1 |
+ * Accepted
+ * 77,404
+ * Submissions
+ * 131,587
+ * Seen this question in a real interview before?
+ *
+ * Yes
+ *
+ * No
+ * Contributor
+ * LeetCode
+ * 0 ~ 6 months6 months ~ 1 year1 year ~ 2 years
+ *
+ * Facebook
+ * |
+ * 3
+ *
+ * Google
+ * |
+ * 2
 
  * @author cicean
  *
