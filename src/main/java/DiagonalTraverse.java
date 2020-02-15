@@ -60,5 +60,75 @@ public class DiagonalTraverse {
     }
   }
 
+  class Solution_2 {
+    public int[] findDiagonalOrder(int[][] matrix) {
+      int rowLen = matrix.length;
+      if(rowLen == 0) {
+        return new int[]{};
+      }
+      int colLen = matrix[0].length;
+      int n = rowLen*colLen;
+      int[] res = new int[n];
+      boolean up = true;
+      int x = 0;
+      int y = 0;
+      int idx = 0;
+      while(idx < n) {
+        if(up) {
+          if(y >= colLen) {
+            x = x+2;
+            y = colLen-1;
+            up = false;
+          } else if(x < 0) {
+            x = 0;
+            up = false;
+          } else {
+            res[idx++] = matrix[x][y];
+            x--;
+            y++;
+          }
+        } else {
+          if(x >= rowLen) {
+            y = y + 2;
+            x = rowLen-1;
+            up = true;
+          } else if(y < 0) {
+            y = 0;
+            up = true;
+          } else {
+            res[idx++] = matrix[x][y];
+            x++;
+            y--;
+          }
+        }
+      }
+      return res;
+    }
+  }
+
+  class Solution_3 {
+    public int[] findDiagonalOrder(int[][] matrix)
+    {
+      if (matrix.length == 0) return new int[0];
+      int m = matrix.length, n = matrix[0].length;
+      int sol[] = new int[m*n];
+      int row = 0, col = 0;
+      for(int i = 0; i < sol.length; i++) {
+        sol[i] = matrix[row][col];
+        if((row+col)%2 == 0) {              // go up
+          if(col == n-1) row++;           // corner case of last column
+          else if(row == 0) col++;        // corner case of first row
+          else { row--; col++;}           // normal update to go up diagonally
+        } else {                            // go down
+          if(row == m-1) col++;           // corner case of last row
+          else if(col == 0) row++;        // corner case of first column
+          else { row++; col--;}           // normal update to go down diagonally
+        }
+      }
+      return sol;
+
+    }
+  }
+
 
 }

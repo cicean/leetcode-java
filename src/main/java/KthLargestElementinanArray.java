@@ -13,7 +13,7 @@ import java.util.PriorityQueue;
  Given [3,2,1,5,6,4] and k = 2, return 5.
 
  Note:
- You may assume k is always valid, 1 ¡Ü k ¡Ü array's length.
+ You may assume k is always valid, 1 ï¿½ï¿½ k ï¿½ï¿½ array's length.
 
  Credits:
  Special thanks to @mithmatt for adding this problem and creating all test cases.
@@ -66,7 +66,62 @@ public class KthLargestElementinanArray {
 	    return pq.peek();
 	}
 
+	class Solution_quicksort {
+		public int findKthLargest(int[] nums, int k) {
+			return findKthLargest(nums, k, 0, nums.length - 1);
+		}
+
+		private int findKthLargest(int[] nums, int k, int start, int end) {
+			if (start >= end) {
+				return nums[k - 1];
+			}
+
+			int l = start;
+			int r = end;
+			int temp = nums[(start + end) / 2];
+			while (l <= r) {
+				while (l <= r && nums[r] < temp) {
+					r--;
+				}
+
+				while (l <= r && nums[l] > temp) {
+					l++;
+				}
+
+				if (l <= r) {
+					swap(nums, l, r);
+					l++;
+					r--;
+				}
+			}
+
+			if (r >= k - 1) {
+				return findKthLargest(nums, k, start, r);
+			} else if (l <= k - 1) {
+				return findKthLargest(nums, k, l, end);
+			} else {
+				return nums[k - 1];
+			}
+		}
+
+		private void swap(int[] nums, int m, int n) {
+			int temp = nums[m];
+			nums[m] = nums[n];
+			nums[n] = temp;
+		}
+	}
+
 	//QuickSelect Java solution avg. O(n) time O(1)
+
+	/**
+	 * Time complexity : \mathcal{O}(N)O(N) in the average case, \mathcal{O}(N^2)O(N
+	 * 2
+	 *  ) in the worst case.
+	 * Space complexity : \mathcal{O}(1)O(1).
+	 * @param nums
+	 * @param k
+	 * @return
+	 */
 	public int findKthLargest_2(int[] nums, int k) {  
         return findK(nums, nums.length-k, 0, nums.length-1);  
     }  
