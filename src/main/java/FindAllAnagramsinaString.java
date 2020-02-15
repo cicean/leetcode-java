@@ -76,4 +76,156 @@ public class FindAllAnagramsinaString {
     return list;
   }
 
+  /**
+   * Approach 1: Sliding Window with HashMap
+   * Let's start from the simplest approach: sliding window + two counter hashmaps letter -> its count. The first hashmap is a reference counter pCount for string p, and the second one is a counter sCount for string in the sliding window.
+   *
+   * The idea is to move sliding window along the string s, recompute the second hashmap sCount in a constant time and compare it with the first hashmap pCount. If sCount == pCount, then the string in the sliding window is a permutation of string p, and one could add its start position in the output list.
+   *
+   * Algorithm
+   *
+   * Build reference counter pCount for string p.
+   *
+   * Move sliding window along the string s:
+   *
+   * Recompute sliding window counter sCount at each step by adding one letter on the right and removing one letter on the left.
+   *
+   * If sCount == pCount, update the output list.
+   *
+   * Return output list.
+   * Complexity Analysis
+   *
+   * Time complexity: \mathcal{O}(N_s + N_p)O(N
+   * s
+   * ​
+   *  +N
+   * p
+   * ​
+   *  ) since it's one pass along both strings.
+   *
+   * Space complexity: \mathcal{O}(1)O(1), because pCount and sCount contain not more than 26 elements.
+   *
+   */
+
+  class Solution_hashmap {
+    public List<Integer> findAnagrams(String s, String p) {
+      int ns = s.length(), np = p.length();
+      if (ns < np) return new ArrayList();
+
+      Map<Character, Integer> pCount = new HashMap();
+      Map<Character, Integer> sCount = new HashMap();
+      // build reference hashmap using string p
+      for (char ch : p.toCharArray()) {
+        if (pCount.containsKey(ch)) {
+          pCount.put(ch, pCount.get(ch) + 1);
+        }
+        else {
+          pCount.put(ch, 1);
+        }
+      }
+
+      List<Integer> output = new ArrayList();
+      // sliding window on the string s
+      for (int i = 0; i < ns; ++i) {
+        // add one more letter
+        // on the right side of the window
+        char ch = s.charAt(i);
+        if (sCount.containsKey(ch)) {
+          sCount.put(ch, sCount.get(ch) + 1);
+        }
+        else {
+          sCount.put(ch, 1);
+        }
+        // remove one letter
+        // from the left side of the window
+        if (i >= np) {
+          ch = s.charAt(i - np);
+          if (sCount.get(ch) == 1) {
+            sCount.remove(ch);
+          }
+          else {
+            sCount.put(ch, sCount.get(ch) - 1);
+          }
+        }
+        // compare hashmap in the sliding window
+        // with the reference hashmap
+        if (pCount.equals(sCount)) {
+          output.add(i - np + 1);
+        }
+      }
+      return output;
+    }
+  }
+
+  /**
+   * Approach 2: Sliding Window with Array
+   * Algorithm
+   *
+   * Hashmap is quite complex structure, with known performance issues in Java. Let's implement approach 1 using 26-elements array instead of hashmap:
+   *
+   * Element number 0 contains count of letter a.
+   *
+   * Element number 1 contains count of letter b.
+   *
+   * ...
+   *
+   * Element number 26 contains count of letter z.
+   *
+   * Algorithm
+   *
+   * Build reference array pCount for string p.
+   *
+   * Move sliding window along the string s:
+   *
+   * Recompute sliding window array sCount at each step by adding one letter on the right and removing one letter on the left.
+   *
+   * If sCount == pCount, update the output list.
+   *
+   * Return output list.
+   * Complexity Analysis
+   *
+   * Time complexity: \mathcal{O}(N_s + N_p)O(N
+   * s
+   * ​
+   *  +N
+   * p
+   * ​
+   *  ) since it's one pass along both strings.
+   *
+   * Space complexity: \mathcal{O}(1)O(1), because pCount and sCount contain 26 elements each.
+   */
+
+  class Solution_array {
+    public List<Integer> findAnagrams(String s, String p) {
+      int ns = s.length(), np = p.length();
+      if (ns < np) return new ArrayList();
+
+      int [] pCount = new int[26];
+      int [] sCount = new int[26];
+      // build reference array using string p
+      for (char ch : p.toCharArray()) {
+        pCount[(int)(ch - 'a')]++;
+      }
+
+      List<Integer> output = new ArrayList();
+      // sliding window on the string s
+      for (int i = 0; i < ns; ++i) {
+        // add one more letter
+        // on the right side of the window
+        sCount[(int)(s.charAt(i) - 'a')]++;
+        // remove one letter
+        // from the left side of the window
+        if (i >= np) {
+          sCount[(int)(s.charAt(i - np) - 'a')]--;
+        }
+        // compare array in the sliding window
+        // with the reference array
+        if (Arrays.equals(pCount, sCount)) {
+          output.add(i - np + 1);
+        }
+      }
+      return output;
+    }
+  }
+
 }
