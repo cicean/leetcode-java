@@ -117,31 +117,38 @@ public class MinimumDominoRotationsForEqualRow {
   if one could make all elements in A or B equal to x.
   Else return -1.
   */
-    public int check(int x, int[] A, int[] B, int n) {
-        // how many rotations should be done
-        // to have all elements in A equal to x
-        // and to have all elements in B equal to x
-        int rotations_a = 0, rotations_b = 0;
-        for (int i = 0; i < n; i++) {
-            // rotations coudn't be done
-            if (A[i] != x && B[i] != x) return -1;
-                // A[i] != x and B[i] == x
-            else if (A[i] != x) rotations_a++;
-                // A[i] == x and B[i] != x
-            else if (B[i] != x) rotations_b++;
+    class Solution {
+        /*
+        Return min number of rotations
+        if one could make all elements in A or B equal to x.
+        Else return -1.
+        */
+        public int check(int x, int[] A, int[] B, int n) {
+            // how many rotations should be done
+            // to have all elements in A equal to x
+            // and to have all elements in B equal to x
+            int rotations_a = 0, rotations_b = 0;
+            for (int i = 0; i < n; i++) {
+                // rotations coudn't be done
+                if (A[i] != x && B[i] != x) return -1;
+                    // A[i] != x and B[i] == x
+                else if (A[i] != x) rotations_a++;
+                    // A[i] == x and B[i] != x
+                else if (B[i] != x) rotations_b++;
+            }
+            // min number of rotations to have all
+            // elements equal to x in A or B
+            return Math.min(rotations_a, rotations_b);
         }
-        // min number of rotations to have all
-        // elements equal to x in A or B
-        return Math.min(rotations_a, rotations_b);
-    }
 
-    public int minDominoRotations(int[] A, int[] B) {
-        int n = A.length;
-        int rotations = check(A[0], B, A, n);
-        // If one could make all elements in A or B equal to A[0]
-        if (rotations != -1 || A[0] == B[0]) return rotations;
-            // If one could make all elements in A or B equal to B[0]
-        else return check(B[0], B, A, n);
+        public int minDominoRotations(int[] A, int[] B) {
+            int n = A.length;
+            int rotations = check(A[0], B, A, n);
+            // If one could make all elements in A or B equal to A[0]
+            if (rotations != -1 || A[0] == B[0]) return rotations;
+                // If one could make all elements in A or B equal to B[0]
+            else return check(B[0], B, A, n);
+        }
     }
 
     /**
@@ -156,18 +163,21 @@ public class MinimumDominoRotationsForEqualRow {
      * @param B
      * @return
      */
-    public int minDominoRotations_2(int[] A, int[] B) {
-        int n = A.length;
-        for (int i = 0, a = 0, b = 0; i < n && (A[i] == A[0] || B[i] == A[0]); ++i) {
-            if (A[i] != A[0]) a++;
-            if (B[i] != A[0]) b++;
-            if (i == n - 1) return Math.min(a, b);
+    class Solution_2 {
+
+        public int minDominoRotations(int[] A, int[] B) {
+            int n = A.length;
+            for (int i = 0, a = 0, b = 0; i < n && (A[i] == A[0] || B[i] == A[0]); ++i) {
+                if (A[i] != A[0]) a++;
+                if (B[i] != A[0]) b++;
+                if (i == n - 1) return Math.min(a, b);
+            }
+            for (int i = 0, a = 0, b = 0; i < n && (A[i] == B[0] || B[i] == B[0]); ++i) {
+                if (A[i] != B[0]) a++;
+                if (B[i] != B[0]) b++;
+                if (i == n - 1) return Math.min(a, b);
+            }
+            return -1;
         }
-        for (int i = 0, a = 0, b = 0; i < n && (A[i] == B[0] || B[i] == B[0]); ++i) {
-            if (A[i] != B[0]) a++;
-            if (B[i] != B[0]) b++;
-            if (i == n - 1) return Math.min(a, b);
-        }
-        return -1;
     }
 }

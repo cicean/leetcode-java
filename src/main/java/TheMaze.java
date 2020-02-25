@@ -156,4 +156,30 @@ public class TheMaze {
     }
   }
 
+  class Solution_memory {
+    private int[][] dir = new int[][]{{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+
+    public boolean hasPath(int[][] maze, int[] start, int[] destination) {
+      boolean[][] visited = new boolean[maze.length][maze[0].length];
+      return dfs(maze, visited, start, destination);
+    }
+
+    private boolean dfs(int[][] maze, boolean[][] visited, int[] cur, int[] destination) {
+      if (visited[cur[0]][cur[1]]) return false;
+      if (cur[0] == destination[0] && cur[1] == destination[1]) return true;
+      visited[cur[0]][cur[1]] = true;
+      boolean result = false;
+      for (int[] d: dir) {
+        int x = cur[0] + d[0];
+        int y = cur[1] + d[1];
+        while (x >= 0 && x < maze.length && y >= 0 && y < maze[0].length && maze[x][y] == 0) {
+          x += d[0];
+          y += d[1];
+        }
+        result = result || dfs(maze, visited, new int[] {x - d[0], y - d[1]}, destination);
+      }
+      return result;
+    }
+  }
+
 }

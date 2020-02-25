@@ -36,4 +36,22 @@ public class FindAllDuplicatesinanArray {
     }
   }
 
+  class Solution_2 {
+    public List<Integer> findDuplicates(int[] nums) {
+
+      List<Integer> result = new ArrayList<>();
+      int[] occurance = new int[nums.length];
+
+      for(int num : nums)
+        occurance[num-1]++;
+
+      for(int i=0;i<nums.length;i++){
+        if(occurance[i]>1)
+          result.add(i+1);
+      }
+      return result;
+
+    }
+  }
+
 }

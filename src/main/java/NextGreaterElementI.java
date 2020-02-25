@@ -156,6 +156,39 @@ public class NextGreaterElementI {
     }
   }
 
+  class Solution_hashmap {
+    public int[] nextGreaterElement(int[] nums1, int[] nums2) {
+      Map<Integer, Integer> map = new HashMap<>();
+      for (int i = 0; i < nums2.length; i++)
+      {
+        map.put(nums2[i], i);
+      }
+
+      int[] ans = new int[nums1.length];
+      int idx = 0;
+      for (int i : nums1)
+      {
+        ans[idx++] = getNext(i, map.get(i) + 1, nums2);
+      }
+
+      return ans;
+    }
+
+    public int getNext(int n, int idx, int[] nums2)
+    {
+      while (idx < nums2.length)
+      {
+        if (nums2[idx] > n)
+        {
+          return nums2[idx];
+        }
+        idx++;
+      }
+
+      return -1;
+    }
+  }
+
 
 
 

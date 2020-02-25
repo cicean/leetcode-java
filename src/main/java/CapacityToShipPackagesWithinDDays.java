@@ -78,24 +78,64 @@
  */
 public class CapacityToShipPackagesWithinDDays {
 
-    public int shipWithinDays(int[] weights, int D) {
-        int left = 0, right = 0;
-        for (int w: weights) {
-            left = Math.max(left, w);
-            right += w;
-        }
-        while (left < right) {
-            int mid = (left + right) / 2, need = 1, cur = 0;
+    class Solution {
+        public int shipWithinDays(int[] weights, int D) {
+            int left = 0, right = 0;
             for (int w: weights) {
-                if (cur + w > mid) {
-                    need += 1;
-                    cur = 0;
-                }
-                cur += w;
+                left = Math.max(left, w);
+                right += w;
             }
-            if (need > D) left = mid + 1;
-            else right = mid;
+            while (left < right) {
+                int mid = (left + right) / 2, need = 1, cur = 0;
+                for (int w: weights) {
+                    if (cur + w > mid) {
+                        need += 1;
+                        cur = 0;
+                    }
+                    cur += w;
+                }
+                if (need > D) left = mid + 1;
+                else right = mid;
+            }
+            return left;
         }
-        return left;
     }
+
+    class Solution_1 {
+        public int shipWithinDays(int[] nums, int D) {
+            int low = Integer.MIN_VALUE, high = 0;
+            for(int val : nums){
+                low = Math.max(low, val);
+                high = high + val;
+            }
+            //int ans = high;
+            high = low * nums.length / D + 1;;
+            while(low <= high){
+                int mid = low + (high - low) / 2;
+                int val = solve(nums, mid);
+
+                if(val > D){
+                    low = mid + 1;
+                }
+                else{
+                    high = mid - 1;
+                }
+            }
+            return low;
+        }
+
+        int solve(int[] nums, int target){
+            int cuts = 1;
+            int sum = 0;
+            for(int val: nums){
+                sum = sum + val;
+                if(sum > target){
+                    cuts++;
+                    sum = val;
+                }
+            }
+            return cuts;
+        }
+    }
+
 }
