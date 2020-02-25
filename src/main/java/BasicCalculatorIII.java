@@ -82,4 +82,220 @@ public class BasicCalculatorIII {
         return res;
     }
 
+    class Solution {
+//     public int calculate(String s) {
+//         int num = 0, preNum = 0, sum = 0;
+//         char preSign = '+';
+
+//         for(int i = 0; i < s.length() + 1; i++) {
+//             char c = i < s.length() ? s.charAt(i) : '+';
+//             if(c == ' ') continue;
+
+//             if(Character.isDigit(c)) {
+//                 num = num * 10 + c - '0';
+//             } else if(c == '(') {
+//                 // find the last ) position
+//                 int j = i;
+//                 int cnt = 0;
+//                 while(j < s.length()) {
+//                     if(s.charAt(j) == '(') cnt++;
+//                     else if(s.charAt(j) == ')') cnt--;
+
+//                     if(cnt == 0) break;
+//                     j++;
+//                 }
+//                 num = calculate(s.substring(i + 1, j + 1));
+//                 i = j;
+//             } else {
+//                 if(preSign == '+') {
+//                     sum += preNum;
+//                     preNum = num;
+//                 } else if(preSign == '-') {
+//                     sum += preNum;
+//                     preNum = -num;
+//                 } else if(preSign == '*') {
+//                     preNum *= num;
+//                 } else if(preSign == '/') {
+//                     preNum /= num;
+//                 } else if(preSign == ')') {
+//                     break;
+//                 }
+
+//                 preSign = c;
+//                 num = 0;
+//             }
+//         }
+
+        //         return sum + preNum;
+//     }
+        public int calculate(String s) {
+            return helper(s, new int[] {0});
+        }
+
+        public int helper(String s, int[] start) {
+            if(start[0] == s.length()) return 0;
+            int num = 0, preNum = 0, sum = 0;
+            char preSign = '+';
+            int startIndex = start[0];
+
+            for(int i = startIndex; i < s.length() + 1; i++) {
+                char c = i < s.length() ? s.charAt(i) : '+';
+                if(c == ' ') continue;
+
+                if(Character.isDigit(c)) {
+                    num = num * 10 + c - '0';
+                } else if(c == '(') {
+                    start[0] = i + 1;
+                    num = helper(s, start);
+                    i = start[0];
+                } else {
+                    if(preSign == '+') {
+                        sum += preNum;
+                        preNum = num;
+                    } else if(preSign == '-') {
+                        sum += preNum;
+                        preNum = -num;
+                    } else if(preSign == '*') {
+                        preNum *= num;
+                    } else if(preSign == '/') {
+                        preNum /= num;
+                    } else if(preSign == ')') {
+                        break;
+                    }
+
+                    if(c == ')') start[0] = i;
+                    preSign = c;
+                    num = 0;
+                }
+            }
+
+            return sum + preNum;
+        }
+    }
+
+    public class ExpressionEvaluation {
+
+        class TreeNode {
+            public int val;
+            public String s;
+            public TreeNode left, right;
+
+            public TreeNode(int val, String ss) {
+                this.val = val;
+                this.s = ss;
+                this.left = this.right = null;
+            }
+
+        }
+
+        public class Solution {
+
+            int get(String a, Integer base) {
+                if (a.equals("+") || a.equals("-"))
+                    return 1 + base;
+                if (a.equals("*") || a.equals("/"))
+                    return 2 + base;
+
+                return Integer.MAX_VALUE;
+            }
+
+            void dfs(TreeNode root, ArrayList<String> as) {
+                if(root==null)
+                    return;
+                if (root.left != null)
+                    dfs(root.left, as);
+
+                if (root.right != null)
+                    dfs(root.right, as);
+                as.add(root.s);
+            }
+
+            public int evaluateExpression(String[] expression) {
+                // write your code here
+                Stack<TreeNode> stack = new Stack<TreeNode>();
+                TreeNode root = null;
+                int val = 0;
+                Integer base = 0;
+                for (int i = 0; i <= expression.length; i++) {
+                    if(i != expression.length)
+                    {
+
+                        if (expression[i].equals("(")) {
+                            base += 10;
+                            continue;
+                        }
+                        if (expression[i].equals(")")) {
+                            base -= 10;
+                            continue;
+                        }
+                        val = get(expression[i], base);
+
+                    }
+                    TreeNode right = i == expression.length ? new TreeNode(
+                            Integer.MIN_VALUE, "") : new TreeNode(val,
+                            expression[i]);
+                    while (!stack.isEmpty()) {
+                        if (right.val <= stack.peek().val) {
+                            TreeNode nodeNow = stack.pop();
+
+                            if (stack.isEmpty()) {
+                                right.left = nodeNow;
+
+                            } else {
+                                TreeNode left = stack.peek();
+                                if (left.val < right.val) {
+                                    right.left = nodeNow;
+                                } else {
+                                    left.right = nodeNow;
+                                }
+                            }
+                        } else {
+                            break;
+                        }
+                    }
+                    stack.push(right);
+                }
+
+                ArrayList<String> reversepolish = new ArrayList<String>();
+                dfs(stack.peek().left, reversepolish);
+                String[] str = new String[reversepolish.size()];
+                reversepolish.toArray(str);
+                //System.out.println(as);
+
+                return evalreversepolish(str);
+            }
+
+            int evalreversepolish(String[] tokens) {
+                int returnValue = 0;
+                String operators = "+-*/";
+
+                Stack<String> stack = new Stack<String>();
+
+                for (String ss : tokens) {
+                    if (!operators.contains(ss)) {
+                        stack.push(ss);
+                    } else {
+                        int a = Integer.valueOf(stack.pop());
+                        int b = Integer.valueOf(stack.pop());
+                        if (ss.equals("+")) {
+                            stack.push(String.valueOf(a + b));
+                        } else if (ss.equals("-")) {
+                            stack.push(String.valueOf(b - a));
+                        } else if (ss.equals("*")) {
+                            stack.push(String.valueOf(a * b));
+                        } else if (ss.equals("/")) {
+                            stack.push(String.valueOf(b / a));
+                        }
+                    }
+                }
+                if(stack.isEmpty())
+                    returnValue = 0;
+                else
+                    returnValue = Integer.valueOf(stack.pop());
+
+                return returnValue;
+            }
+        };
+    }
+
 }

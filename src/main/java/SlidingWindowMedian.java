@@ -155,5 +155,183 @@ public class SlidingWindowMedian {
    The hash table needs about O(n-k)O(n−k) space.
    */
 
+  class Solution_2_PQ {
+    public double[] medianSlidingWindow(int[] nums, int k) {
+      PriorityQueue<Integer> maxH = new PriorityQueue<Integer>(Collections.reverseOrder());
+      PriorityQueue<Integer> minH = new PriorityQueue<Integer>();
+      HashMap<Integer, Integer> invalid = new HashMap<Integer, Integer>();
+      int leftValidCount = 0;
+      int rightValidCount = 0;
+
+
+      double[] results = new double[nums.length - k + 1];
+
+      for (int i = 0; i < nums.length; i++)
+      {
+        // Add new num to the heap pair
+        if (maxH.isEmpty() || nums[i] <= maxH.peek())
+        {
+          maxH.add(nums[i]);
+          leftValidCount++;
+        }
+        else
+        {
+          minH.add(nums[i]);
+          rightValidCount++;
+        }
+
+        // Remove num from heap pair when it is necessary
+        if (i >= k)
+        {
+          if (nums[i - k] <= maxH.peek())
+          {
+            leftValidCount--;
+            int count = invalid.getOrDefault(nums[i - k], 0);
+            invalid.put(nums[i - k], count+1);
+          }
+          else
+          {
+            rightValidCount--;
+            int count = invalid.getOrDefault(nums[i - k], 0);
+            invalid.put(nums[i - k], count+1);
+          }
+        }
+
+        // Rebalance the heap pair
+        while(leftValidCount > rightValidCount + 1 ||
+                invalid.getOrDefault(maxH.peek(), 0) > 0)
+        {
+          int value = maxH.poll();
+          int invalidCount = invalid.getOrDefault(value, 0);
+
+          if (invalidCount > 0)
+          {
+            invalid.put(value, invalidCount-1);
+          }
+          else
+          {
+            minH.add(value);
+            leftValidCount--;
+            rightValidCount++;
+          }
+        }
+
+        while (rightValidCount > leftValidCount ||
+                invalid.getOrDefault(minH.peek(), 0) > 0)
+        {
+          int value = minH.poll();
+          int invalidCount = invalid.getOrDefault(value, 0);
+
+          if (invalidCount > 0)
+          {
+            invalid.put(value, invalidCount-1);
+          }
+          else
+          {
+            maxH.add(value);
+            leftValidCount++;
+            rightValidCount--;
+          }
+        }
+
+        // Get medium when necessary
+        if (i >= k-1)
+        {
+          if (k % 2 == 0)
+          {
+            results[i-k+1] = ((double)minH.peek() + (double)maxH.peek()) / 2.0;
+          }
+          else
+          {
+            results[i-k+1] = (double) maxH.peek();
+          }
+        }
+      }
+
+      return results;
+    }
+  }
+
+
+
+  class Solution {
+    public double[] medianSlidingWindow(int[] nums, int k) {
+      if(nums.length==0 || k < 1)
+        return new double[]{};
+      List<Long> windows = new ArrayList<>();
+      for(int i : Arrays.copyOfRange(nums, 0, k)){
+        windows.add(Long.valueOf(i));
+      }
+      Collections.sort(windows);
+      boolean isOdd = (k&1) == 1;
+      double[] res = new double[nums.length + 1 - k];
+      for(int i = 0; i < res.length; i++){
+        maintainWindows(windows, nums, i, k);
+        if(isOdd){
+          res[i] = windows.get(k/2);
+        } else {
+          res[i] = (windows.get(k/2)+ windows.get(k/2-1))/2d;
+        }
+      }
+      return res;
+    }
+    private void maintainWindows(List<Long> windows, int[] nums, int i, int k){
+      if(i==0)
+        return;
+      //remove prev
+      long oldElem = nums[i-1], newElem = nums[i + k - 1];
+      windows.remove(Collections.binarySearch(windows, oldElem));
+      int idx = Collections.binarySearch(windows, newElem);
+      if(idx < 0 )
+        idx = - idx - 1;
+      windows.add(idx,newElem);
+    }
+
+    //Nklongk
+//     public double[] medianSlidingWindow(int[] nums, int k) {
+//         int N = nums.length;
+//         double[] res = new double[nums.length - k +1];
+//         List<Long> windowlist = new ArrayList<>();
+//         Deque<Integer> queue = new LinkedList<>();
+//         int idx = 0;
+
+//         for(int i = 0; i< nums.length; i++) {
+//             if(!queue.isEmpty() && queue.peekFirst() == i-k) {
+//                 maintainList(windowlist, Long.valueOf(nums[queue.peekFirst()]));
+//                 queue.pollFirst();
+//             }
+//             queue.addLast(i);
+//             windowlist.add(Long.valueOf(nums[i]));
+
+//             if(i - k +1>= 0) {
+//                 res[idx++] = getMin(windowlist, k);
+//             }
+//         }
+
+//         return res;
+//     }
+
+//     private void maintainList(List<Long> winList, Long target) {
+//         int idx = Collections.binarySearch(winList, target);
+//         if(idx < 0) {
+//             idx = - idx -1;
+//         }
+//         winList.remove(idx);
+//     }
+
+//     private double getMin(List<Long> list, int k) {
+//         Collections.sort(list);
+//         double ans = 0;
+//         if(k % 2 == 0) {
+//             ans = (list.get(k/2-1) + list.get(k/2))/2d;
+//         }
+//         else {
+//             ans = list.get(k/2);
+//         }
+
+//         return ans;
+//     }
+  }
+
 
 }

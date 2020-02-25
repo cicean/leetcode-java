@@ -32,4 +32,47 @@ public class LongestContinuousIncreasingSubsequence {
     return res;
   }
 
+  class Solution {
+    public int findLengthOfLCIS(int[] nums) {
+
+      if (nums.length == 0 || nums.length == 1) {
+        return nums.length;
+      }
+
+      //Low
+      int i = 0;
+
+      //High
+      int j = i+1;
+
+      //current substring length
+      int current = 1;
+
+      //output
+      int output = 1;
+
+      // boolean firstCurrentIncrement = true;
+
+      while (j < nums.length) {
+
+        //If num at i is less than num at j, increment j, and current. Check if current is greater              than ouput. If so, make output == current.
+        if (nums[i] < nums[j]) {
+          j++;
+          i++;
+          current++;
+          if (current > output) {
+            output = current;
+          }
+        } else {
+          j++;
+          i++;
+          current = 1;
+        }
+      }
+
+      return output;
+
+    }
+  }
+
 }

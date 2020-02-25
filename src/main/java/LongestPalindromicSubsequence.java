@@ -75,6 +75,36 @@ public class LongestPalindromicSubsequence {
     }
   }
 
+  class Solution_3 {
+    public int longestPalindromeSubseq(String s) {
+      if (s == null || s.length() == 0) {
+        return 0;
+      }
+      char[] ss = s.toCharArray();
+      int n = s.length();
+      if (n == 1) {
+        return 1;
+      }
+      int[] dp = new int[n];
+      Arrays.fill(dp, 1);
+      for (int i = 1; i < n; i++) {
+        int currMax = 0;
+        for (int j = i - 1; j >= 0; j--) {
+          int tmp = dp[j];
+          if (ss[i] == ss[j]) {
+            dp[j] = currMax + 2;
+          }
+          currMax = Math.max(currMax, tmp);
+        }
+      }
+      int max = 1;
+      for (int i = 0; i < n; i++) {
+        max = Math.max(max, dp[i]);
+      }
+      return max;
+    }
+  }
+
 
 
 }

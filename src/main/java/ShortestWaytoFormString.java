@@ -135,6 +135,6 @@ I included my commented and slightly modified code:
             }
         }
 
-        return ans + (idx == 0? 0: 1);
+        return ans + (idx == 0 ? 0: 1);
     }
 }

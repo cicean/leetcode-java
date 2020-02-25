@@ -139,4 +139,61 @@ public class NextClosestTime {
     }
   }
 
+  /*
+validation:
+hour 0-23
+min 00-59
+
+	if (exist larger than second min) {return;} 12:43 -> 12:44
+	if (exit larger than first min) {return} 23:16 -> 23:21
+	else
+	   if (exsist larger than second hour) {return} 13:56 -> 15:11
+	   if (exist larger than first hour) {return} 13:22 -> 21:11
+	   else return minmin 23:59 -> 22:22
+*/
+
+  class Solution_4 {
+    public String nextClosestTime(String time) {
+      char[] result = time.toCharArray();
+      char[] digit = new char[]{result[0], result[1], result[3], result[4]};
+      Arrays.sort(digit);
+      // HH:M_
+      result[4] = findNext(result[4], '9', digit);
+      if (result[4] > time.charAt(4)) {
+        return new String(result);
+      }
+      // HH:_M
+      result[3] = findNext(result[3], '5', digit);
+      if (result[3] > time.charAt(3)) {
+        return new String(result);
+      }
+      // H_:MM
+      if (result[0] < '2') {
+        result[1] = findNext(result[1], '9', digit);
+      } else {
+        result[1] = findNext(result[1], '3', digit);
+      }
+      if (result[1] > time.charAt(1)) {
+        return new String(result);
+      }
+      // _H:MM
+      result[0] = findNext(result[3], '2', digit);
+      if (result[0] > time.charAt(0)) {
+        return new String(result);
+      }
+      return new String(result);
+    }
+    private char findNext(char c, char upper, char[] digit) {
+      if (c == upper) {
+        return digit[0];
+      }
+      int pos = Arrays.binarySearch(digit, c) + 1;
+      while (pos < 4 && (digit[pos] > upper || digit[pos] == c)) {
+        pos++;
+      }
+      return pos == 4 ? digit[0] : digit[pos];
+    }
+
+  }
+
 }
