@@ -1,7 +1,7 @@
 import java.util.HashMap;
 
 /**
- * Maximum Size Subarray Sum Equals k
+ * 325ã€‚Maximum Size Subarray Sum Equals k
  * 
  * Given an array nums and a target value k, find the maximum length of a subarray that sums to k. If there isn't one, return 0 instead.
 
@@ -21,19 +21,19 @@ Can you do it in O(n) time?
 public class MaximumSizeSubarraySumEqualsk {
 
     /**
-     * ÉÏÀ´Ò»¿´¸Ğ¾õºÍ209.Minimum Size Subarray SumÓĞµãÏñ£¬Ï¸Ë¼Ö®ºó·¢ÏÖÁ½¸ö¸ù±¾²»ÊÇÒ»»ØÊÂ£¬209ÀïµÄÊıÈ«ÊÇÕıÊı£¬ÕâÀï²»ÊÇ£¬Ã»Ê²Ã´¹æÂÉ¡£
-     Ç°×ººÍ¿ÉÒÔ½â¾ö£¬ĞèÒªO(N^2)µÄÊ±¼ä¡£ĞèÒªÓÅ»¯£¬ÓÚÊÇ¿ÉÒÔ°ÑÇ°×ººÍ´æÔÚhashmapÀï£¬¾ÍÖ»ĞèÒªO(N)µÄÊ±¼äÁË¡£
-     hashmapµÄkeyÊÇÇ°×ººÍ£¬valueÊÇµ½µÚ¼¸¸öÊı¡£×¢Òâkey(±íÊ¾Ç°×ººÍ)ÓĞ¿ÉÄÜÖØ¸´(ÒòÎªÓĞ¸ºÊı)¡£
-     ×¢ÒâÕâµÀÌâ²»ÒªÏÈÉú³ÉhashmapÔÙ±éÀúmapÕÒºÍ£¬ÒòÎªkeyÓĞ¿ÉÄÜÖØ¸´£¬¾Í»á°ÑÖ®Ç°µÄÏàÍ¬key¸²¸Ç£¬Ô½¿¿Ç°µÄkey²úÉúµÄsubarrayÔ½³¤£¬¾Í»áÂ©µô´ğ°¸¡£
-     ÕıÈ·µÄ×÷·¨ÊÇ£¬Ò»±ßÉ¨ÃèÊı×éÉú³ÉhashmapÒ»±ßÕÒºÍ£¬ÕâÑùÄÜÈ·±£ÕÒµÄ¶¼ÊÇÇ°ÃæµÄ£»
-     Í¬Ê±Èç¹ûÓöµ½keyÖØ¸´ÁË£¬ÏÈ¼ÇÂ¼ÏÂµ±Ç°sumÊÇ·ñ¿ÉÒÔÕÒµ½ºÍÎªk£¬¿ÉÒÔµÄ»°¼ÇÂ¼max,È»ºóÎÒÃÇ¶ªµôÕâ¸ökey,±£Áô×îÔçµÄÄÇ¸ö£¬
-     ÒòÎª×îÔçµÄ¿ÉÒÔÉú³ÉµÄsize¸ü´ó£¬µ±Ç°Õâ¸öÎÒÃÇÒ²ÒÑ¾­examine¹ıÁË¡£
+     * ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ğ¾ï¿½ï¿½ï¿½209.Minimum Size Subarray Sumï¿½Ğµï¿½ï¿½ï¿½Ï¸Ë¼Ö®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Â£ï¿½209ï¿½ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï²»ï¿½Ç£ï¿½Ã»Ê²Ã´ï¿½ï¿½ï¿½É¡ï¿½
+     Ç°×ºï¿½Í¿ï¿½ï¿½Ô½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÒªO(N^2)ï¿½ï¿½Ê±ï¿½ä¡£ï¿½ï¿½Òªï¿½Å»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¿ï¿½ï¿½Ô°ï¿½Ç°×ºï¿½Í´ï¿½ï¿½ï¿½hashmapï¿½ï£¬ï¿½ï¿½Ö»ï¿½ï¿½ÒªO(N)ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ë¡ï¿½
+     hashmapï¿½ï¿½keyï¿½ï¿½Ç°×ºï¿½Í£ï¿½valueï¿½Çµï¿½ï¿½Ú¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¢ï¿½ï¿½key(ï¿½ï¿½Ê¾Ç°×ºï¿½ï¿½)ï¿½Ğ¿ï¿½ï¿½ï¿½ï¿½Ø¸ï¿½(ï¿½ï¿½Îªï¿½Ğ¸ï¿½ï¿½ï¿½)ï¿½ï¿½
+     ×¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½â²»Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½hashmapï¿½Ù±ï¿½ï¿½ï¿½mapï¿½ÒºÍ£ï¿½ï¿½ï¿½Îªkeyï¿½Ğ¿ï¿½ï¿½ï¿½ï¿½Ø¸ï¿½ï¿½ï¿½ï¿½Í»ï¿½ï¿½Ö®Ç°ï¿½ï¿½ï¿½ï¿½Í¬keyï¿½ï¿½ï¿½Ç£ï¿½Ô½ï¿½ï¿½Ç°ï¿½ï¿½keyï¿½ï¿½ï¿½ï¿½ï¿½ï¿½subarrayÔ½ï¿½ï¿½ï¿½ï¿½ï¿½Í»ï¿½Â©ï¿½ï¿½ï¿½ğ°¸¡ï¿½
+     ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç£ï¿½Ò»ï¿½ï¿½É¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½hashmapÒ»ï¿½ï¿½ï¿½ÒºÍ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½ÒµÄ¶ï¿½ï¿½ï¿½Ç°ï¿½ï¿½Ä£ï¿½
+     Í¬Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½keyï¿½Ø¸ï¿½ï¿½Ë£ï¿½ï¿½È¼ï¿½Â¼ï¿½Âµï¿½Ç°sumï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½Îªkï¿½ï¿½ï¿½ï¿½ï¿½ÔµÄ»ï¿½ï¿½ï¿½Â¼max,È»ï¿½ï¿½ï¿½ï¿½ï¿½Ç¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½key,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¸ï¿½ï¿½ï¿½
+     ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Éµï¿½sizeï¿½ï¿½ï¿½ó£¬µï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò²ï¿½Ñ¾ï¿½examineï¿½ï¿½ï¿½Ë¡ï¿½
      * @param nums
      * @param k
      * @return
      */
 	
-	//O(N) Ê±¼ä O(N) ¿Õ¼ä
+	//O(N) Ê±ï¿½ï¿½ O(N) ï¿½Õ¼ï¿½
 	public int maxSubArrayLen(int[] nums, int k) {
 		int sum = 0, max = 0;
 	    HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
@@ -44,6 +44,32 @@ public class MaximumSizeSubarraySumEqualsk {
 	        if (!map.containsKey(sum)) map.put(sum, i);
 	    }
 	    return max;
+    }
+
+    class Solution {
+        public int maxSubArrayLen(int[] nums, int k) {
+            int len = nums.length;
+            int[] prefixSum = new int[len + 1];
+            for (int i = 0; i < len; i++) {
+                prefixSum[i+1] = prefixSum[i] + nums[i];
+            }
+
+            // System.out.println(Arrays.toString(prefixSum));
+            HashMap<Integer, Integer> map = new HashMap<>();
+            int max = 0;
+            for (int i = 0; i <= len; i++) {
+                int cur = prefixSum[i];
+                Integer left = map.get(cur - k);
+                if (left != null) {
+                    max = Math.max(max, i - left);
+                }
+                if (!map.containsKey(cur)) {
+                    map.put(cur, i);
+                }
+                if (cur == k) max = i;
+            }
+            return max;
+        }
     }
 	
 	
@@ -57,6 +83,26 @@ public class MaximumSizeSubarraySumEqualsk {
                 sums[j] += nums[i];
                 if (sums[j] == k){
                     max = Math.max(max, i - j + 1);
+                }
+            }
+        }
+        return max;
+    }
+
+    /**
+     * google Longest Subarray having sum of elements atmost k
+     */
+
+    public int maxSubArrayLen_google(int[] nums, int k) {
+        int n = nums.length;
+        int max = 0; int last_sum = nums[0];
+        int[] sums = new int[n];// sums[i] stores the sum of subarray starting at i
+        for (int i = 0; i < n; i++){
+            for (int j = 0; j <= i; j++){
+                sums[j] += nums[i];
+                if (Math.abs(sums[j] - k) < Math.abs(last_sum - k)){
+                    max = Math.max(max, i - j + 1);
+                    last_sum = nums[j];
                 }
             }
         }

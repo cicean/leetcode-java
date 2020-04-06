@@ -23,7 +23,7 @@ public class SingleNumber {
     }
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int[] A = {-19,-19,-19, -46};
+		int[] A = {-19,-19,-46, -46};
 		//System.out.println(singleNumber(A));
 		
 		SingleNumber slt = new SingleNumber();

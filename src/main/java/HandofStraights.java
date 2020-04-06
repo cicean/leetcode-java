@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.TreeMap;
 
 /**
@@ -118,4 +119,50 @@ public class HandofStraights {
             return true;
         }
     }
+
+    //follow up
+
+    /**
+     * Define “X-Straight” as X cards with consecutive numbers (X >= 3). Determine if the deck can be fully divided into sets of “X-Straight”.
+     * Example: 1, 2, 3, 4, 4, 5, 6 -> True
+     */
+
+    HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+    public boolean determine(int[] arr) {
+        for (int elem : arr) {
+            map.put(elem, map.getOrDefault(elem, 0) + 1);
+        }
+        return helper(arr, 0);
+    }
+
+    public boolean helper(int[] arr, int pos) {
+        if (pos == arr.length) return true;
+        int cur = arr[pos];
+        for (int k = 3; k < map.keySet().size(); k++) {
+            HashMap<Integer, Integer> copy = new HashMap<Integer, Integer>(map);
+            for (int i = cur; i < cur + k; i++) {
+                if (!map.containsKey(i)) return false;
+                if (map.get(i) == 0) return false;
+                map.put(i, map.get(i)-1);
+            }
+            while (pos < arr.length && map.get(arr[pos]) == 0) pos++;
+            if (helper(arr, pos))
+                return true;
+            map = copy;
+        }
+        return false;
+
+    }
+
+    class Solution_test {
+        public boolean determine(int[] arr) {
+            for (int elem : arr) {
+                map.put(elem, map.getOrDefault(elem, 0) + 1);
+            }
+            return helper(arr, 0);
+        }
+
+    }
+
+
 }

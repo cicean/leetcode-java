@@ -43,4 +43,25 @@ public class StrangePrinter {
     return dp[0][n - 1];
   }
 
+  class Solution {
+    public int strangePrinter(String s) {
+      int n = s.length();
+      return helper(s.toCharArray(), 0, n - 1, new Integer[n][n]);
+    }
+
+    private int helper(char[] A, int i, int j, Integer[][] memo) {
+      if (i > j) return 0;
+      if (memo[i][j] != null) return memo[i][j];
+
+      int res = helper(A, i, j - 1, memo) + 1;
+      for (int k = i; k < j; k++) {
+        if (A[k] == A[j]) {
+          res = Math.min(res, helper(A, i, k, memo) + helper(A, k + 1, j - 1, memo));
+        }
+      }
+      memo[i][j] = res;
+      return memo[i][j];
+    }
+  }
+
 }

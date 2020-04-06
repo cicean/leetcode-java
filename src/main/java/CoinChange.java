@@ -2,7 +2,9 @@
  * Created by cicean on 8/29/2016.
  * 322. Coin Change  QuestionEditorial Solution  My Submissions
  Total Accepted: 33386 Total Submissions: 129944 Difficulty: Medium
- You are given coins of different denominations and a total amount of money amount. Write a function to compute the fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by any combination of the coins, return -1.
+ You are given coins of different denominations and a total amount of money amount.
+ Write a function to compute the fewest number of coins that you need to make up that amount.
+ If that amount of money cannot be made up by any combination of the coins, return -1.
 
  Example 1:
  coins = [1, 2, 5], amount = 11
@@ -20,24 +22,24 @@
 
  Hide Tags Dynamic Programming
 
- ÁãÇ®¶Ò»»£¬ÈÃÄãÓÃ×îÉÙµÄÁãÇ®Êý»»È¡Ä¿±êµÄÊýÁ¿¡£
- ÈçÓÐÁãÇ®1,2,5£¬»»³É11×îÉÙµÄÎª5+5+1 £¬3¸öÓ²±Ò
+ ï¿½ï¿½Ç®ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ùµï¿½ï¿½ï¿½Ç®ï¿½ï¿½ï¿½ï¿½È¡Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç®1,2,5ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½11ï¿½ï¿½ï¿½Ùµï¿½Îª5+5+1 ï¿½ï¿½3ï¿½ï¿½Ó²ï¿½ï¿½
 
  */
 public class CoinChange {
 
     /**
-     * dp£¬Éèdp[i] Îª¶Ò»»Ä¿±êi×îÉÙµÄÓ²±ÒÊý¡£
+     * dpï¿½ï¿½ï¿½ï¿½dp[i] Îªï¿½Ò»ï¿½Ä¿ï¿½ï¿½iï¿½ï¿½ï¿½Ùµï¿½Ó²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-     ÔòÓÐ£ºdp[i + coins[j] ] = min(dp[i + coins[j] ] , dp[i] + 1£©
+     ï¿½ï¿½ï¿½Ð£ï¿½dp[i + coins[j] ] = min(dp[i + coins[j] ] , dp[i] + 1ï¿½ï¿½
 
-     Ëµ°×ÁË¾ÍÊÇÓÃµ±Ç°µÄÓ²±ÒÄÜ×éºÏ³ÉÉ¶£¬È¡×îÐ¡¡£
+     Ëµï¿½ï¿½ï¿½Ë¾ï¿½ï¿½ï¿½ï¿½Ãµï¿½Ç°ï¿½ï¿½Ó²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï³ï¿½É¶ï¿½ï¿½È¡ï¿½ï¿½Ð¡ï¿½ï¿½
      */
 
-    //time: O(n*m), space: O(n), n±íÊ¾amount£¬m±íÊ¾Ó²±Ò¸öÊý¡£
+    //time: O(n*m), space: O(n), nï¿½ï¿½Ê¾amountï¿½ï¿½mï¿½ï¿½Ê¾Ó²ï¿½Ò¸ï¿½ï¿½ï¿½ï¿½ï¿½
     public class Solution {
         public int coinChange(int[] coins, int amount) {
-            // ÎÞÐ§ÊäÈëµÄ´¦Àí
+            // ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½
             if (amount == 0)
                 return 0;
             if (coins == null || coins.length == 0)
@@ -51,7 +53,7 @@ public class CoinChange {
                         min = Math.min(min, dp[i - coins[j]] + 1);
                 }
 
-                // ¸ù¾ÝminµÄÖµÅÐ¶ÏÊÇ·ñÄÜ¶Ò»»
+                // ï¿½ï¿½ï¿½ï¿½minï¿½ï¿½Öµï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½Ü¶Ò»ï¿½
                 dp[i] = min == Integer.MAX_VALUE ? -1 : min;
             }
             return dp[amount];

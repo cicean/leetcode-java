@@ -23,25 +23,25 @@ import java.util.*;
 
  Hide Company Tags Google
  Hide Tags Depth-first Search Graph
- ÌâÒâ£º¸ø¶¨Ò»Ğ©·É»úÆ±£¬ÈÃÄã´ÓÖĞÕÒ³öÒ»¸öĞòÁĞ¿ÉÒÔÈ«²¿ÓÃÍê¡£ÒªÇóÈçÏÂ
+ ï¿½ï¿½ï¿½â£ºï¿½ï¿½ï¿½ï¿½Ò»Ğ©ï¿½É»ï¿½Æ±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò³ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ğ¿ï¿½ï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½ï¿½ê¡£Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
- ´ÓJFK³ö·¢¡£
- Èç¹ûÓĞ¶à¸ö½â£¬Êä³ö×ÖµäĞò×îĞ¡µÄ¡£
+ ï¿½ï¿½JFKï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ ï¿½ï¿½ï¿½ï¿½Ğ¶ï¿½ï¿½ï¿½â£¬ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½Ğ¡ï¿½Ä¡ï¿½
 
  */
 public class ReconstructItinerary {
     /**
-     * ÕâÌâÆäÊµºÜË®£¬Ö»ÒªÄãÕâĞ©Êı¾İ½á¹¹ÕÆÎÕµÄºÃµÄ»°¡£
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½Ë®ï¿½ï¿½Ö»Òªï¿½ï¿½ï¿½ï¿½Ğ©ï¿½ï¿½ï¿½İ½á¹¹ï¿½ï¿½ï¿½ÕµÄºÃµÄ»ï¿½ï¿½ï¿½
 
-     ·µ»ØµÄ´ğ°¸±ØÎªn+1£¬nÎªticketsµÄ¸öÊı
-     Ò»ÕÅ·É»úÆ±Ö»ÄÜÓÃÒ»´Î£¬ËùÒÔÒª¼ÆÊı¡££¨¿ÉÄÜÖØ¸´£©
-     ×ÖµäĞò×îĞ¡Ö»ĞèÒª±£Ö¤ÎÒÃÇ±éÀúµÄÊ±ºò´ÓĞ¡µ½´ó±éÀú¼´¿É¡£so£¬½¨Í¼µÄÊ±ºòÁÚ½Ó±í±ß´ÓĞ¡µ½´ó¡£
+     ï¿½ï¿½ï¿½ØµÄ´ğ°¸±ï¿½Îªn+1ï¿½ï¿½nÎªticketsï¿½Ä¸ï¿½ï¿½ï¿½
+     Ò»ï¿½Å·É»ï¿½Æ±Ö»ï¿½ï¿½ï¿½ï¿½Ò»ï¿½Î£ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø¸ï¿½ï¿½ï¿½
+     ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½Ğ¡Ö»ï¿½ï¿½Òªï¿½ï¿½Ö¤ï¿½ï¿½ï¿½Ç±ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ğ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¡ï¿½soï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ú½Ó±ï¿½ß´ï¿½Ğ¡ï¿½ï¿½ï¿½ï¿½
      */
-    //¶¼ÊÇÓÃDFSÀ´½â£¬Ò»¸öÓÃrecursion, Ò»¸öÓÃstackÀ´ÊµÏÖ£º
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½DFSï¿½ï¿½ï¿½â£¬Ò»ï¿½ï¿½ï¿½ï¿½recursion, Ò»ï¿½ï¿½ï¿½ï¿½stackï¿½ï¿½Êµï¿½Ö£ï¿½
     //Recursion version:
     class solution {
         public void dfs(String departure, Map<String, PriorityQueue<String>> graph, List<String> result) {
-            //Éî¶ÈÓÅÏÈËÑË÷£¬ËÑË÷µ½Ò»¸ö³ÇÊĞÖ»ÊÇarrival cityµÄÊ±ºò£¨¼´Ã»ÓĞ³ö¶ÈµÄÊ±ºò£¬°ÑÕâ¸öcity¼ÇÈëlistÖĞÈ¥£¬ÒòÎªËü¿Ï¶¨ÊÇ×îºóµ½´ïµÄ³ÇÊĞ£¬È»ºóÒÀ´ÎÏòÇ°ÀàÍÆ
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö»ï¿½ï¿½arrival cityï¿½ï¿½Ê±ï¿½ò£¨¼ï¿½Ã»ï¿½Ğ³ï¿½ï¿½Èµï¿½Ê±ï¿½ò£¬°ï¿½ï¿½ï¿½ï¿½cityï¿½ï¿½ï¿½ï¿½listï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½Ï¶ï¿½ï¿½ï¿½ï¿½ï¿½óµ½´ï¿½Ä³ï¿½ï¿½Ğ£ï¿½È»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½
             PriorityQueue<String> arrivals = graph.get(departure);
             while (arrivals != null && !arrivals.isEmpty()) {
                 dfs(arrivals.poll(), graph, result);
@@ -51,7 +51,7 @@ public class ReconstructItinerary {
 
         public List<String> findItinerary(String[][] tickets) {
             List<String> result = new ArrayList<String>();
-            //lexical orderµÄÒªÇóÔÚ´æÈëgraphµÄÊ±ºò¾ÍÓÃpriority queueÏÈ´æºÃ
+            //lexical orderï¿½ï¿½Òªï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½graphï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½priority queueï¿½È´ï¿½ï¿½
             Map<String, PriorityQueue<String>> graph = new HashMap<>();
             for (String[] iter : tickets) {
                 graph.putIfAbsent(iter[0], new PriorityQueue<String>());
@@ -78,7 +78,7 @@ public class ReconstructItinerary {
             stack.push("JFK");
             while (!stack.isEmpty()) {
                 while (graph.containsKey(stack.peek()) && !graph.get(stack.peek()).isEmpty()) {
-                    //ÏÈ½øÈ¥µÄËµÃ÷ÊÇ³ö·¢³ÇÊĞ£¬ÄÇÃ´×îÏÈ³ö·¢µÄ³ÇÊĞ×îºó³öÀ´
+                    //ï¿½È½ï¿½È¥ï¿½ï¿½Ëµï¿½ï¿½ï¿½Ç³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ£ï¿½ï¿½ï¿½Ã´ï¿½ï¿½ï¿½È³ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                     stack.push(graph.get(stack.peek()).poll());
                 }
                 result.add(0, stack.pop());
@@ -88,11 +88,11 @@ public class ReconstructItinerary {
     }
 
     /**
-     * À´×ÔLC´óÉñ@dietpepsiµÄ½â´ğ£¬Ö»ÄÜÄ¤°İ¡£
-     ÌâÄ¿È·¶¨ÁËÖÁÉÙÓĞÒ»ÌõvalidµÄĞĞ³Ì£¨²»´æÔÚ·ÖÖ§Çé¿ö£¬Ò»¶¨ÓĞÏàÍ¬µÄ×îÖÕÄ¿µÄµØ£©£¬¶øÇÒ¶ÔÓÚ¶àÌõvalidµÄĞĞ³Ì£¬ÒªÑ¡È¡×ÖÄ¸Ë³Ğò½ÏĞ¡µÄÒ»Ìõ¡£ÖØ¹¹µÄĞĞ³ÌµØµãÒ»¶¨ÊÇÓĞĞòµÄ£¬
-     ËùÒÔ£¬Ê¹ÓÃÉî¶ÈÓÅÏÈËÑË÷£¬¸ù¾İdepartureÕÒµ½arrivals¼¯ºÏ£¬²¢ÀûÓÃPriorityQueue¶Ô±¾º½¶ÎµÄarrivals½øĞĞ×ÖÄ¸Ë³ĞòÅÅÁĞ£¬ÔÙ½«ÅÅÁĞºóµÄÔªËØË³ĞòÈ¡³ö×÷Îªdeparture£¬¼ÌĞøDFS£¬È»ºóÒ»²ãÒ»²ã´ÓÄÚ¶øÍâµØ½«Æğµãdeparture·ÅÈëpathµÄÊ×Î»¡£
+     * ï¿½ï¿½ï¿½ï¿½LCï¿½ï¿½ï¿½ï¿½@dietpepsiï¿½Ä½ï¿½ï¿½Ö»ï¿½ï¿½Ä¤ï¿½İ¡ï¿½
+     ï¿½ï¿½Ä¿È·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½validï¿½ï¿½ï¿½Ğ³Ì£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú·ï¿½Ö§ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ÄµØ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½ï¿½Ú¶ï¿½ï¿½ï¿½validï¿½ï¿½ï¿½Ğ³Ì£ï¿½ÒªÑ¡È¡ï¿½ï¿½Ä¸Ë³ï¿½ï¿½ï¿½Ğ¡ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ø¹ï¿½ï¿½ï¿½ï¿½Ğ³ÌµØµï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£ï¿½
+     ï¿½ï¿½ï¿½Ô£ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½departureï¿½Òµï¿½arrivalsï¿½ï¿½ï¿½Ï£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½PriorityQueueï¿½Ô±ï¿½ï¿½ï¿½ï¿½Îµï¿½arrivalsï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¸Ë³ï¿½ï¿½ï¿½ï¿½ï¿½Ğ£ï¿½ï¿½Ù½ï¿½ï¿½ï¿½ï¿½Ğºï¿½ï¿½Ôªï¿½ï¿½Ë³ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Îªdepartureï¿½ï¿½ï¿½ï¿½ï¿½ï¿½DFSï¿½ï¿½È»ï¿½ï¿½Ò»ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ú¶ï¿½ï¿½ï¿½Ø½ï¿½ï¿½ï¿½ï¿½departureï¿½ï¿½ï¿½ï¿½pathï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
 
-     HashMapºÍLinkedListµÄÁ½¸ö¹Ø¼üÓÃ·¨ÈçÏÂ£º
+     HashMapï¿½ï¿½LinkedListï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ï¿½Ã·ï¿½ï¿½ï¿½ï¿½Â£ï¿½
 
      putIfAbsent
      Method Detail:
@@ -142,6 +142,29 @@ public class ReconstructItinerary {
             PriorityQueue<String> arrivals = flights.get(departure);
             while (arrivals != null && !arrivals.isEmpty()) dfs(arrivals.poll());
             path.addFirst(departure);
+        }
+    }
+
+    class Solution {
+        public List<String> findItinerary(List<List<String>> tickets) {
+            if(tickets == null || tickets.size() < 1)
+                return new ArrayList<String>();
+            Map<String, PriorityQueue<String>> map = new HashMap<>();
+            for(List<String> ticket : tickets){
+                map.putIfAbsent(ticket.get(0), new PriorityQueue<String>());
+                map.get(ticket.get(0)).add(ticket.get(1));
+            }
+            LinkedList<String> res = new LinkedList<String>();
+            dfs(map, res, "JFK");
+            return res;
+        }
+        public void dfs(Map<String, PriorityQueue<String>> map, LinkedList<String> res, String airport){
+
+            PriorityQueue<String> pq = map.get(airport);
+            while(pq!= null && !pq.isEmpty()){
+                dfs(map, res, pq.poll());
+            }
+            res.addFirst(airport);
         }
     }
 

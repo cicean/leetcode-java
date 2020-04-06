@@ -31,19 +31,20 @@
 
 import datastructure.TreeNode;
 
+
 public class BinaryTreeLongestConsecutiveSequence {
 
     /**
-     * µÝ¹é·¨
-     ¸´ÔÓ¶È
-     Ê±¼äO(n) ¿Õ¼äO(h)
+     * ï¿½Ý¹é·¨
+     ï¿½ï¿½ï¿½Ó¶ï¿½
+     Ê±ï¿½ï¿½O(n) ï¿½Õ¼ï¿½O(h)
 
      Ë¼Â·
-     ÒòÎªÒªÕÒ×î³¤µÄÁ¬ÐøÂ·¾¶£¬ÎÒÃÇÔÚ±éÀúÊ÷µÄÊ±ºòÐèÒªÁ½¸öÐÅÏ¢£¬
-     Ò»ÊÇÄ¿Ç°Á¬ÆðÀ´µÄÂ·¾¶ÓÐ¶à³¤£¬¶þÊÇÄ¿Ç°Â·¾¶µÄÉÏÒ»¸ö½ÚµãµÄÖµ¡£
-     ÎÒÃÇÍ¨¹ýµÝ¹é°ÑÕâÐ©ÐÅÏ¢´úÈë£¬È»ºóÍ¨¹ý·µ»ØÖµ·µ»ØÒ»¸ö×î´óµÄ¾ÍÐÐÁË¡£
-     ÕâÖÖÐèÒª±éÀú¶þ²æÊ÷£¬È»ºóÓÖÐèÒªÖ®Ç°ÐÅÏ¢µÄÌâÄ¿Ë¼Â·¶¼²î²»¶à£¬
-     ±ÈÈçMaximum Depth of Binary TreeºÍBinary Tree Maximum Path Sum¡£
+     ï¿½ï¿½ÎªÒªï¿½ï¿½ï¿½î³¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½
+     Ò»ï¿½ï¿½Ä¿Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½Ð¶à³¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿Ç°Â·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Úµï¿½ï¿½Öµï¿½ï¿½
+     ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½Ý¹ï¿½ï¿½ï¿½ï¿½Ð©ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ë£¬È»ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½
+     ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÒªÖ®Ç°ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½Ä¿Ë¼Â·ï¿½ï¿½ï¿½î²»ï¿½à£¬
+     ï¿½ï¿½ï¿½ï¿½Maximum Depth of Binary Treeï¿½ï¿½Binary Tree Maximum Path Sumï¿½ï¿½
      * @param root
      * @return
      */
@@ -59,18 +60,18 @@ public class BinaryTreeLongestConsecutiveSequence {
         if (root == null) {
             return length;
         }
-        // ÅÐ¶Ïµ±Ç°ÊÇ·ñÁ¬Ðø
+        // ï¿½Ð¶Ïµï¿½Ç°ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½
         int currLen = preVal + 1 == root.val ? length + 1 : 1;
-        // ·µ»Øµ±Ç°³¤¶È£¬×ó×ÓÊ÷³¤¶È£¬ºÍÓÒ×ÓÊ÷³¤¶ÈÖÐ½Ï´óµÄÄÇ¸ö
+        // ï¿½ï¿½ï¿½Øµï¿½Ç°ï¿½ï¿½ï¿½È£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð½Ï´ï¿½ï¿½ï¿½Ç¸ï¿½
         return Math.max(currLen, Math.max(findLongest(root.left, currLen, root.val), findLongest(root.right, currLen, root.val)));
     }
 
     /**
-     * ÕâÖÖÌâË¼Â·±È½ÏÖ±½Ó£¬¾ÍÊÇÎ¬»¤Ò»¸ö×î´óÖµ£¬DFS±éÀúÕû¸öÊ÷£¬²»¶Ï¸üÐÂ×î´óÖµ¡£º¯ÊýÀï¿ÉÒÔ°üº¬¸¸½ÚµãµÄÖµ¼°µ±Ç°Á¬Ðø³¤¶È£¬Èç¹û·¢ÏÖ±¾ÉíÖµ¸ú¸¸½ÚµãÖµ²»Á¬Ðø£¬µ±Ç°Á¬Ðø³¤¶È±äÎª1£¬·ñÔòÔö¼Óµ±Ç°Á¬Ðø³¤¶È¡£
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¼Â·ï¿½È½ï¿½Ö±ï¿½Ó£ï¿½ï¿½ï¿½ï¿½ï¿½Î¬ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½DFSï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È±ï¿½Îª1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½
 
-     µ±È»£¬ÕâµÀÌâÒ²¿ÉÒÔÒªÇó·µ»ØµÄ²»ÊÇ³¤¶È£¬¶øÊÇÁ¬ÐøµÄÊý×Ö¡£Ö»ÒªÔÚÔ­À´´úÂë»ù´¡ÉÏÔÙÔö¼ÓÒ»¸ötail±äÁ¿¼´¿É£¬Ã¿´Î¸üÐÂmaxÊ±£¬Ò²¸üÐÂtail£¬ÕâÑù×îºó¿ÉÒÔ¸ü¾ßtailÖµ¼´Á¬ÐøÐòÁÐ×îºóÒ»¸öÊý×ÖµÄÖµ¼°Õû¸öÐòÁÐ³¤¶È¹¹Ôì³öÕû¸öÁ¬ÐøÐòÁÐ¡£
+     ï¿½ï¿½È»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½Òªï¿½ó·µ»ØµÄ²ï¿½ï¿½Ç³ï¿½ï¿½È£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¡ï¿½Ö»Òªï¿½ï¿½Ô­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½tailï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É£ï¿½Ã¿ï¿½Î¸ï¿½ï¿½ï¿½maxÊ±ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½tailï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¸ï¿½ï¿½ï¿½tailÖµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð³ï¿½ï¿½È¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½
 
-     ¸´ÔÓ¶È
+     ï¿½ï¿½ï¿½Ó¶ï¿½
      time: O(n), space: O(h)
      */
     public class Solution {
@@ -84,13 +85,13 @@ public class BinaryTreeLongestConsecutiveSequence {
             if (node == null)
                 return;
 
-            // Óë¸¸½ÚµãÖµÁ¬Ðø£¬µ±Ç°Á¬Ðø³¤¶È×ÔÔö£¬·ñÔò»Ö¸´³É1
+            // ï¿½ë¸¸ï¿½Úµï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½1
             if (node.val == prev + 1)
                 curr++;
             else
                 curr = 1;
 
-            // ¸üÐÂ×î´óÖµ
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
             max[0] = Math.max(max[0], curr);
             helper(node.left, node.val, curr, max);
             helper(node.right, node.val, curr, max);
