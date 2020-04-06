@@ -24,7 +24,85 @@ import java.util.Queue;
  */
 
 public class SurroundedRegions {
-	public void solve(char[][] board) {
+
+    class Solution {
+        public void solve(char[][] board) {
+
+            if(board.length ==0 ) {
+                return;
+            }
+
+            for(int i =0; i< board.length; i++) {
+                if(board[i][0] == 'O') {
+                    doDfs(board, i , 0);
+                }
+                if(board[i][board[0].length -1] == 'O') {
+                    doDfs(board, i, board[i].length -1);
+                }
+            }
+
+            for(int i =0 ; i< board[0].length; i++) {
+                if(board[0][i] == 'O') {
+                    doDfs(board, 0 , i);
+                }
+                if(board[board.length -1][i] == 'O') {
+                    doDfs(board,board.length -1, i);
+                }
+
+            }
+
+            for(int i =0; i < board.length; i++){
+                for(int j =0; j< board[i].length; j++) {
+                    if(board[i][j] == 'O') {
+                        board[i][j] = 'X';
+                    }
+                    else if( board[i][j] == '*') {
+                        board[i][j] = 'O';
+                    }
+                }
+            }
+
+        }
+
+
+
+        public static void doDfs(char[][] b, int i, int j) {
+            if(i < 0 || i >=b.length || j < 0 || j > b[i].length){
+                return ;
+            }
+
+            b[i][j] = '*';
+
+            if(i >0 && b[i -1][j] == 'O') {
+                doDfs(b, i-1, j);
+            }
+            if(j >0 && b[i ][j-1] == 'O') {
+                doDfs(b, i, j -1);
+            }
+            if(i < b.length -1 && b[i +1][j] == 'O') {
+                doDfs(b, i+1, j);
+            }
+            if(j < b[0].length -1 && b[i][j +1] == 'O') {
+                doDfs(b, i, j +1);
+            }
+
+            return ;
+        }
+    }
+
+
+    class Pair<U, V> {
+        public U first;
+        public V second;
+
+        public Pair(U first, V second) {
+            this.first = first;
+            this.second = second;
+        }
+    }
+
+
+    public void solve(char[][] board) {
         if (board.length == 0 || board[0].length == 0) return;
         int M = board.length, N = board[0].length;
         for (int i = 0; i < M; ++i) {

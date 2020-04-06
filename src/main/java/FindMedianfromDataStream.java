@@ -33,22 +33,89 @@ import java.util.PriorityQueue;
  */
 public class FindMedianfromDataStream {
 
+    class MedianFinder {
+
+        PriorityQueue<Integer> maxHeap;
+        PriorityQueue<Integer> minHeap;
+
+        /** initialize your data structure here. */
+        public MedianFinder() {
+
+            minHeap = new PriorityQueue<Integer>((a,b)-> b - a);
+            maxHeap = new PriorityQueue<Integer>();
+        }
+
+        public void addNum(int num) {
+
+
+            if(minHeap.size()==0 || num<minHeap.peek())
+            {
+                minHeap.offer(num);
+            }
+            else
+            {
+                maxHeap.offer(num);
+            }
+
+        }
+
+        public double findMedian() {
+
+            while(Math.abs(minHeap.size()-maxHeap.size())>=2)
+            {
+                rebalanceHeaps(maxHeap, minHeap);
+            }
+
+            if (maxHeap.size()==minHeap.size())
+            {
+                return (double) (minHeap.peek()+maxHeap.peek())/2;
+            }
+            else if(minHeap.size()>maxHeap.size())
+            {
+                return minHeap.peek();
+            }
+            else
+            {
+                return maxHeap.peek();
+            }
+
+        }
+
+        private void rebalanceHeaps(PriorityQueue<Integer> maxHeap, PriorityQueue<Integer> minHeap)
+        {
+            PriorityQueue<Integer> smallHeap;
+            PriorityQueue<Integer> bigHeap;
+
+            if(maxHeap.size()<minHeap.size())
+            {
+                smallHeap = maxHeap;
+                bigHeap = minHeap;
+            }
+            else {
+                smallHeap = minHeap;
+                bigHeap = maxHeap;
+            }
+
+            smallHeap.offer(bigHeap.poll());
+        }
+    }
+
     /**
-     * ·ÖÎö
-     ÕâµÀÌâµÄ¾­µä×ö·¨¾ÍÊÇÎ¬»¤Á½¸öHeap, Ò»¸öMaxHeap, Ò»¸öMinHeap£¬Î¬»¤ËûÃÇµÄsize£¬±ÈÈç±£Ö¤
+     * ï¿½ï¿½ï¿½ï¿½
+     ï¿½ï¿½ï¿½ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Heap, Ò»ï¿½ï¿½MaxHeap, Ò»ï¿½ï¿½MinHeapï¿½ï¿½Î¬ï¿½ï¿½ï¿½ï¿½ï¿½Çµï¿½sizeï¿½ï¿½ï¿½ï¿½ï¿½ç±£Ö¤
 
      MaxHeap.size() - MinHeap.size() >= 1
-     µ±È»ÕâÖÖÌâ¿ÉÒÔÓÐÐ©follow up, ±ÈÈç£º
+     ï¿½ï¿½È»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð©follow up, ï¿½ï¿½ï¿½ç£º
 
-     ³ýÁËheap×ö£¬»¹ÓÐÊ²Ã´ÆäËû·½·¨£¿
-     BST¿ÉÒÔ£¬±ÈÈç¿ÉÒÔÔÚNodeÀïÔö¼ÓÒ»¸ösize±íÊ¾Õû¸öchildrenµÄÊýÁ¿£¬findMedianÊ±¼ä¸´ÔÓ¶È»áÔö¼Óµ½log(n);
-     Èç¹ûÊÇÕÒ±ÈÈç´¦ÔÚ1/10thµÄÔªËØ£¬ÔõÃ´ÕÒ£¿
-     Í¬Ñù¿ÉÒÔÓÃÁ½¸öheap×ö£¬Î¬»¤Ò»¸öµÄsizeÊÇÁíÒ»¸ösizeµÄ1/9¼´¿É¡£
-     ¸´ÔÓ¶È
+     ï¿½ï¿½ï¿½ï¿½heapï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê²Ã´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+     BSTï¿½ï¿½ï¿½Ô£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Nodeï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½sizeï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½childrenï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½findMedianÊ±ï¿½ä¸´ï¿½Ó¶È»ï¿½ï¿½ï¿½ï¿½Óµï¿½log(n);
+     ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò±ï¿½ï¿½ç´¦ï¿½ï¿½1/10thï¿½ï¿½Ôªï¿½Ø£ï¿½ï¿½ï¿½Ã´ï¿½Ò£ï¿½
+     Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½heapï¿½ï¿½ï¿½ï¿½Î¬ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½sizeï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½sizeï¿½ï¿½1/9ï¿½ï¿½ï¿½É¡ï¿½
+     ï¿½ï¿½ï¿½Ó¶ï¿½
      time: addNum -> O(log(n)), findMedian -> O(1)
      space: O(n)
      */
-    class MedianFinder {
+    class MedianFinderII {
 
         // Adds a number into the data structure.
         PriorityQueue<Integer> minHeap = new PriorityQueue<Integer>();
@@ -58,7 +125,7 @@ public class FindMedianfromDataStream {
             maxHeap.add(num);
             minHeap.add(maxHeap.remove());
 
-            // Î¬»¤Á½¸öheapµÄsize
+            // Î¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½heapï¿½ï¿½size
             if (minHeap.size() > maxHeap.size())
                 maxHeap.add(minHeap.remove());
         }

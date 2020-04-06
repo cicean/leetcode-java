@@ -70,11 +70,18 @@
 
 public class NumberofOperationstoMakeNetworkConnected {
 
+    /**
+     * union find
+     * @param par
+     * @param i
+     * @return
+     */
     public static int findParent(int[] par, int i) {
         if(par[i] == i) return i;
         return par[i] = findParent(par, par[i]);
     }
     public int makeConnected(int n, int[][] connections) {
+        if (connections.length < n - 1) return -1;
         int[] parent = new int[n];
         for(int i = 0; i < n; i++) parent[i] = i;
         int m = connections.length;

@@ -1,6 +1,98 @@
 
 /**
- 5	Longest Palindromic Substring	20.7%	Medium
+ * 5. Longest Palindromic Substring
+ * Medium
+ *
+ * 5660
+ *
+ * 476
+ *
+ * Add to List
+ *
+ * Share
+ * Given a string s, find the longest palindromic substring in s. You may assume that the maximum length of s is 1000.
+ *
+ * Example 1:
+ *
+ * Input: "babad"
+ * Output: "bab"
+ * Note: "aba" is also a valid answer.
+ * Example 2:
+ *
+ * Input: "cbbd"
+ * Output: "bb"
+ * Accepted
+ * 818,666
+ * Submissions
+ * 2,842,844
+ * Seen this question in a real interview before?
+ *
+ * Yes
+ *
+ * No
+ * Contributor
+ * LeetCode
+ * 0 ~ 6 months6 months ~ 1 year1 year ~ 2 years
+ *
+ * Amazon
+ * |
+ * 124
+ *
+ * Microsoft
+ * |
+ * 30
+ *
+ * Adobe
+ * |
+ * 14
+ *
+ * Bloomberg
+ * |
+ * 10
+ *
+ * Facebook
+ * |
+ * 9
+ *
+ * Apple
+ * |
+ * 9
+ *
+ * Google
+ * |
+ * 8
+ *
+ * Oracle
+ * |
+ * 5
+ *
+ * Cisco
+ * |
+ * 4
+ *
+ * Uber
+ * |
+ * 2
+ *
+ * SAP
+ * |
+ * 2
+ * Shortest Palindrome
+ * Hard
+ * Palindrome Permutation
+ * Easy
+ * Palindrome Pairs
+ * Hard
+ * Longest Palindromic Subsequence
+ * Medium
+ * Palindromic Substrings
+ * Medium
+ * How can we reuse a previously computed palindrome to compute a larger palindrome?
+ * If “aba” is a palindrome, is “xabax” and palindrome? Similarly is “xabay” a palindrome?
+ * Complexity based hint:
+ * If we use brute-force and check whether for every start and end position a substring is a palindrome we have O(n^2)
+ * start - end pairs and O(n) palindromic checks. Can we reduce the time for palindromic checks to O(1)
+ * by reusing some previous computation.
  Source:     https://oj.leetcode.com/problems/longest-palindromic-substring/
  Given a string S, find the longest palindromic substring in S. You may assume that the maximum length of S is 1000, and there exists one unique longest palindromic substring.
 
@@ -14,7 +106,6 @@ Hide Similar Problems (H) Shortest Palindrome
            5. Time O(n), Smaller Space than solution 4. (Manacher's Algorithm)
  */
 
-import java.io.*;
 import java.lang.*;
 import java.util.Arrays;
 

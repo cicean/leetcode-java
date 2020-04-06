@@ -65,4 +65,45 @@ During search, generate the keys as in step 1. When we see there's pair of same 
     }
   }
 
+  class MagicDictionary2 {
+    ArrayList<String> dic;
+
+    public MagicDictionary2() {
+      dic= new ArrayList<String>();
+    }
+
+    /** Build a dictionary through a list of words */
+    public void buildDict(String[] dict)
+    {
+      for(int i=0;i<dict.length;i++)
+      {
+        dic.add(dict[i]);
+      }
+    }
+
+    /** Returns if there is any word in the trie that equals to the given word after modifying exactly one character */
+    public boolean search(String word) {
+      for(int i=0;i<dic.size();i++)
+      {
+        if(dic.get(i).length()==word.length())
+        {
+          int j=0,c=0;
+          while(j<word.length() && c<2)
+          {
+            if((int)dic.get(i).charAt(j)!=(int)word.charAt(j))
+            {
+              c++;
+
+            }
+            j++;
+          }
+
+          if(c==1)
+            return true;
+        }
+      }
+      return false;
+    }
+  }
+
 }

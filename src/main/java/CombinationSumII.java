@@ -46,6 +46,37 @@ public class CombinationSumII {
             path.remove(path.size() - 1);
         }
     }
+
+    class Solution {
+        public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+            // a cllection - duplicates
+            // used only once
+            // avoid duplicate answer list: sort the array and check if the elements is the same as the previous one
+            // traverse from the next element in recursive function
+            if(candidates == null || candidates.length == 0) return new ArrayList<>();
+            Arrays.sort(candidates);
+            List<List<Integer>> ans = new ArrayList<>();
+            find(candidates, target, 0, ans, new ArrayList<>(), 0);
+            return ans;
+        }
+
+        private void find(int[] candidates, int target, int sum, List<List<Integer>> ans, List<Integer> list, int start){
+            if(target == sum){
+                ans.add(new ArrayList<>(list));
+                return;
+            }
+            for(int i=start; i<candidates.length; i++){
+                // pre condition: the array is sorted
+                if(sum + candidates[i] > target) break;
+                // avoid duplicates
+                if(i-1 >= start && candidates[i] == candidates[i-1]) continue;
+                list.add(candidates[i]);
+                find(candidates, target, sum + candidates[i], ans, list, i+1);
+                list.remove(list.size() - 1);
+            }
+        }
+
+    }
     
     public static void main(String[] args) {
 		// TODO Auto-generated method stub

@@ -1,19 +1,83 @@
-/*
- Author:     Andy, nkuwjg@gmail.com
- Date:       Jan 28, 2015
- Problem:    Binary Tree Maximum Path Sum
- Difficulty: Easy
- Source:     https://oj.leetcode.com/problems/binary-tree-maximum-path-sum/
- Notes:
- Given a binary tree, find the maximum path sum.
- The path may start and end at any node in the tree.
- For example:
- Given the below binary tree,
-   1
-  / \
- 2   3
- Return 6.
- Solution: Recursion...
+/**
+ * 124. Binary Tree Maximum Path Sum
+ * Hard
+ *
+ * 2627
+ *
+ * 214
+ *
+ * Add to List
+ *
+ * Share
+ * Given a non-empty binary tree, find the maximum path sum.
+ *
+ * For this problem, a path is defined as any sequence of nodes from some starting node to any node in the tree along
+ * the parent-child connections. The path must contain at least one node and does not need to go through the root.
+ *
+ * Example 1:
+ *
+ * Input: [1,2,3]
+ *
+ *        1
+ *       / \
+ *      2   3
+ *
+ * Output: 6
+ * Example 2:
+ *
+ * Input: [-10,9,20,null,null,15,7]
+ *
+ *    -10
+ *    / \
+ *   9  20
+ *     /  \
+ *    15   7
+ *
+ * Output: 42
+ * Accepted
+ * 276,921
+ * Submissions
+ * 856,454
+ * Seen this question in a real interview before?
+ *
+ * Yes
+ *
+ * No
+ * Contributor
+ * LeetCode
+ * 0 ~ 6 months6 months ~ 1 year1 year ~ 2 years
+ *
+ * Facebook
+ * |
+ * 55
+ *
+ * Amazon
+ * |
+ * 13
+ *
+ * Microsoft
+ * |
+ * 7
+ *
+ * Google
+ * |
+ * 4
+ *
+ * Apple
+ * |
+ * 4
+ *
+ * Uber
+ * |
+ * 2
+ * Path Sum
+ * Easy
+ * Sum Root to Leaf Numbers
+ * Medium
+ * Path Sum IV
+ * Medium
+ * Longest Univalue Path
+ * Easy
  */
 
 /**
