@@ -228,7 +228,7 @@ public class CherryPickup {
          }
      }
 
-     /* Approach #3: Dynamic Programming (Bottom Up) [Accepted]
+     /** Approach #3: Dynamic Programming (Bottom Up) [Accepted]
      * Intuition
      *
      * Like in Approach #2, we have the idea of dynamic programming.
@@ -276,6 +276,57 @@ public class CherryPickup {
                 dp = dp2;
             }
             return Math.max(0, dp[N-1][N-1]);
+        }
+    }
+
+
+    /**
+     * dp dfs
+     */
+    class Solution {
+        public static int cherryPickup(int[][] grid) {
+            int n = grid.length;
+            int[][][] dp = new int[n][n][n];
+            for (int[][] row : dp) {
+                for (int[] col : row) {
+                    Arrays.fill(col, Integer.MIN_VALUE);
+                }
+            }
+
+            dp[0][0][0] = grid[0][0];
+            return Math.max(0, dfs(dp, n - 1, n - 1, n - 1, n - 1, grid));
+        }
+
+        private static int dfs(int[][][] dp, int r1, int c1,
+                               int r2, int c2, int[][] grid) {
+            if (r1 < 0 || r2 < 0 || c1 < 0 || c2 < 0 || r1 < r2
+                    || grid[r1][c1] == -1 || grid[r2][c2] == -1) {
+                return Integer.MIN_VALUE;
+            }
+
+            int res = dp[r1][c1][r2];
+
+            if (res != Integer.MIN_VALUE) {
+                return res;
+            }
+
+            res = grid[r1][c1];
+            if (r1 != r2) {
+                res += grid[r2][c2];
+            }
+
+            res += max(dfs(dp, r1 - 1, c1, r2 - 1, c2, grid),
+                    dfs(dp, r1 - 1, c1, r2, c2 - 1, grid),
+                    dfs(dp, r1, c1 - 1, r2 - 1, c2, grid),
+                    dfs(dp, r1, c1 - 1, r2, c2 - 1, grid));
+
+
+            dp[r1][c1][r2] = res;
+            return res;
+        }
+
+        private static int max(int a, int b, int c, int d) {
+            return Math.max(Math.max(a, b), Math.max(c, d));
         }
     }
 

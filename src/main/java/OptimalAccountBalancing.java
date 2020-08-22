@@ -107,6 +107,108 @@ public class OptimalAccountBalancing {
       return ans;
     }
 
+    //solution
+/*
+1. Let compute each person's, balance by making postive and negative debt.
+2. Collect positive and  negative debts (make negative val to postivie) in a separrate list and try to balance equal values of pos and negative by marking it as a transactions. Also, remove them from the list.
+3. Now, recursively try to settle with all combination of pos and neg values, and maintain min transactions.
+
+
+*/
+    class Solution2 {
+      public int minTransfers(int[][] transactions) {
+        Map<Integer, Integer> map = new HashMap<>();
+
+        for(int[] t : transactions){
+          int x = t[0];
+          int y = t[1];
+          int z = t[2];
+
+          map.put(x, map.getOrDefault(x, 0)-z);
+          map.put(y, map.getOrDefault(y, 0)+z);
+
+
+        }
+
+        List<Integer> pos_l = new ArrayList<>();
+        List<Integer> neg_l = new ArrayList<>();
+
+        for(int k : map.keySet()){
+
+          if(map.get(k) > 0){
+            pos_l.add(map.get(k));
+          }
+          else if(map.get(k) < 0){
+            neg_l.add(map.get(k));
+          }
+        }
+
+
+
+        int cur = 0;
+
+        for(int i = 0 ; i < pos_l.size() ; i++){
+          for(int j = 0 ; j < neg_l.size(); j++){
+            if(pos_l.get(i) + neg_l.get(j) == 0){
+              pos_l.remove(i);
+              neg_l.remove(j);
+              cur++;
+              i--;
+              break;
+            }
+
+          }
+        }
+
+        int[] pos = new int[pos_l.size()];
+        int[] neg = new int[neg_l.size()];
+
+        for(int i = 0 ; i < pos_l.size(); i++){
+          pos[i] = pos_l.get(i);
+        }
+
+        for(int i = 0 ; i < neg_l.size(); i++){
+          neg[i] = -neg_l.get(i); // mul with minus
+        }
+        int[] min = new int[1];
+        min[0] = Integer.MAX_VALUE;
+
+        dfs(pos, neg, cur, min, 0);
+
+        return min[0];
+      }
+
+      //n_idx - neg_idx, neg array has postive value not negative, we will try to balance both arrays.
+      public void dfs(int[] pos, int[] neg, int cur, int[] min, int n_idx){
+
+
+        if(n_idx >= neg.length){
+          min[0] = Math.min(min[0], cur);
+          return ;
+
+        }
+
+        for(int i = 0 ; i < pos.length ; i++){ // try with all postive values
+          if(neg[n_idx] <= pos[i] ){ // if current negative index is less or equal to current postive, we can make one transactions.
+            pos[i] = pos[i] - neg[n_idx]; // update current postive value
+            dfs(pos, neg, cur+1, min, n_idx+1);
+            pos[i] = pos[i] + neg[n_idx]; //  restore it back
+          }
+          else if(pos[i] > 0){
+            int tmp = pos[i];
+            neg[n_idx] -= pos[i];
+            pos[i] = 0;
+            dfs(pos, neg, cur+1, min, n_idx);
+            neg[n_idx] += tmp;
+            pos[i] = tmp;
+          }
+
+
+        }
+
+
+      }
+    }
   }
 
 

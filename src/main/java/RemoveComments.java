@@ -77,4 +77,38 @@ public class RemoveComments {
             return ans;
         }
     }
+
+    class Solution {
+        public List<String> removeComments(String[] source) {
+            List<String> res = new ArrayList<>();
+            StringBuilder sb = new StringBuilder();
+            boolean inBlockComment = false;
+
+            for (String s : source) {
+                for (int i = 0; i < s.length(); i++) {
+                    if (!inBlockComment) {
+                        if (i + 1 < s.length() && s.charAt(i) == '/' && s.charAt(i + 1) == '/') break;
+                        else if (i + 1 < s.length() && s.charAt(i) == '/' && s.charAt(i + 1) == '*') {
+                            inBlockComment = true;
+                            i++;
+                        } else {
+                            sb.append(s.charAt(i));
+                        }
+                    } else {
+                        if (i + 1 < s.length() && s.charAt(i) == '*' && s.charAt(i + 1) == '/') {
+                            inBlockComment = false;
+                            i++;
+                        }
+                    }
+                }
+
+                if (!inBlockComment && sb.length() > 0) {
+                    res.add(sb.toString());
+                    sb = new StringBuilder();
+                }
+            }
+
+            return res;
+        }
+    }
 }

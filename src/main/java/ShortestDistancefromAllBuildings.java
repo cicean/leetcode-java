@@ -31,15 +31,15 @@ import java.util.Queue;
 public class ShortestDistancefromAllBuildings {
 
     /**
-     * ·ÖÎö
-     ÕâµÀÀíÀàËÆÓÚWalls ang Gates, ½â¾ö·½·¨Ò²Ó¦¸ÃÊÇ´Óbuilding³ö·¢½øÐÐBFS£¬
-     ²»¹ýÕâÀï²»Í¬µÄÊÇÕâÀïÐèÒª·µ»Ø×îÐ¡¾àÀëºÍ£¬ËùÒÔÎÒÃÇÓ¦¸ÃÒ»¸öÒ»¸öµÄ¶ÔbuildingµÄµãBFS£¬
-     ÓÃÒ»¸ö¶þÎ¬¾ØÕó´æÃ¿¸öµãµ½ËùÓÐbuildingµÄ¾àÀëºÍ£¬Ã¿´ÎBFS£¬¶¼¸üÐÂÏàÓ¦µÄ¾àÀëºÍ¡£
-     ×îºó±éÀúÄÇ¸ö¾àÀëºÍ¾ØÕó£¬ÕÒ³ö×îÐ¡Öµ¼´¿É¡£
-     ÐèÒª×¢ÒâµÄÊÇ£¬ÕâµÀÌâ»¹ÓÐ¸öÌõ¼þ¾ÍÊÇempty room ±ØÐë reach all buildings£¬ËùÒÔÎÒÃÇ¿ÉÒÔÓÃÁíÍâÒ»¸ö¾ØÕó´æ¶ÔÓ¦empty roomµ½buildingµÄ¸öÊý£¬Èç¹û×îÖÕ¸öÊý²»µÈÓÚ×ÜµÄbuildingÊý£¬¶ÔÓ¦µã´æµÄ¾àÀëºÍÎÞÐ§¡£
+     * ï¿½ï¿½ï¿½ï¿½
+     ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Walls ang Gates, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò²Ó¦ï¿½ï¿½ï¿½Ç´ï¿½buildingï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½BFSï¿½ï¿½
+     ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï²»Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½Í£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½Ò»ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ä¶ï¿½buildingï¿½Äµï¿½BFSï¿½ï¿½
+     ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Î¬ï¿½ï¿½ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½ï¿½ãµ½ï¿½ï¿½ï¿½ï¿½buildingï¿½Ä¾ï¿½ï¿½ï¿½Í£ï¿½Ã¿ï¿½ï¿½BFSï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½Ä¾ï¿½ï¿½ï¿½Í¡ï¿½
+     ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¸ï¿½ï¿½ï¿½ï¿½ï¿½Í¾ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½ï¿½Ð¡Öµï¿½ï¿½ï¿½É¡ï¿½
+     ï¿½ï¿½Òª×¢ï¿½ï¿½ï¿½ï¿½Ç£ï¿½ï¿½ï¿½ï¿½ï¿½â»¹ï¿½Ð¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½empty room ï¿½ï¿½ï¿½ï¿½ reach all buildingsï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦empty roomï¿½ï¿½buildingï¿½Ä¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Üµï¿½buildingï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½Ä¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½
 
-     ¸´ÔÓ¶È
-     time: O(kMN), space: O(MN), k±íÊ¾buildingÊýÁ¿
+     ï¿½ï¿½ï¿½Ó¶ï¿½
+     time: O(kMN), space: O(MN), kï¿½ï¿½Ê¾buildingï¿½ï¿½ï¿½ï¿½
      */
 
     public class Solution {
@@ -50,14 +50,14 @@ public class ShortestDistancefromAllBuildings {
             }
             int cols = grid[0].length;
 
-            // ¼ÇÂ¼µ½¸÷¸öbuilding¾àÀëºÍ
+            // ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½buildingï¿½ï¿½ï¿½ï¿½ï¿½
             int[][] dist = new int[rows][cols];
 
-            // ¼ÇÂ¼µ½ÄÜµ½´ïµÄbuildingµÄÊýÁ¿
+            // ï¿½ï¿½Â¼ï¿½ï¿½ï¿½Üµï¿½ï¿½ï¿½ï¿½buildingï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             int[][] nums = new int[rows][cols];
             int buildingNum = 0;
 
-            // ´ÓÃ¿¸öbuilding¿ªÊ¼BFS
+            // ï¿½ï¿½Ã¿ï¿½ï¿½buildingï¿½ï¿½Ê¼BFS
             for (int i = 0; i < rows; i++) {
                 for (int j = 0; j < cols; j++) {
                     if (grid[i][j] == 1) {
@@ -87,7 +87,7 @@ public class ShortestDistancefromAllBuildings {
             q.add(new int[]{row, col});
             int[][] dirs = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
 
-            // ¼ÇÂ¼·ÃÎÊ¹ýµÄµã
+            // ï¿½ï¿½Â¼ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½Äµï¿½
             boolean[][] visited = new boolean[rows][cols];
             int level = 0;
             while (!q.isEmpty()) {
@@ -107,6 +107,148 @@ public class ShortestDistancefromAllBuildings {
                     }
                 }
             }
+        }
+    }
+
+
+    public class Solution {
+        public int shortestDistance(int[][] grid) {
+            if (grid == null || grid[0].length == 0) return 0;
+            final int[] shift = new int[] {0, 1, 0, -1, 0};
+
+            int row  = grid.length, col = grid[0].length;
+            int[][] distance = new int[row][col];
+            int[][] reach = new int[row][col];
+            int buildingNum = 0;
+
+            for (int i = 0; i < row; i++) {
+                for (int j =0; j < col; j++) {
+                    if (grid[i][j] == 1) {
+                        buildingNum++;
+                        Queue<int[]> myQueue = new LinkedList<int[]>();
+                        myQueue.offer(new int[] {i,j});
+
+                        boolean[][] isVisited = new boolean[row][col];
+                        int level = 1;
+
+                        while (!myQueue.isEmpty()) {
+                            int qSize = myQueue.size();
+                            for (int q = 0; q < qSize; q++) {
+                                int[] curr = myQueue.poll();
+
+                                for (int k = 0; k < 4; k++) {
+                                    int nextRow = curr[0] + shift[k];
+                                    int nextCol = curr[1] + shift[k + 1];
+
+                                    if (nextRow >= 0 && nextRow < row && nextCol >= 0 && nextCol < col
+                                            && grid[nextRow][nextCol] == 0 && !isVisited[nextRow][nextCol]) {
+                                        //The shortest distance from [nextRow][nextCol] to thic building
+                                        // is 'level'.
+                                        distance[nextRow][nextCol] += level;
+                                        reach[nextRow][nextCol]++;
+
+                                        isVisited[nextRow][nextCol] = true;
+                                        myQueue.offer(new int[] {nextRow, nextCol});
+                                    }
+                                }
+                            }
+                            level++;
+                        }
+                    }
+                }
+            }
+
+            int shortest = Integer.MAX_VALUE;
+            for (int i = 0; i < row; i++) {
+                for (int j = 0; j < col; j++) {
+                    if (grid[i][j] == 0 && reach[i][j] == buildingNum) {
+                        shortest = Math.min(shortest, distance[i][j]);
+                    }
+                }
+            }
+
+            return shortest == Integer.MAX_VALUE ? -1 : shortest;
+
+
+        }
+    }
+
+    class Solution {
+        int min = Integer.MAX_VALUE;
+        int m;
+        int n;
+        int house;
+        int[][] steps;
+        int[][] reach;
+        int[][] dirs = {{1,0},{-1,0},{0,1},{0,-1}};
+
+        public int shortestDistance(int[][] grid) {
+            if (grid == null || grid.length == 0 ||grid[0].length == 0) return -1;
+            m = grid.length;
+            n = grid[0].length;
+            house = 0;
+            steps = new int[m][n];
+            reach = new int[m][n];
+            for (int i = 0; i < m; i++) {
+                for (int j = 0; j < n; j++) {
+                    if (grid[i][j] == 1) {
+                        house++;
+                    }
+                }
+            }
+
+            for (int i = 0; i < m; i++) {
+                for (int j = 0; j < n; j++) {
+                    if (grid[i][j] == 1) {
+                        if (!helper(grid, i, j)) return -1;
+                    }
+                }
+            }
+
+            for (int i = 0; i < m; i++) {
+                for (int j = 0; j < n; j++) {
+                    if (grid[i][j] == 0 && reach[i][j] == house) {
+                        min = Math.min(min, steps[i][j]);
+                    }
+                }
+            }
+
+            return min == Integer.MAX_VALUE ? -1 : min;
+        }
+
+        private boolean helper(int[][] grid, int i, int j) {
+            Queue<int[]> queue = new LinkedList<>();
+            boolean[][] visited = new boolean[m][n];
+
+            queue.offer(new int[]{i, j});
+            int step = 0;
+            int res = 0;
+            int count = 0;
+
+            while (!queue.isEmpty()) {
+                step++;
+                int size = queue.size();
+                while (size-- > 0) {
+                    int[] pos = queue.poll();
+                    visited[pos[0]][pos[1]] = true;
+                    for (int[] dir : dirs) {
+                        int x = pos[0] + dir[0];
+                        int y = pos[1] + dir[1];
+
+                        if (x < 0 || x >= m || y < 0 || y >= n || grid[x][y] == 2 || visited[x][y]) continue;
+
+                        if (grid[x][y] == 0) {
+                            steps[x][y] += step;
+                            reach[x][y]++;
+                            queue.add(new int[]{x, y});
+                        } else {
+                            count++;
+                        }
+                        visited[x][y] = true;
+                    }
+                }
+            }
+            return count == house - 1;
         }
     }
 

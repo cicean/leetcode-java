@@ -34,9 +34,9 @@ public class RemoveInvalidParentheses {
         for (int stack = 0, i = last_i; i < s.length(); i++) {
             if (s.charAt(i) == par[0]) stack++;
             if (s.charAt(i) == par[1]) stack--;
-            //Èç¹û'('±È')'´ó»òµÈµÄ»°£¬¾Í¼ÌÐøÉ¨ÏÂÈ¥
+            //ï¿½ï¿½ï¿½'('ï¿½ï¿½')'ï¿½ï¿½ï¿½ÈµÄ»ï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ï¿½É¨ï¿½ï¿½È¥
             if (stack >= 0) continue;
-            //·ñÔò£¬ÎÒÃÇ¾ÍÕÒµ½µ±Ç°ÓÐ¿ÉÄÜÉ¾È¥µÄ')'£¬È»ºóÉ¾µô¿´ÐÂµÄstring
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½Òµï¿½ï¿½ï¿½Ç°ï¿½Ð¿ï¿½ï¿½ï¿½É¾È¥ï¿½ï¿½')'ï¿½ï¿½È»ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½ï¿½Âµï¿½string
             for (int j = last_j; j <= i; j++) {
                 if (s.charAt(j) == par[1] && (j == last_j || s.charAt(j - 1) != par[1])) {
                     remove(s.substring(0, j) + s.substring(j + 1, s.length()), result, i, j, par);
@@ -46,14 +46,69 @@ public class RemoveInvalidParentheses {
         }
 
         String reversed = new StringBuilder(s).reverse().toString();
-        //Èç¹ûÖ»´Ó×óµ½ÓÒÉ¨ÁË£¬par[0]»¹ÊÇ'('µÄÊ±ºò£¬ÎÒÃÇ»¹ÒªÔÙ´ÓÓÒÍù×óÉ¨Ò»±é
+        //ï¿½ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¨ï¿½Ë£ï¿½par[0]ï¿½ï¿½ï¿½ï¿½'('ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Ç»ï¿½Òªï¿½Ù´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¨Ò»ï¿½ï¿½
         if (par[0] == '(') {
             remove(reversed, result, 0, 0, new char[]{')', '('});
         } else {
-            //·ñÔòÁ½±é¶¼É¨ÍêÁË£¬¾Í¼ÓÈë½á¹ûÖÐÈ¥
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½é¶¼É¨ï¿½ï¿½ï¿½Ë£ï¿½ï¿½Í¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¥
             result.add(reversed);
         }
     }
+
+    class Solution {
+        public List<String> removeInvalidParentheses(String s) {
+            int l = 0;
+            int r = 0;
+
+            for (char ch : s.toCharArray()) {
+                if (ch == '(') {
+                    l++;
+                }
+
+                if (l == 0 && ch == ')') {
+                    r++;
+                } else if (l != 0 && ch == ')') {
+                    l--;
+                }
+            }
+
+            List<String> ans = new ArrayList<>();
+            dfs(s, 0, l, r, ans);
+            return ans;
+        }
+
+        private boolean isValid(String s) {
+            int count = 0;
+            for (char ch :  s.toCharArray()) {
+                if (ch == '(') count++;
+                if (ch == ')') count--;
+                if (count < 0) return false;
+            }
+
+            return count == 0;
+        }
+
+        // l/r: number of left/right parentheses to remove.
+        private void dfs(String s, int start, int l, int r, List<String> ans) {
+            // Nothing to remove.
+            if (l == 0 && r == 0) {
+                if (isValid(s)) ans.add(s);
+                return;
+            }
+
+            for (int i = start; i < s.length(); i++) {
+                // We only remove the first parenthes if there are consecutive ones to avoid duplications.
+                if (i != start && s.charAt(i) == s.charAt(i - 1)) continue;
+                if (s.charAt(i) == '(' || s.charAt(i) == ')') {
+                    String curr = s;
+                    curr = s.substring(0, i) + s.substring(i+1);
+                    if (r > 0 && s.charAt(i) == ')') dfs(curr, i, l, r - 1, ans);
+                    else if (l > 0 && s.charAt(i) == '(') dfs(curr,i, l - 1, r, ans);
+                }
+            }
+        }
+    }
+
 
 
 

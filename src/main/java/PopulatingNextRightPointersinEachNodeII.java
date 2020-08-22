@@ -22,7 +22,7 @@
   / \    \
  4-> 5 -> 7 -> NULL
  Solution: 1. iterative way with CONSTANT extra space.
-           2. iterative way + queue. Contributed by SUN Mian(ËïÃá).
+           2. iterative way + queue. Contributed by SUN Mian(ï¿½ï¿½ï¿½ï¿½).
            3. recursive solution.
  */
 
@@ -58,6 +58,25 @@ public class PopulatingNextRightPointersinEachNodeII {
         }
         connect(dummy.next);
     }
+
+	class Solution {
+		public Node connect(Node root) {
+			if(root!=null) {
+				connect(root, null);
+			}
+			return root;
+		}
+
+		void connect(Node node, Node right) {
+
+			node.next = right;
+
+			if(node.left==null)
+				return;
+			connect(node.left, node.right);
+			connect(node.right, right == null ? null : right.left);
+		}
+	}
 
 	public void connect_1(TreeLinkNode root) {
 		Map<Integer, TreeLinkNode> res = new HashMap<>();

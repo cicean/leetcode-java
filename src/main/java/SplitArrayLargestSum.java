@@ -8,7 +8,7 @@
  Given an array which consists of non-negative integers and an integer m, you can split the array into m non-empty continuous subarrays. Write an algorithm to minimize the largest sum among these m subarrays.
 
  Note:
- Given m satisfies the following constraint: 1 ¡Ü m ¡Ü length(nums) ¡Ü 14,000.
+ Given m satisfies the following constraint: 1 ï¿½ï¿½ m ï¿½ï¿½ length(nums) ï¿½ï¿½ 14,000.
 
  Examples:
 
@@ -35,6 +35,13 @@ public class SplitArrayLargestSum {
      3.3 We'll end up with two results: either we can divide the array into more than m subarrays or we cannot.
      If we can, it means that the mid value we pick is too small because we've already tried our best to make sure each part holds as many non-negative numbers as we can but we still have numbers left. So, it is impossible to cut the array into m parts and make sure each parts is no larger than mid. We should increase m. This leads to l = mid + 1;
      If we can't, it is either we successfully divide the array into m parts and the sum of each part is less than mid, or we used up all numbers before we reach m. Both of them mean that we should lower mid because we need to find the minimum one. This leads to r = mid - 1;
+
+     **Complexity Analysis**
+     Time complexity : O(n * log(sum of array))O(nâˆ—log(sumofarray)). The binary search costs O(log(sum of array))O(log(sumofarray)), where sum of array is the sum of elements in nums. For each computation of F(x), the time complexity is O(n)O(n) since we only need to go through the whole array.
+
+     Space complexity : O(n)O(n). Same as the Brute Force approach. We only need the space to store the array.
+
+     Comments: 46
      * @param nums
      * @param m
      * @return
@@ -81,8 +88,18 @@ public class SplitArrayLargestSum {
 
      dp[s+1,i] = min{ max(dp[s,j], n[i]+...+n[j-1]) }, i+1 <= j <= L-s
 
-     This solution does not take advantage of the fact that the numbers are non-negative (except to break the inner loop early). That is a loss. (On the other hand,
+     This solution does not take advantage of the fact that the numbers are
+     non-negative (except to break the inner loop early). That is a loss. (On the other hand,
      it can be used for the problem containing arbitrary numbers)
+     Complexity Analysis
+
+     Time complexity : O(n^2 * m)O(n
+     2
+     âˆ—m). The total number of states is O(n * m)O(nâˆ—m). To compute each state f[i][j], we need to go through the whole array to find the optimum k. This requires another O(n)O(n) loop. So the total time complexity is O(n ^ 2 * m)O(n
+     2
+     âˆ—m).
+
+     Space complexity : O(n * m)O(nâˆ—m). The space complexity is equivalent to the number of states, which is O(n * m)O(nâˆ—m).
      */
     public int splitArray_dp(int[] nums, int m)
     {

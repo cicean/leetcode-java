@@ -1,59 +1,76 @@
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.*;
 
 /**
+ * 362. Design Hit Counter
+ * Medium
+ *
+ * 619
+ *
+ * 62
+ *
+ * Add to List
+ *
+ * Share
+ * Design a hit counter which counts the number of hits received in the past 5 minutes.
+ *
+ * Each function accepts a timestamp parameter (in seconds granularity) and you may assume that calls are being made to the system in chronological order (ie, the timestamp is monotonically increasing). You may assume that the earliest timestamp starts at 1.
+ *
+ * It is possible that several hits arrive roughly at the same time.
+ *
+ * Example:
+ *
+ * HitCounter counter = new HitCounter();
+ *
+ * // hit at timestamp 1.
+ * counter.hit(1);
+ *
+ * // hit at timestamp 2.
+ * counter.hit(2);
+ *
+ * // hit at timestamp 3.
+ * counter.hit(3);
+ *
+ * // get hits at timestamp 4, should return 3.
+ * counter.getHits(4);
+ *
+ * // hit at timestamp 300.
+ * counter.hit(300);
+ *
+ * // get hits at timestamp 300, should return 4.
+ * counter.getHits(300);
+ *
+ * // get hits at timestamp 301, should return 3.
+ * counter.getHits(301);
+ * Follow up:
+ * What if the number of hits per second could be very large? Does your design scale?
+ *
+ * Accepted
+ * 73,661
+ * Submissions
+ * 117,607
+ * Seen this question in a real interview before?
+ *
+ * Yes
+ *
+ * No
+ * Contributor
+ * elmirap
+ * Logger Rate Limiter
  * Created by cicean on 9/1/2016.
-
- Total Accepted: 3924
- Total Submissions: 7828
- Difficulty: Medium
- Design a hit counter which counts the number of hits received in the past 5 minutes.
-
- Each function accepts a timestamp parameter (in seconds granularity) and you may assume that calls are being made to the system in chronological order (ie, the timestamp is monotonically increasing). You may assume that the earliest timestamp starts at 1.
-
- It is possible that several hits arrive roughly at the same time.
-
- Example:
- HitCounter counter = new HitCounter();
-
- // hit at timestamp 1.
- counter.hit(1);
-
- // hit at timestamp 2.
- counter.hit(2);
-
- // hit at timestamp 3.
- counter.hit(3);
-
- // get hits at timestamp 4, should return 3.
- counter.getHits(4);
-
- // hit at timestamp 300.
- counter.hit(300);
-
- // get hits at timestamp 300, should return 4.
- counter.getHits(300);
-
- // get hits at timestamp 301, should return 3.
- counter.getHits(301);
- Follow up:
- What if the number of hits per second could be very large? Does your design scale?
-
- Credits:
- Special thanks to @elmirap for adding this problem and creating all test cases.
-
- Hide Company Tags Dropbox Google
- Hide Tags Design
- Hide Similar Problems (E) Logger Rate Limiter
-
+ *
+ * Hide Company Tags Dropbox Google
+ * Hide Tags Design
+ * Hide Similar Problems (E) Logger Rate Limiter
  */
 public class DesignHitCounter {
 
     /**
-     * Ë¼Â·: ÓÃ¸öÁ´±í°ÑÊ±¼ä´æÆðÀ´, Èç¹ûÈ¡½á¹ûµÄÊ±ºò°Ñ¹ýÆÚÊý¾ÝÉ¾µô¾ÍÐÐÁË,
-     * È»ºóÈç¹ûÃ¿ÃëºÜ¶àÊý¾Ý, ÄÇÃ´¾ÍÃ¿ÃëµÄ¼ÆÊý¶¼·ÅÔÚÒ»¸ö½áµãÖÐ,
-     * ²¢ÇÒÐèÒªÁíÍâÒ»¸öµ±Ç°¼ÆÊý¼ÆÊý±ê¼Ç, Èç¹ûÌí¼ÓÁËÐÂÊý¾Ý, ¼ÆÊý+1,
-     * Èç¹ûµ±Ç°¶ÓÊ×½áµã¹ýÆÚÁË, ¾Í°ÑÄÇÒ»ÃëÄÚµÄ¼ÆÊý¶¼¼õÈ¥¼´¿É
+     * Ë¼Â·: ï¿½Ã¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ñ¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,
+     * È»ï¿½ï¿½ï¿½ï¿½ï¿½Ã¿ï¿½ï¿½Ü¶ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½Ã´ï¿½ï¿½Ã¿ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½+1,
+     * ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½×½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½Í°ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ÚµÄ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½
      */
 
     class Hit {
@@ -212,9 +229,49 @@ public class DesignHitCounter {
             if (head.next == null) tail = head;
             return count;
         }
-
-
     }
+
+    class HitCounter {
+
+        /** Initialize your data structure here. */
+        ArrayList<Integer> cache = new ArrayList<>();
+        public HitCounter() {
+
+        }
+
+        /** Record a hit.
+         @param timestamp - The current timestamp (in seconds granularity). */
+        public void hit(int timestamp) {
+            cache.add(timestamp);
+        }
+
+        /** Return the number of hits in the past 5 minutes.
+         @param timestamp - The current timestamp (in seconds granularity). */
+        public int getHits(int timestamp) {
+            if (cache.size() == 0) return 0;
+            int start = 0, end = cache.size()-1;
+            while (start < end) {
+                int mid = start + (end-start)/2;
+                if (cache.get(mid) > timestamp-300) {
+                    end = mid;
+                } else {
+                    start = mid+1;
+                }
+            }
+            if (cache.get(start) <= timestamp-300) {
+                start++;
+            }
+            return cache.size()-start;
+        }
+    }
+
+/**
+ * Your HitCounter object will be instantiated and called as such:
+ * HitCounter obj = new HitCounter();
+ * obj.hit(timestamp);
+ * int param_2 = obj.getHits(timestamp);
+ */
+
 
 
 }

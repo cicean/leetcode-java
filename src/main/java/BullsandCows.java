@@ -30,21 +30,21 @@ import java.util.Map;
 public class BullsandCows {
 
     /**
-     * tricky¹þÏ£±í·¨
-     ¸´ÔÓ¶È
-     O(N) Ê±¼ä O(1) ¿Õ¼ä
+     * trickyï¿½ï¿½Ï£ï¿½ï¿½
+     ï¿½ï¿½ï¿½Ó¶ï¿½
+     O(N) Ê±ï¿½ï¿½ O(1) ï¿½Õ¼ï¿½
 
      Ë¼Â·
-     Ë¼Â·ºÜ¼òµ¥£¬ÖØµãÊÇÕâÀïÓÃÁËÒ»¸ömapÀ´ÕÒcows£¬ºÜÇÉÃîµÄÐ¡trick£¬Ê¡ÁËÊ±¼äÊ¡ÁË¿Õ¼ä
-     mapÂú×ãµÄproperty:¼ÙÉè3Õâ¸öÎ»ÖÃÊÇÕýÊý£¬ÕýÊý´ú±ísecretÓÐÃ»ÅäÉÏµÄ3£¬Õâ¸öÕýÊýÎª100£¬´ú±ísecretÀïÓÐ100¸öÃ»ÅäÉÏµÄ3£»¼ÙÉè3Õâ¸öÎ»ÖÃÊÇ¸ºÊý£¬´ú±íguessÓÐÃ»ÅäÉÏµÄ3£»
-     ¼ÙÉèÔÚÄ³Ò»¸öÊ±¿Ì£¬secretµ±Ç°Êý×ÖºÍguessµ±Ç°Êý×Ö²»Í¬£¬ÔÙ¼ÙÉèsecretµ±Ç°Êý×ÖÎª3£¬¼ÇÎªs=3£¬ÎÒÃÇ¾ÍµÃ²é¿´map[3]ÊÇÕýÊý»¹ÊÇ¸ºÊý»¹ÊÇ0£¿
-     Èç¹ûÊÇÕýÊý£ºËµÃ÷secretÀï¶àÓàµÄ£¨Åä²»ÉÏµÄ£©3ÓÖÔö¼ÓÁËÒ»¸ö£¬cows²»±ä
-     Èç¹ûÊÇ¸ºÊý£ºËµÃ÷guessÀïÓÐ¶àÓàµÄ£¨Ã»ÅäÉÏµÄ£©3£¬¶þ»°²»Ëµ£¬¸øËûÅäÉÏ£¬cows++
-     Èç¹ûÊÇ0£ºËµÃ÷Á½±ß¶¼²»¶àÓà£¬cows²»±ä
-     ¶ÔÓÚguessÒ²Ò»Ñù
+     Ë¼Â·ï¿½Ü¼òµ¥£ï¿½ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½mapï¿½ï¿½ï¿½ï¿½cowsï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡trickï¿½ï¿½Ê¡ï¿½ï¿½Ê±ï¿½ï¿½Ê¡ï¿½Ë¿Õ¼ï¿½
+     mapï¿½ï¿½ï¿½ï¿½ï¿½property:ï¿½ï¿½ï¿½ï¿½3ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½secretï¿½ï¿½Ã»ï¿½ï¿½ï¿½Ïµï¿½3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª100ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½secretï¿½ï¿½ï¿½ï¿½100ï¿½ï¿½Ã»ï¿½ï¿½ï¿½Ïµï¿½3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½3ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½Ç¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½guessï¿½ï¿½Ã»ï¿½ï¿½ï¿½Ïµï¿½3ï¿½ï¿½
+     ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä³Ò»ï¿½ï¿½Ê±ï¿½Ì£ï¿½secretï¿½ï¿½Ç°ï¿½ï¿½ï¿½Öºï¿½guessï¿½ï¿½Ç°ï¿½ï¿½ï¿½Ö²ï¿½Í¬ï¿½ï¿½ï¿½Ù¼ï¿½ï¿½ï¿½secretï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½Îª3ï¿½ï¿½ï¿½ï¿½Îªs=3ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ÍµÃ²é¿´map[3]ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½0ï¿½ï¿½
+     ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½secretï¿½ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½ä²»ï¿½ÏµÄ£ï¿½3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½cowsï¿½ï¿½ï¿½ï¿½
+     ï¿½ï¿½ï¿½ï¿½Ç¸ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½guessï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½Ä£ï¿½Ã»ï¿½ï¿½ï¿½ÏµÄ£ï¿½3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï£ï¿½cows++
+     ï¿½ï¿½ï¿½ï¿½ï¿½0ï¿½ï¿½Ëµï¿½ï¿½ï¿½ï¿½ï¿½ß¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½à£¬cowsï¿½ï¿½ï¿½ï¿½
+     ï¿½ï¿½ï¿½ï¿½guessÒ²Ò»ï¿½ï¿½
 
-     ×¢Òâ
-     cows++µÄÌõ¼þÊÇmap[x] < 0 ²»ÊÇ map[x] == 0
+     ×¢ï¿½ï¿½
+     cows++ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½map[x] < 0 ï¿½ï¿½ï¿½ï¿½ map[x] == 0
      */
 
     public class Solution {
@@ -57,9 +57,9 @@ public class BullsandCows {
                 if (s == g)
                     bulls++;
                 else {
-                    if (map[s] < 0)//guessÀïÓÐ¶àÓàµÄ£¬ÒòÎªÐ¡ÓÚ0Ö»¿ÉÄÜÊÇguessÔì³ÉµÄ
+                    if (map[s] < 0)//guessï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½Ä£ï¿½ï¿½ï¿½ÎªÐ¡ï¿½ï¿½0Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½guessï¿½ï¿½Éµï¿½
                         cows++;
-                    if (map[g] > 0)//secretÀïÓÐ¶àÓàµÄ£¬ÒòÎª´óÓÚ0Ö»¿ÉÄÜÊÇsecretÔì³ÉµÄ
+                    if (map[g] > 0)//secretï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½Ä£ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½0Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½secretï¿½ï¿½Éµï¿½
                         cows++;
                     map[s]++;
                     map[g]--;
@@ -70,7 +70,7 @@ public class BullsandCows {
     }
 
     /**
-     * ÕâÀïÖ÷ÒªÊÇÏë¼ÇÂ¼Ò»ÏÂÕâ¸öºÜ´ÏÃ÷µÄ½â·¨£º
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½Â¼Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü´ï¿½ï¿½ï¿½ï¿½Ä½â·¨ï¿½ï¿½
      * @param secret
      * @param guess
      * @return
@@ -95,7 +95,7 @@ public class BullsandCows {
     }
 
     /**
-     * ÎÒ¹æ¹æ¾Ø¾ØµÄ½â·¨£º
+     * ï¿½Ò¹ï¿½ï¿½Ø¾ØµÄ½â·¨ï¿½ï¿½
      */
 
     public String getHint_1(String secret, String guess) {
@@ -136,6 +136,43 @@ public class BullsandCows {
 
 
         return bull + "A" + cow + "B";
+    }
+
+    class Solution2 {
+        public String getHint(String secret, String guess) {
+            int bulls = 0;
+            int cows = 0;
+
+            int[] secretDigitsArr = new int[10];
+            int[] guessDigitsArr = new int[10];
+
+            for (int i = 0; i < secret.length(); i++) {
+                int secretCh = secret.charAt(i) - '0';
+                int guessCh = guess.charAt(i) - '0';
+
+                if (secretCh == guessCh) {
+                    bulls++;
+                }
+                else {
+                    secretDigitsArr[secretCh]++;
+                    guessDigitsArr[guessCh]++;
+                }
+            }
+
+            for (int i = 0; i < secretDigitsArr.length; i++) {
+                int secretChCount = secretDigitsArr[i];
+                int guessChCount = guessDigitsArr[i];
+                cows += Math.min(secretChCount, guessChCount);
+            }
+
+            StringBuilder sb = new StringBuilder();
+            sb.append(bulls);
+            sb.append("A");
+            sb.append(cows);
+            sb.append("B");
+
+            return sb.toString();
+        }
     }
 
 }

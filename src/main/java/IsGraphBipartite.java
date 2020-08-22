@@ -132,4 +132,72 @@ public class IsGraphBipartite {
     /**
      *
      */
+
+    class Solution2 {
+
+        public boolean isBipartie(int[][] graph) {
+            int[] visited = new int[graph.length];
+
+            for (int i = 0; i < graph.length - 1; i++) {
+                if (visited[1] != 0) {
+                    continue;
+                }
+
+                Queue<Integer> queue = new LinkedList<>();
+                queue.add(i);
+                visited[i] = 1;
+                while (!queue.isEmpty()) {
+                    int cur = queue.poll();
+                    int curLable = visited[cur];
+                    int neighborLable = curLable == 1 ? 2 : 1;
+                    for (int neighbor : graph[cur]) {
+                        if (visited[neighbor] == 0) {
+                            visited[neighbor] = neighborLable;
+                            queue.add(neighbor);
+                        } else if (visited[neighbor] != neighborLable) {
+                            return false;
+                        }
+                    }
+                }
+            }
+
+            return true;
+        }
+    }
+
+
+    class Solution3 {
+
+
+        int colors[], graph[][];
+
+        public boolean isBipartite(int[][] graph) {
+            int n = graph.length;
+            this.graph = graph;
+            colors = new int[n];
+
+
+            for (int i = 0; i < n; i++) {
+                if (colors[i] == 0) {
+                    if (!dfs(i, 1)) return false;
+                }
+            }
+            return true;
+        }
+
+
+        boolean dfs(int node, int expectedColor) {
+            if (colors[node] != 0) return colors[node] == expectedColor;
+            colors[node] = expectedColor;
+
+            for (int neighbor : graph[node]) {
+                if (!dfs(neighbor, -expectedColor)) return false;
+            }
+            return true;
+        }
+
+
+
+    }
+
 }

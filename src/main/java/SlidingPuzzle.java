@@ -277,6 +277,57 @@ public class SlidingPuzzle {
         }
     }
 
+    class Solution {
+        public int slidingPuzzle(int[][] board) {
+            if (board == null || board.length != 2 || board[0].length != 3) return -1;
+            String target = "123450";
+            String start = getBoard(board);
+            Set<String> set = new HashSet<>();
+            Queue<String> queue = new LinkedList<>();
+            queue.offer(start);
+            set.add(start);
+            int res = 0;
+            int[][] dirs = {{1,3},{0,2,4},{1,5},{0,4},{1,3,5},{2,4}};
+            while (!queue.isEmpty()) {
+                int size = queue.size();
+                for (int i = 0; i < size; i++) {
+                    String cur = queue.poll();
+                    if (cur.equals(target)) {
+                        return res;
+                    }
+                    int zeroPos = cur.indexOf('0');
+                    for (int dir : dirs[zeroPos]) {
+                        String next = swap(cur, zeroPos, dir);
+                        if (!set.contains(next)) {
+                            set.add(next);
+                            queue.offer(next);
+                        }
+                    }
+                }
+                res++;
+            }
+            return -1;
+        }
+
+        String swap(String str, int i, int j) {
+            char[] ch = str.toCharArray();
+            char temp = ch[i];
+            ch[i] = ch[j];
+            ch[j] = temp;
+            return String.valueOf(ch);
+        }
+
+        String getBoard(int[][] board) {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < board.length; i++) {
+                for (int j = 0; j < board[0].length; j++) {
+                    sb.append(board[i][j]);
+                }
+            }
+            return sb.toString();
+        }
+    }
+
     /**
      * Back
      * 794. Sliding Puzzle II
@@ -483,8 +534,8 @@ public class SlidingPuzzle {
 
     /**
      * Sliding Puzzle III
-     * ¸ø¶¨3 x 3µÄ¾ØÕó£¬±êºÅÎª1~9£¬ÆäÖÐ8¸ö·½¸ñÄÚÓÐÊý×Ö£¬1~8£¬ÁíÓÐÒ»¸öÎª¿Õ(ÓÃ0±íÊ¾)£¬
-     * ÎÊÊÇ·ñÄÜ½«¶ÔÓ¦µÄÊý×Ö·Åµ½¶ÔÓ¦±êºÅµÄ¸ñ×ÓÀï(¿Õ¸ñÖ»ÄÜºÍÉÏÏÂ×óÓÒÎ»ÖÃ½»»»),Èç¹ûÄÜÊä³ö"YES"£¬·ñÔòÊä³ö"NO"¡£
+     * ï¿½ï¿½ï¿½ï¿½3 x 3ï¿½Ä¾ï¿½ï¿½ó£¬±ï¿½ï¿½Îª1~9ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½8ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö£ï¿½1~8ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Îªï¿½ï¿½(ï¿½ï¿½0ï¿½ï¿½Ê¾)ï¿½ï¿½
+     * ï¿½ï¿½ï¿½Ç·ï¿½ï¿½Ü½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½Ö·Åµï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ÅµÄ¸ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½Õ¸ï¿½Ö»ï¿½Üºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½Ã½ï¿½ï¿½ï¿½),ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"YES"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"NO"ï¿½ï¿½
      */
     class Matrix{
         public int[][] v = new int[3][3];

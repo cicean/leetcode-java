@@ -85,6 +85,137 @@
 public class OddEvenJump {
 
     /**
+     * Approach 1: Monotonic Stack
+     * Intuition
+     *
+     * First, we notice that where you jump to is determined only by the state of your current index and the jump number parity.
+     *
+     * For each state, there is exactly one state you could jump to (or you can't jump.) If we somehow knew these jumps, we could solve the problem by a simple traversal.
+     *
+     * So the problem reduces to solving this question: for some index i during an odd numbered jump, what index do we jump to (if any)? The question for even-numbered jumps is similar.
+     *
+     * Algorithm
+     *
+     * Let's figure out where index i jumps to, assuming this is an odd-numbered jump.
+     *
+     * Let's consider each value of A in order from smallest to largest. When we consider a value A[j] = v, we search the values we have already processed (which are <= v) from largest to smallest. If we find that we have already processed some value v0 = A[i] with i < j, then we know i jumps to j.
+     *
+     * Naively this is a little slow, but we can speed this up with a common trick for harder problems: a monotonic stack. (For another example of this technique, please see the solution to this problem: (Article - Sum of Subarray Minimums))
+     *
+     * Let's store the indices i of the processed values v0 = A[i] in a stack, and maintain the invariant that this is monotone decreasing. When we add a new index j, we pop all the smaller indices i < j from the stack, which all jump to j.
+     *
+     * Afterwards, we know oddnext[i], the index where i jumps to if this is an odd numbered jump. Similarly, we know evennext[i]. We can use this information to quickly build out all reachable states using dynamic programming.
+     *
+     *
+     * Complexity Analysis
+     *
+     * Time Complexity: O(N \log N)O(NlogN), where NN is the length of A.
+     *
+     * Space Complexity: O(N)O(N).
+     */
+
+    class Solution {
+        public int oddEvenJumps(int[] A) {
+            int len = A.length;
+            if (len <= 1)
+                return len;
+
+            List<Pair> sorted = new ArrayList<>();
+            for (int i = 0; i < len; ++i) {
+                sorted.add(new Pair(i, A[i]));
+            }
+            Comparator<Pair> cMin = new Comparator<Pair>() {
+                @Override
+                public int compare(Pair p1, Pair p2) {
+                    if (p1.value == p2.value) {
+                        return p2.index - p1.index;
+                    }
+                    return p1.value - p2.value;
+                }
+            };
+
+            Collections.sort(sorted, cMin);
+
+            int[] less = new int[len];
+            int[] greater = new int[len];
+
+            Stack<Pair> minStack = new Stack<>();
+            for (int i = 0; i < len; ++i) {
+                Pair p = sorted.get(i);
+                while (!minStack.isEmpty() && minStack.peek().index < p.index) {
+                    minStack.pop();
+                }
+                if (minStack.isEmpty()) {
+                    less[p.index] = -1;
+                } else {
+                    less[p.index] = minStack.peek().index;
+                }
+
+                minStack.push(p);
+            }
+
+            Comparator<Pair> cMax = new Comparator<Pair>() {
+                @Override
+                public int compare(Pair p1, Pair p2) {
+                    if (p1.value == p2.value) {
+                        return p1.index - p2.index;
+                    }
+                    return p1.value - p2.value;
+                }
+            };
+
+            Collections.sort(sorted, cMax);
+
+            Stack<Pair> maxStack = new Stack<>();
+            for (int i = len - 1; i >= 0; --i) {
+                Pair p = sorted.get(i);
+                while (!maxStack.isEmpty() && maxStack.peek().index < p.index) {
+                    maxStack.pop();
+                }
+                if (maxStack.isEmpty()) {
+                    greater[p.index] = -1;
+                } else {
+                    greater[p.index] = maxStack.peek().index;
+                }
+
+                maxStack.push(p);
+            }
+
+            boolean[] odd = new boolean[len];
+            boolean[] even = new boolean[len];
+
+            odd[len - 1] = true;
+            even[len - 1] = true;
+            int cnt = 1;
+
+            for (int i = len - 2; i >= 0; --i) {
+
+                //System.out.println(i + " greater[i]: " + greater[i] + " less[i]:" + less[i]);
+                if (greater[i] != -1 && even[greater[i]]) {
+                    odd[i] = true;
+                    ++cnt;
+                }
+
+                if (less[i] != -1 && odd[less[i]]) {
+                    even[i] = true;
+                }
+            }
+
+            return cnt;
+        }
+
+        class Pair{
+            int index;
+            int value;
+
+            public Pair(int index, int value) {
+                this.index = index;
+                this.value = value;
+            }
+        }
+    }
+
+    /**
      * Approach 2: Tree Map
      * Intuition
      *

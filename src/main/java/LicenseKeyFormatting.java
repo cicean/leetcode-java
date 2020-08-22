@@ -38,4 +38,39 @@ public class LicenseKeyFormatting {
     return sb.reverse().toString().toUpperCase();
   }
 
+
+  class Solution {
+    public String licenseKeyFormatting(String S, int K) {
+
+      //1. Allocate our buffers, output buffer should be large enough to fit as many dashes as needed
+      char[] inputBuffer = S.toCharArray();
+      char[] outputBuffer = new char[S.length() + S.length() / K + 1];
+      int count = 0, start = 0, end = outputBuffer.length - 1;
+
+      //2. Find the start index of the string (i.e. the first non-dash index)
+      while(start < inputBuffer.length && inputBuffer[start] == '-') start++;
+
+      //3. Loop backwards through the input and insert dashes as needed
+      for(int i = inputBuffer.length - 1; i >= start; i--) {
+
+        // skip over dashes in the input
+        if(inputBuffer[i] == '-')
+          continue;
+
+        //4. add the character and uppercase if necessary
+        outputBuffer[end--] = (char)(inputBuffer[i] + ((inputBuffer[i] > 'Z') ? - ' ' : 0));
+        count++;
+
+        //5. insert a dash when our count reaches K
+        if(i > start && count == K) {
+          outputBuffer[end--] = '-';
+          count = 0;
+        }
+
+      }
+
+      //6. Build the new string starting from our final output index
+      return new String(outputBuffer, end + 1, outputBuffer.length - end - 1);
+    }
+  }
 }

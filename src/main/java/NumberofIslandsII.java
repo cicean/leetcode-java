@@ -5,6 +5,80 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * 305. Number of Islands II
+ * Hard
+ *
+ * 766
+ *
+ * 20
+ *
+ * Add to List
+ *
+ * Share
+ * A 2d grid map of m rows and n columns is initially filled with water. We may perform an addLand operation which turns the water at position (row, col) into a land. Given a list of positions to operate, count the number of islands after each addLand operation. An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water.
+ *
+ * Example:
+ *
+ * Input: m = 3, n = 3, positions = [[0,0], [0,1], [1,2], [2,1]]
+ * Output: [1,1,2,3]
+ * Explanation:
+ *
+ * Initially, the 2d grid grid is filled with water. (Assume 0 represents water and 1 represents land).
+ *
+ * 0 0 0
+ * 0 0 0
+ * 0 0 0
+ * Operation #1: addLand(0, 0) turns the water at grid[0][0] into a land.
+ *
+ * 1 0 0
+ * 0 0 0   Number of islands = 1
+ * 0 0 0
+ * Operation #2: addLand(0, 1) turns the water at grid[0][1] into a land.
+ *
+ * 1 1 0
+ * 0 0 0   Number of islands = 1
+ * 0 0 0
+ * Operation #3: addLand(1, 2) turns the water at grid[1][2] into a land.
+ *
+ * 1 1 0
+ * 0 0 1   Number of islands = 2
+ * 0 0 0
+ * Operation #4: addLand(2, 1) turns the water at grid[2][1] into a land.
+ *
+ * 1 1 0
+ * 0 0 1   Number of islands = 3
+ * 0 1 0
+ * Follow up:
+ *
+ * Can you do it in time complexity O(k log mn), where k is the length of the positions?
+ *
+ * Accepted
+ * 71,707
+ * Submissions
+ * 178,147
+ * Seen this question in a real interview before?
+ *
+ * Yes
+ *
+ * No
+ * Contributor
+ * LeetCode
+ * 0 ~ 6 months6 months ~ 1 year1 year ~ 2 years
+ *
+ * Uber
+ * |
+ * 9
+ *
+ * Facebook
+ * |
+ * 2
+ *
+ * Oracle
+ * |
+ * 2
+ * Number of Islands
+ * Medium
+ *
  * Problem Description:
 
 A 2d grid map of m rows and n columns is initially filled with water. We may perform an addLand operation which turns the water at position (row, col) into a land. Given a list of positions to operate, count the number of islands after each addLand operation. An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water.
@@ -248,35 +322,35 @@ class UnionFind2D {
     }
 
     /**
-     * 分析
-     很典型的union-find题。因为这里是动态的增加land，
-     要能随时求出有多少个island，最简单的方法就是union-find。
-     我们可以定义一个counter, 每增加一个land, 增加counter,
-     然后我们搜索那个land邻居区域，发现root不一样的话，
-     意味着可以union, 每union一次，意味着两个island合并成一个，减小counter,
-     统计最终的counter值，即是增加land后的最终island的个数。
+     * 锟斤拷锟斤拷
+     锟杰碉拷锟酵碉拷union-find锟解。锟斤拷为锟斤拷锟斤拷锟角讹拷态锟斤拷锟斤拷锟斤拷land锟斤拷
+     要锟斤拷锟斤拷时锟斤拷锟斤拷卸锟斤拷俑锟絠sland锟斤拷锟斤拷虻サ姆锟斤拷锟斤拷锟斤拷锟絬nion-find锟斤拷
+     锟斤拷锟角匡拷锟皆讹拷锟斤拷一锟斤拷counter, 每锟斤拷锟斤拷一锟斤拷land, 锟斤拷锟斤拷counter,
+     然锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟角革拷land锟节撅拷锟斤拷锟津，凤拷锟斤拷root锟斤拷一锟斤拷锟侥伙拷锟斤拷
+     锟斤拷味锟脚匡拷锟斤拷union, 每union一锟轿ｏ拷锟斤拷味锟斤拷锟斤拷锟斤拷island锟较诧拷锟斤拷一锟斤拷锟斤拷锟斤拷小counter,
+     统锟斤拷锟斤拷锟秸碉拷counter值锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷land锟斤拷锟斤拷锟斤拷锟絠sland锟侥革拷锟斤拷锟斤拷
 
-     为了减小时间复杂度，代码实现是QuickUnion + Path Compression,
-     Path Compression目的是为了调整树的高度，保持很平的树，
-     而不是越来越高，这样找root不会出现worst case.
+     为锟剿硷拷小时锟戒复锟接度ｏ拷锟斤拷锟斤拷实锟斤拷锟斤拷QuickUnion + Path Compression,
+     Path Compression目锟斤拷锟斤拷为锟剿碉拷锟斤拷锟斤拷锟侥高度ｏ拷锟斤拷锟街猴拷平锟斤拷锟斤拷锟斤拷
+     锟斤拷锟斤拷锟斤拷越锟斤拷越锟竭ｏ拷锟斤拷锟斤拷锟斤拷root锟斤拷锟斤拷锟斤拷锟絯orst case.
 
-     复杂度
+     锟斤拷锟接讹拷
      time: O(Mlog(N)), space: O(N)
-     M表示增加land的数量，N表示矩阵中点的个数即m*n。
+     M锟斤拷示锟斤拷锟斤拷land锟斤拷锟斤拷锟斤拷锟斤拷N锟斤拷示锟斤拷锟斤拷锟叫碉拷母锟斤拷锟斤拷锟絤*n锟斤拷
      */
     public class Solution {
         public List<Integer> numIslands2(int m, int n, int[][] positions) {
-            int[] id = new int[m * n]; // 表示各个index对应的root
+            int[] id = new int[m * n]; // 锟斤拷示锟斤拷锟斤拷index锟斤拷应锟斤拷root
 
             List<Integer> res = new ArrayList<>();
-            Arrays.fill(id, -1); // 初始化root为-1，用来标记water, 非-1表示land
-            int count = 0; // 记录island的数量
+            Arrays.fill(id, -1); // 锟斤拷始锟斤拷root为-1锟斤拷锟斤拷锟斤拷锟斤拷锟絯ater, 锟斤拷-1锟斤拷示land
+            int count = 0; // 锟斤拷录island锟斤拷锟斤拷锟斤拷
 
             int[][] dirs = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
             for (int i = 0; i < positions.length; i++) {
                 count++;
                 int index = positions[i][0] * n + positions[i][1];
-                id[index] = index; // root初始化
+                id[index] = index; // root锟斤拷始锟斤拷
 
                 for (int j = 0; j < dirs.length; j++) {
                     int x = positions[i][0] + dirs[j][0];
@@ -284,7 +358,7 @@ class UnionFind2D {
                     if (x >= 0 && x < m && y >= 0 && y < n && id[x * n + y] != -1) {
                         int root = root(id, x * n + y);
 
-                        // 发现root不等的情况下，才union, 同时减小count
+                        // 锟斤拷锟斤拷root锟斤拷锟饺碉拷锟斤拷锟斤拷拢锟斤拷锟絬nion, 同时锟斤拷小count
                         if (root != index) {
                             id[root] = index;
                             count--;
@@ -298,7 +372,7 @@ class UnionFind2D {
 
         public int root(int[] id, int i) {
             while (i != id[i]) {
-                id[i] = id[id[i]]; // 优化，为了减小树的高度
+                id[i] = id[id[i]]; // 锟脚伙拷锟斤拷为锟剿硷拷小锟斤拷锟侥高讹拷
                 i = id[i];
             }
             return i;

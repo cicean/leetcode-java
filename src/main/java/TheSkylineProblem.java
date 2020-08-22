@@ -1,6 +1,64 @@
 import java.util.*;
 
-
+/**
+ * 218. The Skyline Problem
+ * Hard
+ *
+ * 1821
+ *
+ * 101
+ *
+ * Add to List
+ *
+ * Share
+ * A city's skyline is the outer contour of the silhouette formed by all the buildings in that city when viewed from a distance. Now suppose you are given the locations and height of all the buildings as shown on a cityscape photo (Figure A), write a program to output the skyline formed by these buildings collectively (Figure B).
+ *
+ * Buildings Skyline Contour
+ * The geometric information of each building is represented by a triplet of integers [Li, Ri, Hi], where Li and Ri are the x coordinates of the left and right edge of the ith building, respectively, and Hi is its height. It is guaranteed that 0 â‰¤ Li, Ri â‰¤ INT_MAX, 0 < Hi â‰¤ INT_MAX, and Ri - Li > 0. You may assume all buildings are perfect rectangles grounded on an absolutely flat surface at height 0.
+ *
+ * For instance, the dimensions of all buildings in Figure A are recorded as: [ [2 9 10], [3 7 15], [5 12 12], [15 20 10], [19 24 8] ] .
+ *
+ * The output is a list of "key points" (red dots in Figure B) in the format of [ [x1,y1], [x2, y2], [x3, y3], ... ] that uniquely defines a skyline. A key point is the left endpoint of a horizontal line segment. Note that the last key point, where the rightmost building ends, is merely used to mark the termination of the skyline, and always has zero height. Also, the ground in between any two adjacent buildings should be considered part of the skyline contour.
+ *
+ * For instance, the skyline in Figure B should be represented as:[ [2 10], [3 15], [7 12], [12 0], [15 10], [20 8], [24, 0] ].
+ *
+ * Notes:
+ *
+ * The number of buildings in any input list is guaranteed to be in the range [0, 10000].
+ * The input list is already sorted in ascending order by the left x position Li.
+ * The output list must be sorted by the x position.
+ * There must be no consecutive horizontal lines of equal height in the output skyline. For instance, [...[2 3], [4 5], [7 5], [11 5], [12 7]...] is not acceptable; the three lines of height 5 should be merged into one in the final output as such: [...[2 3], [4 5], [12 7], ...]
+ * Accepted
+ * 123,061
+ * Submissions
+ * 364,631
+ * Seen this question in a real interview before?
+ *
+ * Yes
+ *
+ * No
+ * Contributor
+ * stellari
+ * 0 ~ 6 months6 months ~ 1 year1 year ~ 2 years
+ *
+ * Amazon
+ * |
+ * 6
+ *
+ * Microsoft
+ * |
+ * 5
+ *
+ * Google
+ * |
+ * 4
+ *
+ * Apple
+ * |
+ * 2
+ * Falling Squares
+ * Hard
+ */
 
 /*
  * 
@@ -11,7 +69,7 @@ import java.util.*;
  * by these buildings collectively (Figure B).
  * 
  * BuildingsSkyline Contour
- * The geometric information of each building is represented by a triplet of integers[Li, Ri, Hi], where Li and Ri are the x coordinates of the left and right edge of the ith building, respectively, andHi is its height. It is guaranteed that 0 ¡Ü Li, Ri ¡Ü INT_MAX,0 < Hi ¡Ü INT_MAX, and Ri - Li > 0. You may assume all buildings are perfect rectangles grounded on an absolutely flat surface at height 0.
+ * The geometric information of each building is represented by a triplet of integers[Li, Ri, Hi], where Li and Ri are the x coordinates of the left and right edge of the ith building, respectively, andHi is its height. It is guaranteed that 0 ï¿½ï¿½ Li, Ri ï¿½ï¿½ INT_MAX,0 < Hi ï¿½ï¿½ INT_MAX, and Ri - Li > 0. You may assume all buildings are perfect rectangles grounded on an absolutely flat surface at height 0.
  * For instance, the dimensions of all buildings in Figure A are recorded as: [ [2 9 10], [3 7 15], [5 12 12], [15 20 10], [19 24 8] ] .
  * The output is a list of "key points" (red dots in Figure B) in the format of[ [x1,y1], [x2, y2], [x3, y3], ... ] that uniquely defines a skyline.A key point is the left endpoint of a horizontal line segment. Note that the last key point, where the rightmost building ends, is merely used to mark the termination of the skyline, and always has zero height. Also, the ground in between any two adjacent buildings should be considered part of the skyline contour.
  * For instance, the skyline in Figure B should be represented as:[ [2 10], [3 15], [7 12], [12 0], [15 10], [20 8], [24, 0] ].
@@ -25,10 +83,10 @@ import java.util.*;
  * Each edge has a x-axis value and a height value. 
  * The key part is how to use the height heap to process each edge.
  * 1.1 
- * 2.1 °ÑÃ¿Ò»¸öbuilding²ğ³ÉÁ½¸öedge£¬Ò»¸öÈëÒ»¸ö³ö¡£ËùÓĞµÄedge¼ÓÈëµ½Ò»¸ölistÖĞ¡£
- * ÔÙ¶ÔÕâ¸ölist½øĞĞÅÅĞò£¬ÅÅĞòË³ĞòÎª£ºÈç¹ûÁ½¸ö±ßµÄposition²»Ò»Ñù£¬ÄÇÃ´°´posÅÅ£¬·ñÔò¸ù¾İedgeÊÇÈë»¹ÊÇ³öÀ´ÅÅ¡£
- * ¸ù¾İposition´ÓÇ°µ½ºóÉ¨ÃèÃ¿Ò»¸öedge£¬½«edge¸ù¾İÊÇÈë»¹ÊÇ³öÀ´½«µ±Ç°height¼ÓÈë»òÕßÒÆ³ıheap¡£
- * ÔÙµÃµ½µ±Ç°×î¸ßµãÀ´¾ö¶¨ÊÇ·ñ¼ÓÈë×îÖÕ½á¹û¡£·Ç³£ÇÉÃî£¬ÖµµÃË¼¿¼¡£
+ * 2.1 ï¿½ï¿½Ã¿Ò»ï¿½ï¿½buildingï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½edgeï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğµï¿½edgeï¿½ï¿½ï¿½ëµ½Ò»ï¿½ï¿½listï¿½Ğ¡ï¿½
+ * ï¿½Ù¶ï¿½ï¿½ï¿½ï¿½listï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë³ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ßµï¿½positionï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã´ï¿½ï¿½posï¿½Å£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½edgeï¿½ï¿½ï¿½ë»¹ï¿½Ç³ï¿½ï¿½ï¿½ï¿½Å¡ï¿½
+ * ï¿½ï¿½ï¿½ï¿½positionï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½É¨ï¿½ï¿½Ã¿Ò»ï¿½ï¿½edgeï¿½ï¿½ï¿½ï¿½edgeï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë»¹ï¿½Ç³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç°heightï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ³ï¿½heapï¿½ï¿½
+ * ï¿½ÙµÃµï¿½ï¿½ï¿½Ç°ï¿½ï¿½ßµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ½ï¿½ï¿½ï¿½ï¿½ï¿½Ç³ï¿½ï¿½ï¿½ï¿½î£¬Öµï¿½ï¿½Ë¼ï¿½ï¿½ï¿½ï¿½
  */
 
 public class TheSkylineProblem {
@@ -71,7 +129,78 @@ public class TheSkylineProblem {
             }  
         }         
         return res;       
-    }  
+    }
+
+	class Solution {
+		static class Building {
+			int loc;
+			int height;
+			int type;
+
+			public Building(int loc, int height, int type) {
+				this.loc = loc;
+				this.height = height;
+				this.type = type;
+			}
+		}
+
+		public List<List<Integer>> getSkyline(int[][] buildings) {
+			List<List<Integer>> res = new ArrayList<>();
+			//é»˜è®¤è¾“å…¥å·²ç»æŒ‰ç…§èµ·ç‚¹æ’åº
+			//æŒ‰ç…§é«˜åº¦é™åºï¼ŒåŒé«˜åº¦æ ¹æ®èµ·ç‚¹å‡åº
+			PriorityQueue<int[]> heightHeap = new PriorityQueue<>(new Comparator<int[]>() {
+				public int compare(int[] a, int[] b) {
+					return a[2] == b[2] ? a[0] - b[0] : b[2] - a[2];
+				}
+			});
+
+			//é»˜è®¤èµ·ç‚¹ï¼ŒPREä¿å­˜å‰é¢èƒ½çœ‹è§çš„æœ€é«˜å»ºç­‘å’Œä»–çš„ç»ˆç‚¹èµ·ç‚¹
+			int[] pre = new int[]{Integer.MIN_VALUE, Integer.MAX_VALUE, 0};
+			for (int[] b : buildings) {
+				// å½“å‡ºç°æ–­ç‚¹æƒ…å†µï¼Œéœ€è¦æ¸…ç©ºä¹‹å‰å»ºç­‘ç¾¤
+				while (!heightHeap.isEmpty() && b[0] > pre[1]) {
+					//è·å–ä¹‹å‰æœ€é«˜å»ºç­‘
+					int[] curHighest = heightHeap.poll();
+					//å¦‚æœæœ€é«˜çš„ç»ˆç‚¹åœ¨PREä¹‹å‰ï¼Œè¯´æ˜å·²ç»å¤„ç†
+					if (curHighest[1] <= pre[1]) continue;
+					//å¦‚æœé‡åˆ°PREä¹‹åçš„ç‚¹ï¼ŒåŠ å…¥ç»“æœå¹¶æ›´æ–°PRE
+					res.add(Arrays.asList(pre[1], curHighest[2]));
+					pre = curHighest;
+				}
+
+				//å½“å‰å»ºç­‘æ¯”ä¹‹å‰å»ºç­‘é«˜
+				if (b[2] > pre[2]) {
+					if (b[0] == pre[0]) {
+						//åŒèµ·ç‚¹æƒ…å†µä¸‹ï¼ŒçŸ®å»ºç­‘å¿…ç„¶è¢«æŒ¡ä½ï¼Œç›´æ¥åˆ é™¤
+						res.remove(res.size() - 1);
+					}
+					res.add(Arrays.asList(b[0], b[2])); //æœªè¢«ä¹‹åé®æŒ¡å‰å…ˆåŠ å…¥ç»“æœ
+					if (b[1] < pre[1]) {
+						heightHeap.offer(pre); //å¦‚æœç»ˆç‚¹å°äºå‰ç»ˆç‚¹ï¼Œå°†å‰å€¼å…¥å †
+					}
+					pre = b;//æ›´æ–°å‰å€¼å› ä¸ºå‘ç°äº†æ›´é«˜çš„
+				} else if (b[2] == pre[2]) { //åŒé«˜åº¦ç»§ç»­å»¶ä¼¸END
+					pre[1] = b[1];
+				} else if (b[1] > pre[1]) {
+					heightHeap.offer(b); //çŸ®å»ºç­‘ç›´æ¥å…¥å †
+				}
+			}
+
+
+			while (!heightHeap.isEmpty()) {
+				//å¦‚æœå †ä¸ä¸ºç©ºï¼Œé‡å¤ä¹‹å‰æ“ä½œ
+				int[] cur = heightHeap.poll();
+				if (cur[1] <= pre[1]) continue;
+				res.add(Arrays.asList(pre[1], cur[2]));
+				pre = cur;
+			}
+			//æœ€åæœ‰å‰©ä½™
+			if (pre[2] > 0) {
+				res.add(Arrays.asList(pre[1], 0));
+			}
+			return res;
+		}
+	}
 	
 	public List<int[]> getSkyline_2(int[][] buildings) {
 		List<int[]> result = new ArrayList<int[]>();

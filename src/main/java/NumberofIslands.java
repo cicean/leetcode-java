@@ -2,6 +2,142 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 200. Number of Islands
+ * Medium
+ *
+ * 4846
+ *
+ * 180
+ *
+ * Add to List
+ *
+ * Share
+ * Given a 2d grid map of '1's (land) and '0's (water), count the number of islands. An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water.
+ *
+ * Example 1:
+ *
+ * Input:
+ * 11110
+ * 11010
+ * 11000
+ * 00000
+ *
+ * Output: 1
+ * Example 2:
+ *
+ * Input:
+ * 11000
+ * 11000
+ * 00100
+ * 00011
+ *
+ * Output: 3
+ * Accepted
+ * 656,254
+ * Submissions
+ * 1,434,668
+ * Seen this question in a real interview before?
+ *
+ * Yes
+ *
+ * No
+ * Contributor
+ * mithmatt
+ * 0 ~ 6 months6 months ~ 1 year1 year ~ 2 years
+ *
+ * Amazon
+ * |
+ * 322
+ *
+ * Bloomberg
+ * |
+ * 29
+ *
+ * Facebook
+ * |
+ * 17
+ *
+ * Microsoft
+ * |
+ * 16
+ *
+ * Oracle
+ * |
+ * 9
+ *
+ * Google
+ * |
+ * 9
+ *
+ * Apple
+ * |
+ * 6
+ *
+ * Goldman Sachs
+ * |
+ * 6
+ *
+ * Uber
+ * |
+ * 5
+ *
+ * Walmart Labs
+ * |
+ * 4
+ *
+ * Palantir Technologies
+ * |
+ * 3
+ *
+ * Tableau
+ * |
+ * 3
+ *
+ * Audible
+ * |
+ * 3
+ *
+ * Adobe
+ * |
+ * 2
+ *
+ * Evernote
+ * |
+ * 2
+ *
+ * Qualtrics
+ * |
+ * 2
+ *
+ * Expedia
+ * |
+ * 2
+ *
+ * Yahoo
+ * |
+ * 2
+ *
+ * Salesforce
+ * |
+ * 2
+ *
+ * Arista Networks
+ * |
+ * 2
+ *
+ * More
+ * Surrounded Regions
+ * Medium
+ * Walls and Gates
+ * Medium
+ * Number of Islands II
+ * Hard
+ * Number of Connected Components in an Undirected Graph
+ * Medium
+ * Number of Distinct Islands
+ * Medium
+ * Max Area of Island
+ * Medium
  * Source : https://leetcode.com/problems/number-of-islands/ Author : Hexiaoqiao
  * Date : 2015-05-03
  * <p>

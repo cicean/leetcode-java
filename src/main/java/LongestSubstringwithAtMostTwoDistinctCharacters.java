@@ -1,30 +1,130 @@
 import java.util.*;
 
+/**
+ * 159. Longest Substring with At Most Two Distinct Characters
+ * Medium
+ *
+ * 818
+ *
+ * 16
+ *
+ * Add to List
+ *
+ * Share
+ * Given a string s , find the length of the longest substring t  that contains at most 2 distinct characters.
+ *
+ * Example 1:
+ *
+ * Input: "eceba"
+ * Output: 3
+ * Explanation: t is "ece" which its length is 3.
+ * Example 2:
+ *
+ * Input: "ccaabbb"
+ * Output: 5
+ * Explanation: t is "aabbb" which its length is 5.
+ * Accepted
+ * 99,938
+ * Submissions
+ * 205,103
+ * Seen this question in a real interview before?
+ *
+ * Yes
+ *
+ * No
+ * Contributor
+ * LeetCode
+ * 0 ~ 6 months6 months ~ 1 year1 year ~ 2 years
+ *
+ * Microsoft
+ * |
+ * 2
+ * Longest Substring Without Repeating Characters
+ * Medium
+ * Sliding Window Maximum
+ * Hard
+ * Longest Substring with At Most K Distinct Characters
+ * Hard
+ * Subarrays with K Different Integers
+ * Hard
+ */
+
 /*
  * Given a string, find the length of the longest substring T that contains at most 2 distinct characters.
 
-For example, Given s = ¡°eceba¡±,
+For example, Given s = ï¿½ï¿½ecebaï¿½ï¿½,
 
 T is "ece" which its length is 3.
 
-ÕâÌâµÄÏßĞÔ½â·¨ÊÇÎ¬»¤Ò»¸ösliding window£¬ÀïÃæµÄ×Ó×Ö·û´®Ö»º¬×î¶àÁ½¸ö²»Í¬×Ö·û¡£µ±ÒªÌí¼ÓÒ»¸öĞÂ×Ö·ûÊ±£¬ĞèÒªÍêÈ«È¥µôÖ®Ç°µÄÄ³Ò»¸ö×Ö·ûµÄËùÓĞ³öÏÖ¡£ÕâÀïÓĞÁ½¸öÎÊÌâĞèÒª¿¼ÂÇ£º
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô½â·¨ï¿½ï¿½Î¬ï¿½ï¿½Ò»ï¿½ï¿½sliding windowï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½È«È¥ï¿½ï¿½Ö®Ç°ï¿½ï¿½Ä³Ò»ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ³ï¿½ï¿½Ö¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½Ç£ï¿½
 
-1£©ÔÚÒÑÓĞµÄÁ½¸ö×Ö·ûÖĞ£¬ÈçºÎÑ¡Ôñ¸ÃÈ¥µôÆäËùÓĞ³öÏÖµÄ×Ö·û£¿
+1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½Ğ£ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ³ï¿½ï¿½Öµï¿½ï¿½Ö·ï¿½ï¿½ï¿½
 
-2£©ÔÚÑ¡¶¨¸ÃÈ¥µôµÄ×Ö·ûºó£¬ÈçºÎ¸Äµ÷Õû´°¿Ú£¿
+2ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½Î¸Äµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú£ï¿½
 
-¶ÔÓÚÎÊÌâ1£¬´°¿ÚÆğÊ¼´¦µÄ×Ö·ûÊÇÒ»¶¨»á±»È¥µôµÄ£¬µ«ÊÇ·ñ×ÜÊÇÓ¦¸ÃÑ¡ÔñÕâ¸ö×Ö·ûÈ»ºóÈ¥µôÆäËùÓĞ³öÏÖÃ´£¿ÒÔ¡°abac¡±ÎªÀı£¬¿ÉÒÔ·¢ÏÖµ±É¨Ãèµ½cÊ±£¬aÊÇÒ»¶¨»á±»È¥µôµÄ£¬µ«ÊÇÈç¹ûÈ¥µôËùÓĞ³öÏÖ¹ıµÄa£¬ÄÇÃ´×îºóÖ»Ê£ÏÂ"c"ÁË¡£ÕâÊ±Ó¦¸ÃÊÇÈ¥µôËùÓĞ³öÏÖµÄb£¬Ë³±ãÈ¥µôÁË×î¿ªÊ¼µÄa£¬´Ó¶øµÃµ½"ac"¡£ÓÉ´Ë¹ÛÖ®£¬Ñ¡Ôñ±ê×¼Ó¦¸ÃÊÇ×Ö·ûµÄ×îºó³öÏÖµÄÎ»ÖÃ£¬×îºó³öÏÖµÄÎ»ÖÃÔ½×ó£¨Ôç£©£¬ÔòÆä³öÏÖ±»È«²¿É¾³ıºóËù¼õĞ¡µÄ³¤¶ÈÔ½ÉÙ¡£Òò´Ë£¬Ó¦¸ÃÉ¾¹â×îºó³öÏÖÎ»ÖÃÔÚ×î×óµÄ×Ö·û¡£
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½á±»È¥ï¿½ï¿½ï¿½Ä£ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½È»ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ³ï¿½ï¿½ï¿½Ã´ï¿½ï¿½ï¿½Ô¡ï¿½abacï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô·ï¿½ï¿½Öµï¿½É¨ï¿½èµ½cÊ±ï¿½ï¿½aï¿½ï¿½Ò»ï¿½ï¿½ï¿½á±»È¥ï¿½ï¿½ï¿½Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½ï¿½Ğ³ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½aï¿½ï¿½ï¿½ï¿½Ã´ï¿½ï¿½ï¿½Ö»Ê£ï¿½ï¿½"c"ï¿½Ë¡ï¿½ï¿½ï¿½Ê±Ó¦ï¿½ï¿½ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½ï¿½Ğ³ï¿½ï¿½Öµï¿½bï¿½ï¿½Ë³ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½ï¿½î¿ªÊ¼ï¿½ï¿½aï¿½ï¿½ï¿½Ó¶ï¿½ï¿½Ãµï¿½"ac"ï¿½ï¿½ï¿½É´Ë¹ï¿½Ö®ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½×¼Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½Î»ï¿½Ã£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½Î»ï¿½ï¿½Ô½ï¿½ï¿½ï¿½ç£©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½È«ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ¡ï¿½Ä³ï¿½ï¿½ï¿½Ô½ï¿½Ù¡ï¿½ï¿½ï¿½Ë£ï¿½Ó¦ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
 
-¶ÔÓÚÎÊÌâ2£¬ÓÉÓÚÌâÄ¿¹æ¶¨ÁË´°¿ÚÀï×î¶àÖ»»áÓĞ2ÖÖ×Ö·û£¬ÆäÊµÔõÃ´É¾¶¼¿ÉÒÔ£ºÂıµãµÄ¿ÉÒÔ´Ó×óµ½ÓÒÖğ¸öÉ¾³ı£¬¿ìµãµÄ¿ÉÒÔÖ±½ÓÈÃĞÂ´°¿ÚÒÔËùÑ¡×Ö·ûµÄ×îºó³öÏÖÎ»ÖÃµÄÏÂÒ»¸ö×Ö·û´òÍ·¡£
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½æ¶¨ï¿½Ë´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½2ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½Ã´É¾ï¿½ï¿½ï¿½ï¿½ï¿½Ô£ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½Ö±ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½Ãµï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½Í·ï¿½ï¿½
 
-ÒÔÏÂ´úÂëÓÃÁËÒ»¸öMap½á¹¹À´±íÊ¾sliding window£¬keyÎª×Ö·û£¬valueÎª¶ÔÓ¦µÄ×îºó³öÏÖÎ»ÖÃ¡£ÆäÊµÒ²¿ÉÒÔÍêÈ«±ÜÃâÊ¹ÓÃMap£¬ÒòÎªÀïÃæµÄentry×î¶àÖ»ÓĞÁ½¸ö£¬±È½ÏÀË·Ñ¿Õ¼ä¡£ÕâÀïÊÇ¿¼ÂÇµ½ÁËºóÀ´µÄÀ©Õ¹ÒÔ¼°´úÂëµÄÎ¬»¤¡£
+ï¿½ï¿½ï¿½Â´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Mapï¿½á¹¹ï¿½ï¿½ï¿½ï¿½Ê¾sliding windowï¿½ï¿½keyÎªï¿½Ö·ï¿½ï¿½ï¿½valueÎªï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½Ã¡ï¿½ï¿½ï¿½ÊµÒ²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½Mapï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½entryï¿½ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È½ï¿½ï¿½Ë·Ñ¿Õ¼ä¡£ï¿½ï¿½ï¿½ï¿½ï¿½Ç¿ï¿½ï¿½Çµï¿½ï¿½Ëºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ¹ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¬ï¿½ï¿½ï¿½ï¿½
 
-ÕâÀïÎªÁË»ñµÃMapµÄ×îºóÎ»ÖÃ×îÔç³öÏÖµÄ×Ö·û£¬±éÀúÁËËùÓĞµÄentry¡£ÕâÆäÊµÊÇ·Ç³£µÍĞ§µÄ£¬µ«¿¼ÂÇµ½MapÀïÊµ¼ÊÖ»ÓĞ2¸öÔªËØ£¬ËùÒÔ±éÀúµÄ¿ªÏúÒ²ºÜĞ¡£¬¿ÉÒÔºöÂÔ²»¼Æ¡£
+ï¿½ï¿½ï¿½ï¿½Îªï¿½Ë»ï¿½ï¿½Mapï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğµï¿½entryï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Êµï¿½Ç·Ç³ï¿½ï¿½ï¿½Ğ§ï¿½Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Çµï¿½Mapï¿½ï¿½Êµï¿½ï¿½Ö»ï¿½ï¿½2ï¿½ï¿½Ôªï¿½Ø£ï¿½ï¿½ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½Ò²ï¿½ï¿½Ğ¡ï¿½ï¿½ï¿½ï¿½ï¿½Ôºï¿½ï¿½Ô²ï¿½ï¿½Æ¡ï¿½
 
 
 
  */
 public class LongestSubstringwithAtMostTwoDistinctCharacters {
+
+	/**
+	 * Solution
+	 * Approach 1: Sliding Window
+	 * Intuition
+	 *
+	 * To solve the problem in one pass let's use here sliding window approach with two set pointers left and right serving as the window boundaries.
+	 *
+	 * The idea is to set both pointers in the position 0 and then move right pointer to the right while the window contains not more than two distinct characters. If at some point we've got 3 distinct characters, let's move left pointer to keep not more than 2 distinct characters in the window.
+	 *
+	 * compute
+	 *
+	 * Basically that's the algorithm : to move sliding window along the string, to keep not more than 2 distinct characters in the window, and to update max substring length at each step.
+	 *
+	 * There is just one more question to reply - how to move the left pointer to keep only 2 distinct characters in the string?
+	 *
+	 * Let's use for this purpose hashmap containing all characters in the sliding window as keys and their rightmost positions as values. At each moment, this hashmap could contain not more than 3 elements.
+	 *
+	 * compute
+	 *
+	 * For example, using this hashmap one knows that the rightmost position of character e in "eeeeeeeet" window is 8 and so one has to move left pointer in the position 8 + 1 = 9 to exclude the character e from the sliding window.
+	 *
+	 * Do we have here the best possible time complexity? Yes, we do - it's the only one pass along the string with N characters and the time complexity is \mathcal{O}(N)O(N).
+	 *
+	 * Algorithm
+	 *
+	 * Now one could write down the algortihm.
+	 *
+	 * Return N if the string length N is smaller than 3.
+	 * Set both set pointers in the beginning of the string left = 0 and right = 0 and init max substring length max_len = 2.
+	 * While right pointer is less than N:
+	 * If hashmap contains less than 3 distinct characters, add the current character s[right] in the hashmap and move right pointer to the right.
+	 * If hashmap contains 3 distinct characters, remove the leftmost character from the hashmap and move the left pointer so that sliding window contains again 2 distinct characters only.
+	 * Update max_len.
+	 * Implementation
+	 *
+	 * Current
+	 * 1 / 29
+	 *
+	 * Complexity Analysis
+	 *
+	 * Time complexity : \mathcal{O}(N)O(N) where N is a number of characters in the input string.
+	 *
+	 * Space complexity : \mathcal{O}(1)O(1) since additional space is used only for a hashmap with at most 3 elements.
+	 *
+	 * Problem generalization
+	 *
+	 * The same sliding window approach could be used to solve the generalized problem :
+	 * @param s
+	 * @return
+	 */
 
 	public int lengthOfLongestSubstringTwoDistinct(String s) {  
 	    int start = 0;  
@@ -54,7 +154,41 @@ public class LongestSubstringwithAtMostTwoDistinctCharacters {
 	        maxLen = Math.max(maxLen, i - start + 1);  
 	    }  
 	    return maxLen;  
-	}  
+	}
+
+
+	/**
+	 * two pointer no map
+	 */
+	class Solution {
+		public int lengthOfLongestSubstringTwoDistinct(String s) {
+			char last_char = '1';
+			char scecond_last_char = '1';
+			int last_char_count = 0;
+			int current_max = 0;
+			int max = 0;
+
+			for (char ch : s.toCharArray()) {
+				if (ch == last_char || ch == scecond_last_char) {
+					current_max++;
+				} else {
+					current_max = last_char_count + 1;
+				}
+
+				if (ch == last_char) {
+					last_char_count++;
+				} else {
+					scecond_last_char = last_char;
+					last_char = ch;
+					last_char_count = 1;
+				}
+
+				max = Math.max(current_max, max);
+			}
+
+			return max;
+		}
+	}
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -68,11 +202,11 @@ public class LongestSubstringwithAtMostTwoDistinctCharacters {
 }
 
 /*
- * ÌâÄ¿À©Õ¹Ò»ÏÂ£¬Èç¹ûÔÊĞí×î³¤×Ó×Ö·û´®º¬ÓĞK¸ö²»Í¬×Ö·û£¬ÄÇ¸ÃÔõÃ´°ìÄØ£¿×¢Òâµ½ÕâÀïµÄK¿ÉÒÔºÜ´ó£¬ËùÒÔÒÔÉÏ´úÂëµÄÄÚÑ­»·¿ªÏú±ä³ÉÁËO(K)¶ø·ÇO(1)£¬½ø¶øÕû¸ö¸´ÔÓ¶È±ä³ÉÁËO(N*K)¡£Òò´Ë£¬ÎÒÃÇĞèÒª±ÜÃâ¶ÔMapÄÚ²¿µÄÏßĞÔ²éÕÒ¡£ÁíÍâ£¬ÓÉÓÚÊı×éÏÂ±êÔÚMapÀï´¦ÓÚvalueµÄÎ»ÖÃ£¬ËùÒÔÎŞ·¨Ê¹ÓÃHeap»òÕßTreeMap½øĞĞÅÅĞò¡£
+ * ï¿½ï¿½Ä¿ï¿½ï¿½Õ¹Ò»ï¿½Â£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½î³¤ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Kï¿½ï¿½ï¿½ï¿½Í¬ï¿½Ö·ï¿½ï¿½ï¿½ï¿½Ç¸ï¿½ï¿½ï¿½Ã´ï¿½ï¿½ï¿½Ø£ï¿½×¢ï¿½âµ½ï¿½ï¿½ï¿½ï¿½ï¿½Kï¿½ï¿½ï¿½ÔºÜ´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½O(K)ï¿½ï¿½ï¿½ï¿½O(1)ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¶È±ï¿½ï¿½ï¿½ï¿½O(N*K)ï¿½ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½Mapï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô²ï¿½ï¿½Ò¡ï¿½ï¿½ï¿½ï¿½â£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â±ï¿½ï¿½ï¿½Mapï¿½ï´¦ï¿½ï¿½valueï¿½ï¿½Î»ï¿½Ã£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ş·ï¿½Ê¹ï¿½ï¿½Heapï¿½ï¿½ï¿½ï¿½TreeMapï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-ÕâÊ±¿ÉÒÔ»»¸öË¼Â·£¬ÔÚÎÊÌâ1£©ºÍÎÊÌâ2£©µÄ½â¾ö·½°¸ÉÏ×öÒ»µãÕÛÖĞ£º¶ÔÓÚÎÊÌâ1£©Ö±½Ó´Ó×óÍùÓÒÖğ¸ö×Ö·ûµÄÉ¾³ı£¬Ò»Ö±É¾µ½Ä³¸ö×Ö·û²»»áÔÙ³öÏÖ¡£¶ÔÓÚÎÊÌâ2£©ÓÉÓÚÊÇ´Ó×óµ½ÓÒÖğ¸öÉ¾³ı£¬µ÷Õû´°¿ÚÑ¡ÓÃµÄÊÇ±È½ÏÂıµÄ·½·¨£¬²»»áÌø¹ıÈÎºÎ×Ö·û£¬µ«ÊÇµ÷Õû´°¿ÚµÄÊ±¼ä¸´ÔÓ¶ÈÃ»ÓĞ±ä¡£
+ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ô»ï¿½ï¿½ï¿½Ë¼Â·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2ï¿½ï¿½ï¿½Ä½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ğ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½Ö±ï¿½Ó´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½Ò»Ö±É¾ï¿½ï¿½Ä³ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù³ï¿½ï¿½Ö¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½Ãµï¿½ï¿½Ç±È½ï¿½ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îºï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Çµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½Ê±ï¿½ä¸´ï¿½Ó¶ï¿½Ã»ï¿½Ğ±ä¡£
 
-ÓÉÓÚÒª´Ó×óÍùÓÒÉ¾³ı£¬ÕâÀïĞèÒª°ÑMapÀïvalue´æµÄÄÚÈİ¸Ä¸Ä£¬¸Ä³É×Ö·ûÔÚ´°¿ÚÖĞ³öÏÖµÄ´ÎÊı¡£ÕâÑùÒ»À´£¬ÅĞ¶Ï×Ö·û±»É¾¹â¾Í¿´´ÎÊıÊÇ·ñ¼õÎªÁË0.
+ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½Mapï¿½ï¿½valueï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ¸Ä¸Ä£ï¿½ï¿½Ä³ï¿½ï¿½Ö·ï¿½ï¿½Ú´ï¿½ï¿½ï¿½ï¿½Ğ³ï¿½ï¿½ÖµÄ´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ğ¶ï¿½ï¿½Ö·ï¿½ï¿½ï¿½É¾ï¿½ï¿½Í¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½Îªï¿½ï¿½0.
  
  public int lengthOfLongestSubstringKDistinct(String s, int k) {  
     int start = 0;  

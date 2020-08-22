@@ -31,7 +31,7 @@ public class EvaluateDivision {
     public double[] calcEquation(String[][] equations, double[] values, String[][] query) {
         double[] result = new double[query.length];
         // filter unexpected words
-        // ¹ýÂËµôÃ»ÓÐÓö¼û¹ýµÄ×Ö·û
+        // ï¿½ï¿½ï¿½Ëµï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½
         Set<String> words = new HashSet<>();
         for (String[] strs : equations) {
             words.add(strs[0]);
@@ -49,14 +49,14 @@ public class EvaluateDivision {
     }
 
     public double helper(String[][] equations, double[] values, String[] keys, Stack<Integer> stack) {
-        // Ö±½Ó²éÕÒ£¬keyµÄË³ÐòÓÐÕý·´
+        // Ö±ï¿½Ó²ï¿½ï¿½Ò£ï¿½keyï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         // look up equations directly
         for (int i = 0; i < equations.length; ++i) {
             if (equations[i][0].equals(keys[0]) && equations[i][1].equals(keys[1])) return values[i];
             if (equations[i][0].equals(keys[1]) && equations[i][1].equals(keys[0])) return 1 / values[i];
         }
         // lookup equations by other equations
-        // ¼ä½Ó²éÕÒ£¬keyµÄË³ÐòÒ²ÓÐÕý·´
+        // ï¿½ï¿½Ó²ï¿½ï¿½Ò£ï¿½keyï¿½ï¿½Ë³ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         for (int i = 0; i < equations.length; ++i) {
             if (!stack.contains(i) && keys[0].equals(equations[i][0])) {
                 stack.push(i);
@@ -71,7 +71,44 @@ public class EvaluateDivision {
                 else stack.pop();
             }
         }
-        // ²é²»µ½£¬·µ»Ø-1
+        // ï¿½é²»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½-1
         return -1.0d;
+    }
+
+    class Solution {
+        Map<String,String> parents= new HashMap<>();
+        Map<String, Double> vals = new HashMap<>();
+
+        public double[] calcEquation(List<List<String>> equs, double[] values, List<List<String>> queries) {
+            double[] res = new double[queries.size()];
+            for(int i =0;i<values.length;i++){
+                union(equs.get(i).get(0),equs.get(i).get(1),values[i]);
+            }
+            for(int i =0;i<queries.size();i++){
+                String x=queries.get(i).get(0), y = queries.get(i).get(1);
+                res[i]=(parents.containsKey(x)&& parents.containsKey(y) &&find(x)==find(y))?
+                        vals.get(x)/vals.get(y): -1.0;
+            }
+            return res;
+        }
+        public void add(String x){
+            if(parents.containsKey(x) ) return;
+            parents.put(x,x);
+            vals.put(x,1.0);
+        }
+        public String find (String x){
+            String p = parents.getOrDefault(x,x);
+            if(x!=p){
+                String pp = find(p);
+                vals.put(x,vals.get(x) * vals.get(p));
+                parents.put(x,pp);
+            }
+            return parents.getOrDefault(x,x);
+        }
+        public void union(String x,String y,double v){
+            add(x);add(y); String px = find(x); String py = find(y);
+            parents.put(px,py);
+            vals.put(px, v*vals.get(y)/vals.get(x));
+        }
     }
 }

@@ -24,31 +24,31 @@ import java.util.TreeSet;
  Hide Tags Binary Search Dynamic Programming Queue
 
  *
- * лБрБё╨╦Ь╤╗р╩╦Ж╬ьуСё╛гСвс╬ьуСжп╣д╨м╡╩Ё╛╧ЩK╣двН╢Сж╣
+ * О©╫О©╫О©╫Бё╨О©╫О©╫О©╫О©╫р╩О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫с╬О©╫О©╫О©╫О©╫п╣д╨м╡О©╫О©╫О©╫О©╫О©╫KО©╫О©╫О©╫О©╫О©╫ж╣
  */
 public class MaxSumofRectangleNoLargerThanK {
 
     /**
-     * к╪б╥ё╨
+     * к╪б╥О©╫О©╫
 
-     фскь╣дк╪оКн╙ё╛ц╤╬ыфПй╪ппё╛ц╤╬ы╫АйЬппё╛ц╤╬ыфПй╪апё╛ц╤╬ыжуж╧ап║ё║ё║ё║ё║ёO(m^2 * n^2)
+     О©╫О©╫О©╫ь╣О©╫к╪О©╫О©╫н╙О©╫О©╫ц╤О©╫О©╫О©╫О©╫й╪О©╫пёО©╫ц╤О©╫ы╫О©╫О©╫О©╫О©╫пёО©╫ц╤О©╫О©╫О©╫О©╫й╪О©╫пёО©╫ц╤О©╫О©╫О©╫О©╫ж╧О©╫п║О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫O(m^2 * n^2)
 
-     уБюОсц╣╫р╩╦Ж╪╪ги╬мйгё╛╫ЬппгС╨мй╠ё╛нрцг©ирт╟я╤Чн╛╣д╨о╡╒Ёир╩н╛ё╛х╩╨С╬м╠Дн╙гСр╩н╛╣д╫Б║ё
+     О©╫О©╫О©╫О©╫О©╫ц╣О©╫р╩О©╫О©╫О©╫О©╫О©╫и╬О©╫О©╫гёО©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫й╠О©╫О©╫О©╫О©╫О©╫г©О©╫О©╫т╟я╤О©╫н╛О©╫д╨о╡О©╫О©╫О©╫р╩н╛О©╫О©╫х╩О©╫О©╫м╠О©╫н╙О©╫О©╫р╩н╛О©╫д╫Б║ё
 
-     ╠ххГ╤тсз╬ьуСё╨
+     О©╫О©╫О©╫О©╫О©╫О©╫з╬О©╫О©╫О©╫
 
      [1, 0, 1],
      [0, -2, 3]
 
-     ╫ЬппфПй╪ппн╙0ё╛жуж╧ппн╙1й╠ё╛©ирт╫Ьппап╣дгС╨мё╛╪╢[1, -2, 4]жп╡╩Ё╛╧Щk╣двН╢Сж╣║ё
+     О©╫О©╫О©╫О©╫О©╫О©╫й╪О©╫О©╫н╙0О©╫О©╫О©╫О©╫ж╧О©╫О©╫н╙1й╠О©╫О©╫О©╫О©╫О©╫т╫О©╫О©╫О©╫О©╫п╣О©╫О©╫О©╫мёО©╫О©╫О©╫[1, -2, 4]О©╫п╡О©╫О©╫О©╫О©╫О©╫kО©╫О©╫О©╫О©╫О©╫ж╣О©╫О©╫
 
-     гС╨м╣днйлБ╫Б╬ЖмЙё╛╩╧спр╩╦Жйг╡╩Ё╛╧Щk. уБюОнр╡н©╪ак https://leetcode.com/discuss/109705/java-binary-search-solution-time-complexity-min-max-log-max ╣д╥╫╥╗
+     О©╫О©╫м╣О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫Йё╛О©╫О©╫О©╫О©╫р╩О©╫О©╫О©╫г╡О©╫О©╫О©╫О©╫О©╫k. О©╫О©╫О©╫О©╫О©╫р╡н©О©╫О©╫О©╫ https://leetcode.com/discuss/109705/java-binary-search-solution-time-complexity-min-max-log-max О©╫д╥О©╫О©╫О©╫
 
-     й╧сцак╤Ч╥жкякВ║ё╤тсз╣╠г╟╣д╨мн╙sumё╛нрцгж╩пХр╙ур╣╫р╩╦ЖвНп║╣дйЩxё╛й╧╣ц sum ╗C k <=xё╛уБяЫ©ирт╠ёж╓sum ╗C x <=k║ё
+     й╧О©╫О©╫О©╫к╤О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫з╣О©╫г╟О©╫д╨О©╫н╙sumО©╫О©╫О©╫О©╫О©╫О©╫ж╩О©╫О©╫р╙О©╫р╣О©╫р╩О©╫О©╫О©╫О©╫п║О©╫О©╫О©╫О©╫xО©╫О©╫й╧О©╫О©╫ sum О©╫C k <=xО©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫т╠О©╫ж╓sum О©╫C x <=kО©╫О©╫
 
-     уБюОпХр╙в╒рБё╛╣╠ппт╤╢Ссзап╣дй╠╨РтУц╢╟Лдьё©в╙╩╩Ёиап╣дц╤╬ы ╪╢©и║ё
+     О©╫О©╫О©╫О©╫О©╫О©╫р╙в╒О©╫Бё╛О©╫О©╫О©╫О©╫т╤О©╫О©╫О©╫О©╫О©╫п╣О©╫й╠О©╫О©╫О©╫О©╫ц╢О©╫О©╫О©╫ьёО©╫в╙О©╫О©╫О©╫О©╫О©╫п╣О©╫ц╤О©╫О©╫ О©╫О©╫О©╫и║О©╫
 
-     тз╢ЗбКй╣ожиоё╛нрцгж╩пХр╙хц m сют╤п║сз n╪╢©и║ёуБяЫ╦╢тс╤хвэйгн╙O(m^2*n*log n)
+     О©╫з╢О©╫О©╫О©╫й╣О©╫О©╫О©╫оёО©╫О©╫О©╫О©╫О©╫ж╩О©╫О©╫р╙О©╫О©╫ m О©╫О©╫т╤п║О©╫О©╫ nО©╫О©╫О©╫и║О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫с╤О©╫О©╫О©╫О©╫О©╫н╙O(m^2*n*log n)
      */
     //Java Binary Search solution time complexity min(m,n)^2*max(m,n)*log(max(m,n))
     /* first  consider the situation matrix is 1D
@@ -77,18 +77,79 @@ public class MaxSumofRectangleNoLargerThanK {
                 set.add(0);
                 //traverse every column/row and sum up
                 for(int k = 0;k<n;k++){
-                    array[k]=array[k]+(colIsBig?matrix[j][k]:matrix[k][j]);
+                    array[k]=array[k]+(colIsBig ? matrix[j][k] : matrix[k][j]);
                     val = val + array[k];
                     //use  TreeMap to binary search previous sum to get possible result
-                    Integer subres = set.ceiling(val-target);
-                    if(null!=subres){
-                        res=Math.max(res,val-subres);
+                    Integer subres = set.ceiling(val - target);
+                    if(subres != null){
+                        res = Math.max(res, val-subres);
                     }
                     set.add(val);
                 }
             }
         }
         return res;
+    }
+
+    /*
+class Solution {
+    public int maxSumSubmatrix(int[][] matrix, int k) {
+        if (matrix.length == 0) return 0;
+        int rows = matrix.length;
+        int cols = matrix[0].length
+        int [][] dp = new int[matrix.length][matrix[0].length];
+        for (int i = 0; i < rows; i++){
+            for (int j = 0; j < cols; j++){
+                dp[i][j] = matrix[i][j] - '0';
+            }
+        }
+        int [] rowSum = new int[matrix[0].length];
+        for (int c = 0; c < cols; c++){
+
+        }
+    }
+}
+*/
+
+    class Solution{
+        public int maxSumSubmatrix(int[][] matrix, int k) {
+            int rows = matrix.length, cols = matrix[0].length, res = Integer.MIN_VALUE;
+            for (int l = 0; l < cols; l++) {
+                int[] rowSum = new int[rows];
+                for (int r = l; r < cols; r++) {
+                    for (int i = 0; i < rows; i++) {
+                        rowSum[i] += matrix[i][r];
+                    }
+                    res = Math.max(res, dpmax(rowSum, k));
+                    if (res == k) return k;
+                }
+            }
+            return res;
+        }
+
+        private int dpmax(int[] arr, int k) {
+            // try, before brute force
+            int dp = arr[0], max = arr[0];
+            for (int i = 1; i < arr.length; i++) {
+                if (dp > 0) dp += arr[i];
+                else dp = arr[i];
+                if (dp > max) max = dp;
+                if (max == k) return k;
+            }
+            if (max <= k) return max;
+
+            // unluckily, brute force
+            int res = Integer.MIN_VALUE;
+            for (int l = 0; l < arr.length; l++) {
+                int sum = 0;
+                for (int r = l; r < arr.length; r++) {
+                    sum += arr[r];
+                    if (sum > res && sum <= k) res = sum;
+                    if (res == k) return k;
+                }
+            }
+            return res;
+        }
     }
 
 }

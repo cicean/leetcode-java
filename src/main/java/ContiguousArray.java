@@ -141,4 +141,29 @@ public class ContiguousArray {
       return maxlen;
     }
   }
+
+  class Solution {
+    public int findMaxLength(int[] nums) {
+      if(nums==null || nums.length==0)
+        return 0;
+      int records[] =new int[nums.length*2+1];
+
+      for( int i = 0; i < records.length; i++) records[i] = -2;
+
+      int sum = nums.length;
+      int maxL = 0;
+      records[nums.length]=-1;
+
+      for(int i=0;i<nums.length;i++){
+        sum+= (nums[i]*2 -1);
+
+        if(records[sum]==-2)
+          records[sum]=i;
+        else
+          maxL= Math.max(maxL,i-records[sum]);
+      }
+
+      return maxL;
+    }
+  }
 }

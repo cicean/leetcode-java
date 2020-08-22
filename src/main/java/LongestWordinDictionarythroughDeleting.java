@@ -203,4 +203,139 @@ public class LongestWordinDictionarythroughDeleting {
     }
   }
 
+  /**
+   * trie
+   */
+
+  class Solution {
+    class Trie {
+      Trie[] branches = new Trie[26];
+      Trie get(char letter) {
+        if (branches[letter-'a'] == null)
+          branches[letter-'a'] = new Trie();
+
+        return branches[letter-'a'];
+      }
+      boolean has(char letter) {
+        return branches[letter-'a'] != null;
+      }
+      public String toString() {
+        StringBuilder str = new StringBuilder();
+        for (int i = 0; i < 26; i++)
+          if (branches[i] != null)
+            str.append((char)(i + 'a'));
+        return str.toString();
+      }
+    }
+    Trie root = new Trie();
+    void build(String word) {
+      char[] w = word.toCharArray();
+      int size = word.length();
+      for (int i = 0; i < size; i++) {
+        Trie node = root.get(w[i]);
+        for (int k = i+1; k < size; k++) {
+          node.get(w[k]);
+        }
+      }
+    }
+    boolean search(String word) {
+      Trie node = root;
+      for (char letter: word.toCharArray()) {
+        if (!node.has(letter)) return false;
+        node = node.get(letter);
+      }
+      return true;
+    }
+    public String findLongestWord(String s, List<String> d) {
+      if (s == null || s.length() == 0) return "";
+      int size = s.length();
+      int[][] map = new int[size][26];
+      char[] word = s.toCharArray();
+      Arrays.fill(map[size-1], -1);
+      map[size-1][word[size-1]-'a'] = size-1;
+      for (int i = size-2; i >= 0; i--) {
+        map[i] = Arrays.copyOf(map[i+1], 26);
+        map[i][word[i]-'a'] = i;
+      }
+      String max = "";
+      for (String w: d) {
+        int index = 0;
+        int i = 0;
+        for (; i < w.length(); i++) {
+          if (index == size || map[index][w.charAt(i)-'a'] == -1) break;
+          index = map[index][w.charAt(i)-'a']+1;
+        }
+        if (i == w.length()) {
+          if (w.length() > max.length() || (w.length() == max.length() && w.compareTo(max) < 0)) {
+            max = w;
+          }
+        }
+      }
+      return max;
+
+
+        /*
+        build(s);
+        Collections.sort(d, (a, b) -> {
+            if (a.length() == b.length()) return a.compareTo(b);
+            return b.length() - a.length();
+        });
+        for (String word: d) {
+            if (search(word)) return word;
+        }
+
+        return "";  */
+    }
+  }
+
+  class Solution {
+    public String findLongestWord(String s, List<String> d) {
+      String res = new String();
+      if(s == null || s.length() == 0 || d == null || d.size() == 0){
+        return res;
+      }
+      int n = s.length();
+      int[][] dp = new int[n+1][26];
+      Arrays.fill(dp[n], -1);
+
+      for(int i = n-1; i >= 0; i--){
+        for(int j = 0; j < 26; j++){
+          dp[i][j] = dp[i+1][j];
+        }
+        dp[i][s.charAt(i) - 'a'] = i;
+      }
+
+      for(String word: d){
+        if(word.length() >= res.length()){
+          if(isSubseq(word, s, dp)){
+            if(word.length() >  res.length() || (word.length() == res.length() && word.compareTo(res) < 0)){
+              res = word;
+            }
+          }
+        }
+      }
+      return res;
+    }
+
+    private boolean isSubseq(String word, String s, int[][] dp){
+      int i = 0;
+      int j = 0;
+      int n = s.length();
+      int m = word.length();
+      int k = 0;
+      while(i < s.length() && j < word.length()){
+        k = word.charAt(j) - 'a';
+        if(dp[i][k] != -1){
+          i = dp[i][k];
+        }
+        else{
+          break;
+        }
+        j++;
+        i++;
+      }
+      return j == m;
+    }
+  }
+
 }

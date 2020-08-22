@@ -32,6 +32,32 @@ import java.util.*;
  */
 public class PartitionEqualSubsetSum {
 
+    class Solution {
+        public boolean canPartition(int[] a) {
+            int sum = 0;
+            for(int n:a){
+                sum += n;
+            }
+            if(sum%2>0)
+                return false;
+
+            boolean []dp = new boolean[sum + 1];
+            dp[0]=true; // empty array
+            int max=0;
+            for(int n: a){
+                for(int i = sum; i >=0; i--){
+                    if (dp[i]) {
+                        dp[i + n] = true;
+                    }
+                }
+
+                if(dp[sum/2])
+                    return true;
+            }
+            return false;
+        }
+    }
+
     public boolean canPartition(int[] a) {
         int sum = 0;
         for(int n:a){

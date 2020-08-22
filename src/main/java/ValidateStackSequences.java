@@ -110,4 +110,20 @@ public class ValidateStackSequences {
             return i == 0;
         }
     }
+
+    class Solution_3 {
+        public boolean solution(int N, int[] s) {
+            int i = 0, j = 0;
+            for (int x = 0; x < N; x++) {
+                i++;
+                while (i > 0 && i - 1 == s[j]) {
+                    --i; ++j;
+                }
+                i = x;
+            }
+            return j == s.length - 1;
+        }
+    }
+
+
 }

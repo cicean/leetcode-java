@@ -155,17 +155,19 @@ Space Complexity: We only use pp and ii, and the answer itself as the additional
    */
 
 
-  public boolean checkPossibility_3(int[] nums) {
-    int p = Integer.MIN_VALUE;
-    for (int i = 0; i < nums.length - 1; i++) {
-      if (nums[i] > nums[i + 1]) {
-        if (p != Integer.MIN_VALUE) return false;
-        p = i;
+  class Solution {
+    public boolean checkPossibility(int[] a) {
+      int modified = 0;
+      for (int i = 1; i < a.length; i++) {
+        if (a[i] < a[i - 1]) {
+          if (modified++ > 0) return false;
+          if (i - 2 < 0 || a[i - 2] <= a[i]) a[i - 1] = a[i]; // lower a[i - 1]
+          else a[i] = a[i - 1]; // rise a[i]
+        }
       }
+      return true;
     }
-
-    return (p != Integer.MIN_VALUE || p == 0 || p == nums.length - 2
-        || nums[p - 1] <= nums[p + 1] || nums[p] <= nums[p + 2]);
   }
+
 
 }

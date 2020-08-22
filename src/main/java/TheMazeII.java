@@ -505,4 +505,63 @@ public class TheMazeII {
     }
   }
 
+  class Solution {
+    //
+    // reference:
+    // https://www.cnblogs.com/grandyang/p/6725380.html
+    //
+    // DFS
+    //
+    public int shortestDistance(int[][] maze, int[] start, int[] destination) {
+
+      if (maze == null || maze.length == 0 || maze[0].length == 0) return -1;
+
+      if (Arrays.equals(start, destination))  return 0;
+
+      int[][] dirs = new int[][] {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+
+      int m = maze.length;
+      int n = maze[0].length;
+
+      int[][] distance = new int[m][n];
+      for (int[] dist : distance) {
+        Arrays.fill(dist, Integer.MAX_VALUE);
+      }
+      distance[start[0]][start[1]] = 0;
+
+      Queue<int[]> q = new LinkedList<>();
+      q.offer(start);
+
+      while (!q.isEmpty()) {
+        int[] grid = q.poll();
+
+        for (int[] dir : dirs) {
+          int count = 0;
+
+          int r = grid[0];
+          int c = grid[1];
+
+          while (r >= 0 && r < m && c >= 0 && c < n && maze[r][c] == 0) {
+            r += dir[0];
+            c += dir[1];
+            count++;
+          }
+          r -= dir[0];
+          c -= dir[1];
+          count--;
+
+          if (distance[grid[0]][grid[1]] + count < distance[r][c]) {
+            distance[r][c] = distance[grid[0]][grid[1]] + count;
+            if (r != destination[0] || c != destination[1]) {
+              q.offer(new int[] {r, c});
+            }
+          }
+        }
+      }
+
+      return distance[destination[0]][destination[1]] == Integer.MAX_VALUE
+              ? -1 : distance[destination[0]][destination[1]];
+    }
+  }
+
 }

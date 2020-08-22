@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /**
  * Created by cicean on 8/29/2016.
  * 322. Coin Change  QuestionEditorial Solution  My Submissions
@@ -75,4 +77,26 @@ public class CoinChange {
         }
     }
 
+    class Solution3 {
+        int res;
+        public int coinChange(int[] coins, int amount) {
+            if (coins == null || amount < 0) return -1;
+            res = Integer.MAX_VALUE;
+            Arrays.sort(coins);
+            dfs(coins, amount, 0, coins.length - 1);
+            return res == Integer.MAX_VALUE ? -1 : res;
+        }
+        void dfs(int[] coins,int amount, int n, int level) {
+            if (level < 0) return;
+            for (int i = amount / coins[level]; i >= 0; i--) {
+                int newAmount = amount - coins[level] * i;
+                int newN = n + i;
+                if (newAmount > 0 && newN + 1 < res) dfs(coins, newAmount, newN, level - 1);
+                else {
+                    if (newAmount == 0) res = Math.min(newN, res);
+                    break;
+                }
+            }
+        }
+    }
 }
